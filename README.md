@@ -1,4 +1,14 @@
-lab3
-====
+Project
+=======
 
-Lab 3 for Intro HCI: client-side interactivity
+Checkpoint #1
+Index Page: Done
+
+Checkpoint #2
+Wireframe: Done
+Suggestions: Done
+Welcome: Done
+
+Todo Next:
+History [Page]
+Setting [Page]
