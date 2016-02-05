@@ -22,8 +22,10 @@
 
 		<hr/>
 
+		<p id="status" align="center"></p>
+
 		<div class="col-lg-6" style="width:350px;" align="center">
-			<h4 style="color:#8382BF"> Eating out? </h4>			
+			<h5 style="color:#8382BF"> Eating out? </h5>
 			<div class="input-group" align="center">
 				<input type="text" class="form-control" aria-label="my location" value="Nah! Suggest everything...">
 				<span class="input-group-btn">
@@ -59,7 +61,7 @@
 
 		<div class="ui-widget" align="center">
 			<input id="quantity" value="1 serving" style="width:120px">
-			<button type="submit" class="btn btn-default">Add</button>
+			<button onclick="demo()">Add</button>
 		</div>
 
 	</div>
@@ -75,5 +77,6 @@
 			$("#tags").autocomplete({source: availableTags});
 		});
 	</script>
+	<script> function demo() { $('#status').text("Added meal!"); } </script>
 </body>
 </html>
