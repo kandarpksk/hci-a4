@@ -19,34 +19,14 @@
 		<br/>
 
 		<div class="ui-widget" align="center">
-			<i><h2> "Nutrition Check" </h2></i>
+			<h6> Dummy Popup </h6>
 			<hr/>
-			<h4>
-				Hello <input id="name" value="<your name here>"> !
-				<br/><br/>
-				Any special diet to choose from?
-				<select name="diet">
-					<option value="usual">Nothing Special</option>
-					<option value="vegan">Vegan</option>
-					<option value="more">More options...</option>
-				</select>
-			</h4>
+			<h4> Locating you... Please wait! </h4>
+			<hr/>
+			<h6 onclick="goBack()">Back</h6>
 		</div>
 
 		<br/>
-
-		<form id="addFriendForm" role="form" method="get" action="/"> <!-- /add -->
-			<div class="form-group">
-				<input type="email" class="form-control" id="email" placeholder="Email" name="email">
-			</div>
-			
-			<div class="form-group">
-				<!-- check password input: this was just a lucky guess -->
-				<input type="password" class="form-control" id="password" placeholder="Password" name="password">
-			</div>
-			
-			<p align="center"><input type="submit" id="submitBtn" class="btn btn-default" value="Sign-up"></input></p>
-		</form>
 
 	</div>
 
@@ -61,5 +41,6 @@
 			$("#tags").autocomplete({source: availableTags});
 		});
 	</script>
+	<script> function goBack() { window.history.back(); } </script>
 </body>
 </html>

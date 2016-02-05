@@ -1,0 +1,42 @@
+<!doctype html>
+
+<html>
+<head>
+	<title>Settings</title>	
+	
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/bootstrap-theme.css" rel="stylesheet">
+	<link href="css/nutrition-check.css" rel="stylesheet">
+	<link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet">
+</head>
+
+<body>
+	<div class="container">
+		
+		<br/>
+		<a href="menu" style="color:black"><span class="glyphicon glyphicon-th-list" style="margin-right:10pt;"></span></a>
+		<h4 style="display:inline;"> Settings </h4>
+
+		<hr/>
+
+		<h6 align="center"> There will be options to set up reminders/notifications
+		<br/> to fill in any meals the user might have forgotten to log here. </h6>
+
+	</div>
+
+	<script src="js/jquery-1.11.0.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/nutrition-check.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+	<script src="https://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+	<script>
+		$(function() {
+			var availableTags=["Hamburger", "Tofu", "Pocky", "Milano"];
+			$("#tags").autocomplete({source: availableTags});
+		});
+	</script>
+</body>
+</html>
