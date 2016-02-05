@@ -25,3 +25,8 @@ h6 {
     border: 1px dashed gray;
     padding: 15px;
 }
+
+#card {
+    padding: 15px;
+    background-color: #EDEDE9;
+}
