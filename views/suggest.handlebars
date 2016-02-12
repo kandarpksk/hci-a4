@@ -2,41 +2,34 @@
 
 <html>
 <head>
-	<title>Suggest something!</title>	
-	
+	<title>Nutrition Check</title>	
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 	<link href="css/bootstrap.css" rel="stylesheet">
 	<link href="css/bootstrap-theme.css" rel="stylesheet">
 	<link href="css/nutrition-check.css" rel="stylesheet">
-	<link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet">
 </head>
 
 <body>
+	{{> navbar}}
+	Suggestions
+	{{> navbar-hack}}
+
 	<div class="container">
-		
+
 		<br/>
-		<a href="menu" style="color:black"><span class="glyphicon glyphicon-th-list" style="margin-right:10pt;"></span></a>
-		<h4 style="display:inline;"> Suggestions... </h4>
-
-		<hr/>
-
-		<p id="status" align="center"></p>
-
 		<div class="col-lg-6" style="width:350px;" align="center">
-			<h5 style="color:#8382BF"> Eating out? </h5>
 			<div class="input-group" align="center">
-				<input type="text" class="form-control" aria-label="my location" value="Nah! Suggest everything...">
+				<input type="text" class="form-control" aria-label="my location" value="Where are you eating?">
 				<span class="input-group-btn">
-					<button class="btn btn-secondary" type="button"><a href="/popup" style="color:black"> Locate me! </a></button>
+					<button class="btn btn-default" type="button" data-toggle="modal" data-target="#popup">Locate me!</button>
 				</span>
 			</div>
 		</div>
 
 		<br/>
 
-		<h4 style="color:#8382BF" align="center">You're doing good. Feel free to indulge!</h4>
+		<h5 style="color:#8382BF" align="center">You're doing good. Feel free to indulge!</h5>
 
 		<div id="card">
 			<img alt="pic" src="https://cdn4.iconfinder.com/data/icons/food-icons/128/hamburger.png" style="width:35pt; margin-right:5pt; margin-bottom:10px">
@@ -61,7 +54,27 @@
 
 		<div class="ui-widget" align="center">
 			<input id="quantity" value="1 serving" style="width:120px">
-			<button onclick="demo()">Add</button>
+			<h5 style="display:inline;"> for </h5>
+			<input id="time" value="Lunch" style="width:90px">
+			<a href="/history"><button type="button" class="btn btn-primary">Add</button></a>
+		</div>
+
+		{{> icon-panel}}
+
+		<div class="modal fade" id="popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel" align="center">Please wait...</h4>
+				</div>
+				<div class="modal-body" align="center">
+					It's taking a bit longer than expected to find where you are.
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn" data-dismiss="modal">Dismiss</button>
+				</div>
+			</div>
+			</div>
 		</div>
 
 	</div>
@@ -69,14 +82,5 @@
 	<script src="js/jquery-1.11.0.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script src="js/nutrition-check.js"></script>
-	<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-	<script src="https://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
-	<script>
-		$(function() {
-			var availableTags=["Hamburger", "Tofu", "Pocky", "Milano"];
-			$("#tags").autocomplete({source: availableTags});
-		});
-	</script>
-	<script> function demo() { $('#status').text("Added meal!"); } </script>
 </body>
 </html>

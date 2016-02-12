@@ -2,42 +2,71 @@
 
 <html>
 <head>
-	<title>History</title>	
-	
+	<title>Nutrition Check</title>	
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 	<link href="css/bootstrap.css" rel="stylesheet">
 	<link href="css/bootstrap-theme.css" rel="stylesheet">
 	<link href="css/nutrition-check.css" rel="stylesheet">
-	<link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet">
+	<link href="css/history.css" rel="stylesheet">
 </head>
 
 <body>
+	{{> navbar}}
+	Previous Meals
+	{{> navbar-hack}}
+
 	<div class="container">
 		
-		<br/>
-		<a href="menu" style="color:black"><span class="glyphicon glyphicon-th-list" style="margin-right:10pt;"></span></a>
-		<h4 style="display:inline;"> Previous Meals </h4>
+		<!-- <h6 align="center">
+			There will be options to filter/sort a tabular
+			representation of all past meals. There will also be
+			appropriate buttons or gestures to fix any incorrect entries.
+		</h6> -->
 
-		<hr/>
-
-		<h6 align="center"> There will be options to set up filter/sort a tabular
-		<br/> representation of all past meals. There will also be appropriate
-		<br/> to fix any incorrect entries. buttons/gestures </h6>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Day</th>
+					<th>Meal</th>
+					<th>Picture</th>
+					<th>Totals</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				{{#each meals}}
+					<tr>
+						<td style="width:20px;">{{date}}</td>
+						<td style="width:25px;">{{food}}</td>
+						<td style="width:30px;">
+							<img src="{{pic}}" class="img-responsive img-rounded">
+						</td>
+						<td>Calories: {{calories}} <br>
+							Total Fat: {{total_fat}} <br>
+							Protein: {{protein}}
+						</td>
+						<!-- Sat. Fat: {{saturated_fat}}<br>
+							Unsat. Fat: {{unsaturated_fat}}<br>
+							Trans Fat: {{trans_fat}}<br>
+							Cholesterol: {{cholesterol}}<br>
+							Sodium: {{sodium}}<br>
+							Potassium: {{potassium}}<br>
+							Total Carbs: {{total_carbs}}<br>
+							Dietary Fiber: {{dietary_fiber}}<br>		
+							Sugars: {{sugars}}<br>
+							Protein: {{protein}} -->
+					</tr>
+				{{/each}}
+			</tbody>
+		</table>
 
 	</div>
+
+	{{> icon-panel}}
 
 	<script src="js/jquery-1.11.0.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script src="js/nutrition-check.js"></script>
-	<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-	<script src="https://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
-	<script>
-		$(function() {
-			var availableTags=["Hamburger", "Tofu", "Pocky", "Milano"];
-			$("#tags").autocomplete({source: availableTags});
-		});
-	</script>
 </body>
 </html>

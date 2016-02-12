@@ -2,7 +2,7 @@
 
 <html>
 <head>
-	<title>Nutrition Check</title>	
+	<title>Nutrition Check</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="css/bootstrap.css" rel="stylesheet">
@@ -16,12 +16,30 @@
 		<br/>
 
 		<div class="ui-widget" align="center">
-			<h6> Dummy Popup </h6>
-			<hr/>
-			<h4> Locating you... Please wait! </h4>
+			<h2> Nutrition Check </h2>
 		</div>
 
+		<hr/>
+
+		<h4>
+			Name <input id="name" style="margin-bottom:6px;">
+			
+			<br/>
+			
+			<font color="white">...</font>Diet
+				<select name="diet" style="width:220px;">
+					<option value="vegan">Vegan</option>
+					<option value="more">...</option>
+				</select>
+		</h4>
+
 		<br/>
+
+		<form id="addFriendForm" role="form" method="get" action="/">			
+			<p align="center">
+				<input type="submit" id="submitBtn" class="btn btn-primary" value="Get started!"></input>
+			</p>
+		</form>
 
 	</div>
 

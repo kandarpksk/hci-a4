@@ -5,7 +5,7 @@
 	<title>Menu</title>	
 	
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.5">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link href="css/bootstrap.css" rel="stylesheet">
 	<link href="css/bootstrap-theme.css" rel="stylesheet">
@@ -13,27 +13,28 @@
 </head>
 
 <body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Navigation (Hidden)</a>
+			</div>
+		</div>
+	</nav>
+
+	<br/>
+
 	<div class="container" style="width:250px">
 
-		<br/>
-		<h4 align="center"> Nutrition Check </h4>
-
-		<hr/>
-
-		<a href="/"><h6>What are you eating?</h6></a>
-		<a href="/suggest"><h6>Suggest something!</h6></a>
-		<a href="/history"><h6>Previous Meals</h6></a>
-		<a href="/settings"><h6>Settings</h6></a>
+		<a href="/"><h4 align="center">Input meal</h4></a>
+		<a href="/suggest"><h4 align="center">Suggested foods</h4></a>
+		<a href="/history"><h4 align="center">Previous meals</h4></a>
+		<a href="/settings"><h4 align="center">Settings</h4></a>
 		
-		<hr/>
-
-		<a href="/logout"><h6 style="color:black">Logout</h6></a>
-
 		<hr/>
 
 		<!-- note: this is temporary as the menu will be an overlay -->
 		<!-- <button onclick="goBack()">Go Back</button> -->
-		<h4 onclick="goBack()" align="center">Back</h4>
+		<h2 onclick="goBack()" align="center">Back</h2>
 
 		<br/>
 

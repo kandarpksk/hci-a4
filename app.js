@@ -5,13 +5,16 @@ var path = require('path');
 var handlebars = require('express3-handlebars')
 
 var welcome = require('./routes/welcome'); // first-run screen
+var login = require('./routes/login');
 var index = require('./routes/index'); // main screen
+var i2 = require('./routes/i2');
 var suggest = require('./routes/suggest'); // alternative main screen
 var settings = require('./routes/settings'); // toggle options
 var history = require('./routes/history'); // past meals
 var popup = require('./routes/popup'); // temporary screen
 var menu = require('./routes/menu'); // full screen (for now)
 var logout = require('./routes/logout'); // needs more options
+var onboarding = require('./routes/onboarding');
 
 var app = express();
 
@@ -35,7 +38,10 @@ if ('development' == app.get('env')) {
 
 // Add routes here
 app.get('/welcome', welcome.view);
+app.get('/onboarding', onboarding.view);
+app.get('/login', login.view);
 app.get('/', index.view);
+app.get('/i2', i2.view);
 app.get('/suggest', suggest.view);
 app.get('/settings', settings.view);
 app.get('/history', history.view);

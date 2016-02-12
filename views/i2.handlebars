@@ -34,18 +34,16 @@
 		<div class="row"> <!-- align="center" -->
 			<div class="col-sm-6 col-md-4">
 				<div class="thumbnail">
-					<img id="snap" class="img-responsive img-rounded"
-						src="https://d13yacurqjgara.cloudfront.net/users/1253/screenshots/1542208/flat-camera-icon.jpg" alt="...">
-					<div class="caption">
+					<div id="stat" class="alert alert-info" role="alert">
+						{{> food-info}} </div>
+					<div class="caption" style="margin-top:-20px">
 						<div class="btn-group" role="group" aria-label="...">
 		<!-- > take-a-pic}} -->
-		<a href="#"><button type="button" class="btn">Take a Pic</button></a>
-		<a href="/i2"><button type="button" class="btn btn-default">Nutrition Info.</button></a>
+		<a href="/"><button type="button" class="btn btn-default">Take a Pic</button></a>
+		<a href="#"><button type="button" class="btn">Nutrition Info.</button></a>
 		</div> </div> </div> </div> </div>
 
 		<input id="date" value="Today (11th Feb.)">
-		<h5 style="display:inline;"> for </h5>
-		<input id="time" value="Lunch" style="width:90px">
 
 		<br/><br/>
 

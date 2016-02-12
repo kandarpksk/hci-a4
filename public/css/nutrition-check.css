@@ -1,14 +1,3 @@
-/* applies to anything of class "example-class-selector" */
-.example-class-selector {
-	margin-top: 2em;
-}
-
-/* applies to any <p> descendants of an element of class "example-class-selector" */
-.example-class-selector p {
-	/* Colors are in hexadecimal: http://www.colorpicker.com/ */	
-	color: #CC00AA;
-}
-
 h4, h5 {
 	color: #A87676;
 }
@@ -17,16 +6,12 @@ h2, h6 {
 	color: #8382BF;
 }
 
-.friend /*div*/ {
-	width: 150px;
-}
-
-#popup {
-    border: 1px dashed gray;
-    padding: 15px;
-}
-
 #card {
     padding: 15px;
     background-color: #EDEDE9;
+}
+
+body {
+	padding-top: 55px;
+	padding-bottom: 50px;
 }
