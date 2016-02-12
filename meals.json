@@ -11,6 +11,16 @@
 			"protein": "30"
 		},
 		
+		{	"food": "Milk Tea",
+			"serving size": "1",
+			"date": "02/10",
+			"time": "dinner",
+			"pic": "http://www.tapiocaexpress.com/wp-content/uploads/2014/06/Tapioca-Milk-Tea.jpg",
+			"calories": "523",
+			"total_fat": "5",
+			"protein": "0"
+		},
+
 		{	"food": "Blandburger",
 			"serving size": "1",
 			"date": "02/10",
@@ -19,6 +29,16 @@
 			"calories": "100",
 			"total_fat": "17",
 			"protein": "25"
+		},
+
+		{	"food": "Grilled Chicken Tacos",
+			"serving size": "2",
+			"date": "02/09",
+			"time": "dinner",
+			"pic": "http://thumbs.dreamstime.com/m/refresh-ccw-flat-black-color-rounded-vector-icon-symbol-drawn-light-gray-background-57876713.jpg",
+			"calories": "250",
+			"total_fat": "6",
+			"protein": "16"
 		}
 	]
 }
