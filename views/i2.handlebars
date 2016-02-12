@@ -43,7 +43,7 @@
 		<a href="#"><button type="button" class="btn">Nutrition Info.</button></a>
 		</div> </div> </div> </div> </div>
 
-		<input id="date" value="02/12/2016 (Today)">
+		<input type="text" id="datepicker" value="02/12/2016 (Today)">
 
 		<br/><br/>
 
@@ -87,5 +87,10 @@
 	<script src="js/jquery-1.11.0.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script src="js/nutrition-check.js"></script>
+	<script>
+		$(function() {
+			var curr=$("#datepicker").datepicker();
+		});
+	</script>
 </body>
 </html>
