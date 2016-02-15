@@ -5,40 +5,28 @@
 			"serving size": "1",
 			"date": "02/11",
 			"time": "lunch",
-			"pic": "http://cdn4.iconfinder.com/data/icons/food-icons/128/hamburger.png",
-			"calories": "600",
-			"total_fat": "17",
-			"protein": "30"
+			"pic": "http://cdn4.iconfinder.com/data/icons/food-icons/128/hamburger.png"
 		},
 		
 		{	"food": "Milk Tea",
 			"serving size": "1",
 			"date": "02/10",
 			"time": "dinner",
-			"pic": "http://www.tapiocaexpress.com/wp-content/uploads/2014/06/Tapioca-Milk-Tea.jpg",
-			"calories": "523",
-			"total_fat": "5",
-			"protein": "0"
+			"pic": "http://www.tapiocaexpress.com/wp-content/uploads/2014/06/Tapioca-Milk-Tea.jpg"
 		},
 
 		{	"food": "Blandburger",
 			"serving size": "1",
 			"date": "02/10",
 			"time": "lunch",
-			"pic": "http://cdn4.iconfinder.com/data/icons/food-icons/128/hamburger.png",
-			"calories": "100",
-			"total_fat": "17",
-			"protein": "25"
+			"pic": "http://cdn4.iconfinder.com/data/icons/food-icons/128/hamburger.png"
 		},
 
 		{	"food": "Grilled Chicken Tacos",
 			"serving size": "2",
 			"date": "02/09",
 			"time": "dinner",
-			"pic": "http://thumbs.dreamstime.com/m/refresh-ccw-flat-black-color-rounded-vector-icon-symbol-drawn-light-gray-background-57876713.jpg",
-			"calories": "250",
-			"total_fat": "6",
-			"protein": "16"
+			"pic": "http://thumbs.dreamstime.com/m/refresh-ccw-flat-black-color-rounded-vector-icon-symbol-drawn-light-gray-background-57876713.jpg"
 		}
 	]
 }

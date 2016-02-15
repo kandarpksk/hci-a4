@@ -1,15 +1,7 @@
 <!doctype html>
 
 <html>
-<head>
-	<title>Nutrition Check</title>	
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="css/bootstrap.css" rel="stylesheet">
-	<link href="css/bootstrap-theme.css" rel="stylesheet">
-	<link href="css/nutrition-check.css" rel="stylesheet">
-	<link href="css/history.css" rel="stylesheet">
-</head>
+{{> html-header}}
 
 <body>
 	{{> navbar}}
@@ -18,12 +10,6 @@
 
 	<div class="container">
 		
-		<!-- <h6 align="center">
-			There will be options to filter/sort a tabular
-			representation of all past meals. There will also be
-			appropriate buttons or gestures to fix any incorrect entries.
-		</h6> -->
-
 		<table class="table">
 			<thead>
 				<tr>
@@ -37,25 +23,21 @@
 			<tbody>
 				{{#each meals}}
 					<tr>
-						<td style="width:20px;">{{date}}</td>
-						<td style="width:25px;">{{food}}</td>
+						<td style="width:20px;"> {{date}} </td>
+						<td style="width:25px;"> {{food}} </td>
+
+						<!-- TODO: fix width (doesn't seem to work well) -->
 						<td style="width:30px;">
 							<img src="{{pic}}" class="img-responsive img-rounded">
 						</td>
+						
+						<!-- TODO: source these from another JSON -->
+						<!--
 						<td>Calories: {{calories}} <br>
 							Total Fat: {{total_fat}} <br>
 							Protein: {{protein}}
-						</td>
-						<!-- Sat. Fat: {{saturated_fat}}<br>
-							Unsat. Fat: {{unsaturated_fat}}<br>
-							Trans Fat: {{trans_fat}}<br>
-							Cholesterol: {{cholesterol}}<br>
-							Sodium: {{sodium}}<br>
-							Potassium: {{potassium}}<br>
-							Total Carbs: {{total_carbs}}<br>
-							Dietary Fiber: {{dietary_fiber}}<br>		
-							Sugars: {{sugars}}<br>
-							Protein: {{protein}} -->
+						</td> -->
+						
 					</tr>
 				{{/each}}
 			</tbody>
@@ -68,5 +50,9 @@
 	<script src="js/jquery-1.11.0.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script src="js/nutrition-check.js"></script>
+	<script>
+    	document.getElementById("history-iconbar").setAttribute("class","btn btn-secondary navbar-btn");
+    	document.getElementById("history-link").setAttribute("href","#");
+	</script>
 </body>
 </html>

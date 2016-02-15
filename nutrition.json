@@ -6,15 +6,15 @@
 			"exclude": "vegan,vegetarian",
 			"calories": "600",
 			"total_fat": "17",
-			// "saturated_fat": "5",
-			// "unsaturated_fat": "10",
-			// "trans_fat": "2",
-			// "cholesterol": "12",
-			// "sodium": "900",
-			// "potassium": "0",
-			// "total_carbs": "15",
-			// "dietary_fiber": "8",		
-			// "sugars": "8",
+			"saturated_fat": "5",
+			"unsaturated_fat": "10",
+			"trans_fat": "2",
+			"cholesterol": "12",
+			"sodium": "900",
+			"potassium": "0",
+			"total_carbs": "15",
+			"dietary_fiber": "8",		
+			"sugars": "8",
 			"protein": "30"
 		},
 
@@ -23,20 +23,16 @@
 			"exclude": "vegan",
 			"calories": "100",
 			"total_fat": "17",
-			// "saturated_fat": "5",
-			// "unsaturated_fat": "10",
-			// "trans_fat": "2",
-			// "cholesterol": "12",
-			// "sodium": "900",
-			// "potassium": "0",
-			// "total_carbs": "15",
-			// "dietary_fiber": "8",		
-			// "sugars": "8",
+			"saturated_fat": "5",
+			"unsaturated_fat": "10",
+			"trans_fat": "2",
+			"cholesterol": "12",
+			"sodium": "900",
+			"potassium": "0",
+			"total_carbs": "15",
+			"dietary_fiber": "8",		
+			"sugars": "8",
 			"protein": "20"
 		}
 	]
 }
-
-		
-
-		

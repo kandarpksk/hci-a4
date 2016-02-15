@@ -1,48 +1,29 @@
 <!doctype html>
 
 <html>
-<head>
-	<title>Nutrition Check</title>	
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="css/bootstrap.css" rel="stylesheet">
-	<link href="css/bootstrap-theme.css" rel="stylesheet">
-	<link href="css/nutrition-check.css" rel="stylesheet">
-</head>
+{{> html-header}}
 
 <body>
 	<!-- enter the page title between the partials -->
 	{{> navbar}}
-	What Are You Eating?
-	<span class="badge" data-toggle="modal" data-target="#popup">
-	<!-- <button type="button" class="btn" data-toggle="modal" data-target="#popup"> -->
-	<img src="http://uxrepo.com/download.php?img=static/icon-sets/google-material/svg/android-mic.svg" class="img-responsive" style="width:10px;">
-	<!-- </button> -->
-	</span>
+		What Are You Eating?
+		<!-- voice input icon in a badge -->
+		<span class="badge" data-toggle="modal" data-target="#popup">
+			<img src="http://uxrepo.com/download.php?img=static/icon-sets/google-material/svg/android-mic.svg" class="img-responsive" style="width:10px;">
+		</span>
 	{{> navbar-hack}}
 
 	<br/>
 	<div class="container" align="center" style="padding-top:4px;">
 		
-		<input id="quantity" value="approx. servings" style="width:120px">
-		<h5 style="display:inline;"> of </h5>
+		<input id="quantity" value="x" style="width:25px">
+		<h5 style="display:inline;"> servings of </h5>
 		<input id="tags" value="food item">
 		<span class="glyphicon glyphicon-plus-sign"></span>
 
 		<br/><br/>
 
-		<div class="row"> <!-- align="center" -->
-			<div class="col-sm-6 col-md-4">
-				<div class="thumbnail">
-					<img id="snap" class="img-responsive img-rounded"
-						src="https://d13yacurqjgara.cloudfront.net/users/1253/screenshots/1542208/flat-camera-icon.jpg" alt="..."
-						data-toggle="modal" data-target="#soon">
-					<div class="caption">
-						<div class="btn-group" role="group" aria-label="...">
-		<!-- > take-a-pic}} -->
-		<a href="#"><button type="button" class="btn">Take a Pic</button></a>
-		<a href="/i2"><button type="button" class="btn btn-default">Nutrition Info.</button></a>
-		</div> </div> </div> </div> </div>
+		{{> take-a-pic}} <!-- overlay -->
 
 		<input type="text" id="datepicker" value="02/12/2016 (Today)">
 		<h5 style="display:inline;"> for </h5>
@@ -54,46 +35,46 @@
 
 		<br/>
 
-		{{> popup}}
+		<div class="modal fade" id="popup-choice" {{> popup}}
+			Warning
+				</h4> </div> <div class="modal-body" align="center">
+			In the meal you're about to add, these foods
+			<br/><b>Hamburger, Soda and Fries</b>
+			<br/>may cause you to consume excess of
+			<br/><b>Fats and Sodium</b>
+			<br/><br/>
+			Are you sure you want to log this meal?
+				</div> <div class="modal-footer">
+			<a href="/history"><button type="button" class="btn btn-default">Add anyway</button></a>
+			<button type="button" class="btn btn-primary" data-dismiss="modal">Choose something else
+		{{> popup-hack}}
+
+		<div class="modal fade" id="popup" {{> popup}}
+			Wizard of Oz
+				</h4> </div> <div class="modal-body" align="center">
+			Imagine you could simply "tell" your phone what you're eating, making the task of logging meals much simpler :)
+				</div> <div class="modal-footer">
+			<button type="button" class="btn" data-dismiss="modal">Dismiss
+		{{> popup-hack}}
+
+		<div class="modal fade" id="soon" {{> popup}}
+			Coming soon...
+				</h4> </div> <div class="modal-body" align="center">
+			You will be able to upload an image/take one directly (depending on what is supported by web browsers).
+				</div> <div class="modal-footer">
+			<button type="button" class="btn" data-dismiss="modal">Dismiss
+		{{> popup-hack}}
 
 	</div>
 
-	<nav class="navbar navbar-default navbar-fixed-bottom">
-		<div class="container-fluid">
-			<div class="navbar-header" align="center">
-				<div class="btn-group" role="group" aria-label="navbar">
-					<a href="#">
-						<button type="button" class="btn navbar-btn" aria-label="add">
-							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-						</button>
-					</a>
-						<a href="/suggest">
-						<button type="button" class="btn btn-default navbar-btn" aria-label="suggest">
-							<span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
-						</button>
-					</a>
-					<a href="/history">
-						<button type="button" class="btn btn-default navbar-btn" aria-label="history">
-							<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-						</button>
-					</a>
-					<a href="/settings">
-						<button type="button" class="btn btn-default navbar-btn" aria-label="settings">
-							<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-						</button>
-					</a>
-				</div>
-			</div>
-		</div>
-	</nav>
+	{{> icon-panel}}
 
 	<script src="js/jquery-1.11.0.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script src="js/nutrition-check.js"></script>
 	<script>
-		$(function() {
-			var curr=$("#datepicker").datepicker();
-		});
+    	document.getElementById("home-iconbar").setAttribute("class","btn btn-secondary navbar-btn");
+    	document.getElementById("home-link").setAttribute("href","#");
 	</script>
 </body>
 </html>

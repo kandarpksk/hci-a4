@@ -1,14 +1,7 @@
 <!doctype html>
 
 <html>
-<head>
-	<title>Nutrition Check</title>	
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="css/bootstrap.css" rel="stylesheet">
-	<link href="css/bootstrap-theme.css" rel="stylesheet">
-	<link href="css/nutrition-check.css" rel="stylesheet">
-</head>
+{{> html-header}}
 
 <body>
 	{{> navbar}}
@@ -61,26 +54,22 @@
 
 		{{> icon-panel}}
 
-		<div class="modal fade" id="popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-			<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title" id="myModalLabel" align="center">Please wait...</h4>
-				</div>
-				<div class="modal-body" align="center">
-					It's taking a bit longer than expected to find where you are.
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn" data-dismiss="modal">Dismiss</button>
-				</div>
-			</div>
-			</div>
-		</div>
+		<div class="modal fade" id="popup" {{> popup}}
+			Please wait...
+				</h4> </div> <div class="modal-body" align="center">
+			It's taking a bit longer than expected to find where you are.
+				</div> <div class="modal-footer">
+			<button type="button" class="btn" data-dismiss="modal">Dismiss
+		{{> popup-hack}}
 
 	</div>
 
 	<script src="js/jquery-1.11.0.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script src="js/nutrition-check.js"></script>
+	<script>
+    	document.getElementById("suggest-iconbar").setAttribute("class","btn btn-secondary navbar-btn");
+    	document.getElementById("suggest-link").setAttribute("href","#");
+	</script>
 </body>
 </html>
