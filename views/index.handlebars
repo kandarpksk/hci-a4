@@ -15,19 +15,29 @@
 
 	<br/>
 	<div class="container" align="center" style="padding-top:4px;">
-		
-		<input id="quantity" value="x" style="width:25px">
+
+
+		<input id="quantity" value="" style="width:25px" maxlength="2" placeholder="x">
 		<h5 style="display:inline;"> servings of </h5>
-		<input id="tags" value="food item">
+		<input id="tags" value="" onChange="setValue(this.value)" placeholder="food item">
 		<span class="glyphicon glyphicon-plus-sign"></span>
+
 
 		<br/><br/>
 
 		{{> take-a-pic}} <!-- overlay -->
 
-		<input type="text" id="datepicker" value="02/12/2016 (Today)">
+		<h5 style="display:inline;">On </h5>
+		<input type="text" id="datepicker" value="" placeholder="Date eaten">
 		<h5 style="display:inline;"> for </h5>
-		<input id="time" value="Lunch" style="width:90px">
+		<select>
+			<option disabled selected>--meal time--</option>
+			<option value="breakfast">Breakfast</option>
+			<option value="lunch">Lunch</option>
+			<option value="dinner">Dinner</option>
+			<option value="snack">Snack</option>
+		</select>
+		<!-- <input id="time" value="Lunch" style="width:90px"> -->
 
 		<br/><br/>
 
@@ -69,9 +79,46 @@
 
 	{{> icon-panel}}
 
+	<!-- stylesheet for datepicker; dunno if this should be somewhere else, like in header, or if it conflicts w/ anything -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
 	<script src="js/jquery-1.11.0.js"></script>
 	<script src="js/bootstrap.js"></script>
+
+ 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> <!-- From website for datepicker -->
+
 	<script src="js/nutrition-check.js"></script>
+
+	<!-- Datepicker script -->
+	<script>
+		$(function() {
+    		$( "#datepicker" ).datepicker();
+ 		});
+	</script>
+
+	<!-- Trying to add user-inputted stuff to JSON (localStorage, not db yet) -->
+	<script>
+
+		function setValue(value){
+			var textVal=value;//here u will get the entered text
+		}
+
+		// Check to see if browser supports local storage
+		if(typeof(Storage) !== "undefined") {
+		    // Code for localStorage/sessionStorage.
+		    var obj = {"food": "", "color": "green"};
+
+		    var food_item = document.getElementById("tags").value;
+		    console.log(food_item);
+
+			localStorage.setItem('myStorage', JSON.stringify(obj));
+
+		} else {
+		    // Sorry! No Web Storage support..
+		    console.log("No Web Storage support");
+		}
+	</script>
+
 	<script>
     	document.getElementById("home-iconbar").setAttribute("class","btn btn-secondary navbar-btn");
     	document.getElementById("home-link").setAttribute("href","#");
