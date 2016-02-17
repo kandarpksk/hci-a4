@@ -13,51 +13,60 @@
 		</span>
 	{{> navbar-hack}}
 
-	<br/>
 	<div class="container" align="center" style="padding-top:4px;">
-
-
-		<input id="quantity" value="" style="width:25px" maxlength="2" placeholder="x">
-		<h5 style="display:inline;"> servings of </h5>
-		<input id="tags" value="" onChange="setValue(this.value)" placeholder="food item">
-		<span class="glyphicon glyphicon-plus-sign"></span>
-
-
-		<br/><br/>
-
-		{{> take-a-pic}} <!-- overlay -->
-
-		<h5 style="display:inline;">On </h5>
-		<input type="text" id="datepicker" value="" placeholder="Date eaten">
-		<h5 style="display:inline;"> for </h5>
-		<select>
-			<option disabled selected>--meal time--</option>
-			<option value="breakfast">Breakfast</option>
-			<option value="lunch">Lunch</option>
-			<option value="dinner">Dinner</option>
-			<option value="snack">Snack</option>
-		</select>
-		<!-- <input id="time" value="Lunch" style="width:90px"> -->
-
-		<br/><br/>
-
-		<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#popup-choice">Add Meal</button>
 
 		<br/>
 
-		<div class="modal fade" id="popup-choice" {{> popup}}
-			Warning
-				</h4> </div> <div class="modal-body" align="center">
-			In the meal you're about to add, these foods
-			<br/><b>Hamburger, Soda and Fries</b>
-			<br/>may cause you to consume excess of
-			<br/><b>Fats and Sodium</b>
-			<br/><br/>
-			Are you sure you want to log this meal?
-				</div> <div class="modal-footer">
-			<a href="/history"><button type="button" class="btn btn-default">Add anyway</button></a>
-			<button type="button" class="btn btn-primary" data-dismiss="modal">Choose something else
-		{{> popup-hack}}
+		<form id="addMealForm" role="form" method="get" action="/history">
+			<!-- make pic clickable to upload "new" image -->
+			<div>
+				<!-- <label for="food"></label> -->
+				<input type="text" id="food" placeholder="Food Item" name="food1" style="margin-bottom:5px;" onChange="update()">
+				<!-- <label for="servings"></label> -->
+				<input type="number" id="servings" placeholder="Servings" name="servings1" min="1">
+				<!-- explan "servings" with a (?) button -->
+				<input type="text" id="datepicker" placeholder="Date of Meal" name="date">
+				<select id="mealtype" name="t">
+					<option value="breakfast" selected>Breakfast</option>
+					<option value="brunch">Brunch</option>
+					<option value="lunch">Lunch</option>
+					<option value="dinner">Dinner</option>
+					<option value="snack">Snack</option>
+				</select>
+			</div>
+			<!-- <span class="glyphicon glyphicon-plus-sign"></span> -->
+
+			<div class="modal fade" id="popup-choice" {{> popup}}
+				Warning
+					</h4> </div> <div class="modal-body" align="center">
+				In the meal you're about to add, these foods
+				<br/><b id="list"></b>
+				<br/>may cause you to consume excess of
+				<br/><b>Fats and Sodium</b>
+				<br/><br/>
+				Are you sure you want to log this meal?
+					</div> <div class="modal-footer">
+				<input type="submit" id="submitBtn" class="btn btn-default" value="Add anyway"></input>
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Choose something else
+			{{> popup-hack}}
+		</form>
+
+		<br/>
+
+		<!-- <input id="quantity" style="width:25px" maxlength="2" placeholder="x">
+		<h5 style="display:inline;"> servings of </h5>
+		<input id="tags" placeholder="food item"> -->
+
+		{{> take-a-pic}} <!-- overlay (code in the corresponding partial) -->
+
+		<!-- <h5 style="display:inline;">On </h5>
+		<h5 style="display:inline;"> for </h5> -->
+
+		<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#popup-choice">Add Meal</button>
+
+		<br/><br/>
+
+		<!-- code for various popups follows; it mave be moved anywhere (maybe) -->
 
 		<div class="modal fade" id="popup" {{> popup}}
 			Wizard of Oz
@@ -85,43 +94,30 @@
 	<script src="js/jquery-1.11.0.js"></script>
 	<script src="js/bootstrap.js"></script>
 
- 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> <!-- From website for datepicker -->
+	<!-- from website for datepicker -->
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
+	<!-- our custom scripts that are pretty long or used in multiple places -->
 	<script src="js/nutrition-check.js"></script>
 
-	<!-- Datepicker script -->
+	<!-- datepicker script -->
 	<script>
 		$(function() {
-    		$( "#datepicker" ).datepicker();
- 		});
-	</script>
-
-	<!-- Trying to add user-inputted stuff to JSON (localStorage, not db yet) -->
-	<script>
-
-		function setValue(value){
-			var textVal=value;//here u will get the entered text
-		}
-
-		// Check to see if browser supports local storage
-		if(typeof(Storage) !== "undefined") {
-		    // Code for localStorage/sessionStorage.
-		    var obj = {"food": "", "color": "green"};
-
-		    var food_item = document.getElementById("tags").value;
-		    console.log(food_item);
-
-			localStorage.setItem('myStorage', JSON.stringify(obj));
-
-		} else {
-		    // Sorry! No Web Storage support..
-		    console.log("No Web Storage support");
+			$( "#datepicker" ).datepicker();
+		});
+		function update() {
+			console.log(document.forms["addMealForm"]["food1"].value);
+			if(document.forms["addMealForm"]["food1"].value == "" || document.forms["addMealForm"]["food1"].value == null){
+				document.getElementById("list").innerHTML="No food entered...";
+			} else {
+				document.getElementById("list").innerHTML=document.forms["addMealForm"]["food1"].value;
+			}
 		}
 	</script>
 
 	<script>
-    	document.getElementById("home-iconbar").setAttribute("class","btn btn-secondary navbar-btn");
-    	document.getElementById("home-link").setAttribute("href","#");
+		document.getElementById("home-iconbar").setAttribute("class","btn btn-secondary navbar-btn");
+		document.getElementById("home-link").setAttribute("href","#");
 	</script>
 </body>
 </html>

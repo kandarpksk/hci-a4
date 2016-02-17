@@ -33,8 +33,8 @@ function info() {
 	</div>\
 	<div class="caption" style="margin-top:-20px">\
 		<div class="btn-group" role="group" aria-label="...">\
-			<button type="button" class="btn btn-default" onclick="pic()">Take a Pic</button>\
-			<button type="button" class="btn" onclick="#">Nutrition Info.</button>\
+			<button type="button" class="btn btn-sm btn-default" onclick="pic()">Take a Pic</button>\
+			<button type="button" class="btn btn-sm" onclick="#">Nutrition Info.</button>\
 		</div>\
 	</div>';
 }
@@ -47,8 +47,8 @@ function pic() {
 	\
 	<div class="caption">\
 		<div class="btn-group" role="group" aria-label="...">\
-			<button type="button" class="btn" onclick="#">Take a Pic</button>\
-			<button type="button" class="btn btn-default" onclick="info()">Nutrition Info.</button>\
+			<button type="button" class="btn btn-sm" onclick="#">Take a Pic</button>\
+			<button type="button" class="btn btn-sm btn-default" onclick="info()">Nutrition Info.</button>\
 		</div>\
 	</div>';
 }
