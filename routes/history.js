@@ -11,7 +11,9 @@ exports.view = function(req, res) {
 			'"time": "' + req.query.t + '", '+
 			'"pic": "' + default_pic + '" '+
 			'}');
-		data["users"][0]["meals"].push(newMeal);
+		for (i = 0; i < data["users"].length; i++)
+			if (data["users"][i]["selected"] != "")
+				data["users"][i]["meals"].push(newMeal);
 	}
 
 	res.render('history', data);
