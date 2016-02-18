@@ -1,14 +1,14 @@
 {
 	"users": [
 		{
-			"name" : "firstuser",
-			"selected" : "",
-			"meals" : [
-				{	"food1" : "Grilled Chicken Tacos",
-					"servings1" : "2",
-					"date" : "02/09/2016",
-					"time" : "dinner",
-					"pic" : "http://thumbs.dreamstime.com/m/refresh-ccw-flat-black-color-rounded-vector-icon-symbol-drawn-light-gray-background-57876713.jpg"
+			"name": "firstuser",
+			"selected": "",
+			"meals": [
+				{	"food1": "Grilled Chicken Tacos",
+					"servings1": "2",
+					"date": "02/09/2016",
+					"time": "dinner",
+					"pic": "http://thumbs.dreamstime.com/m/refresh-ccw-flat-black-color-rounded-vector-icon-symbol-drawn-light-gray-background-57876713.jpg"
 				},
 				{	"food1": "Hamburger",
 					"servings1": "1",
@@ -21,50 +21,58 @@
 			]
 		},
 		{
-			"name" : "second user",
-			"selected" : "yes",
-			"meals" : [
-				{	"food1" : "Milk Tea",
-					"servings1" : "1",
-					"date" : "02/10/2016",
-					"time" : "dinner",
-					"pic" : "http://www.tapiocaexpress.com/wp-content/uploads/2014/06/Tapioca-Milk-Tea.jpg"
+			"name": "second user",
+			"selected": "yes",
+			"meals": [
+				{	"food1": "Milk Tea",
+					"servings1": "1",
+					"date": "02/10/2016",
+					"time": "dinner",
+					"pic": "http://www.tapiocaexpress.com/wp-content/uploads/2014/06/Tapioca-Milk-Tea.jpg"
 				}
 			]
 		}
 	],
-	"dishes" : [
+	"dishes": [
 		{	"restaurant": "Burger King",
-			"dish": "Hamburger",
-			"exclude": "vegan,vegetarian",
-			"calories": "600",
-			"total_fat": "17",
-			"saturated_fat": "5",
-			"unsaturated_fat": "10",
-			"trans_fat": "2",
-			"cholesterol": "12",
-			"sodium": "900",
-			"potassium": "0",
-			"total_carbs": "15",
-			"dietary_fiber": "8",		
-			"sugars": "8",
-			"protein": "30"
+			"menu": [
+				{	"name": "Hamburger",
+					"exclude": "vegan,vegetarian",
+					
+					"calories": "600",
+					"total_fat": "17",
+					"saturated_fat": "5",
+					"unsaturated_fat": "10",
+					"trans_fat": "2",
+					"cholesterol": "12",
+					"sodium": "900",
+					"potassium": "0",
+					"total_carbs": "15",
+					"dietary_fiber": "8",		
+					"sugars": "8",
+					"protein": "30"
+				}
+			]
 		},
-		{	"restaurant": "Burger King",
-			"dish": "Blandburger",
-			"exclude": "vegan",
-			"calories": "100",
-			"total_fat": "17",
-			"saturated_fat": "5",
-			"unsaturated_fat": "10",
-			"trans_fat": "2",
-			"cholesterol": "12",
-			"sodium": "900",
-			"potassium": "0",
-			"total_carbs": "15",
-			"dietary_fiber": "8",		
-			"sugars": "8",
-			"protein": "20"
+		{	"restaurant": "Subway",
+			"menu": [
+				{	"name": "Blandburger",
+					"exclude": "vegan",
+
+					"calories": "100",
+					"total_fat": "17",
+					"saturated_fat": "5",
+					"unsaturated_fat": "10",
+					"trans_fat": "2",
+					"cholesterol": "12",
+					"sodium": "900",
+					"potassium": "0",
+					"total_carbs": "15",
+					"dietary_fiber": "8",		
+					"sugars": "8",
+					"protein": "20"
+				}
+			]
 		}
 	]
 }
