@@ -1,5 +1,4 @@
-var meals = require('../meals.json');
-var nutrition = require('../nutrition.json'); // still unused
+var data = require('../data.json');
 
 exports.view = function(req, res) {
 	// add a new meal if at least one food is entered
@@ -12,8 +11,8 @@ exports.view = function(req, res) {
 			'"time": "' + req.query.t + '", '+
 			'"pic": "' + default_pic + '" '+
 			'}');
-		meals["meals"].push(newMeal);
+		data["users"][0]["meals"].push(newMeal);
 	}
 
-	res.render('history', meals);
+	res.render('history', data);
 }

@@ -21,24 +21,29 @@
 			</thead>
 			
 			<tbody>
-				{{#each meals}}
-					<tr>
-						<td style="width:20px;"> {{date}} </td>
-						<td style="width:25px;"> {{food1}} </td>
+				<!-- any other <each> instances to "note"? -->
+				{{#each users}}
+					{{#if selected}}
+						{{#each meals}}
+							<tr>
+								<td style="width:20px;"> {{date}} </td>
+								<td style="width:25px;"> {{food1}} </td>
 
-						<!-- TODO: fix width (doesn't seem to work well) -->
-						<td style="width:30px;">
-							<img src="{{pic}}" class="img-responsive img-rounded">
-						</td>
-						
-						<!-- TODO: source these from another JSON -->
-						<!--
-						<td>Calories: {{calories}} <br>
-							Total Fat: {{total_fat}} <br>
-							Protein: {{protein}}
-						</td> -->
-						
-					</tr>
+								<!-- TODO: fix width (doesn't seem to work well) -->
+								<td style="width:30px;">
+									<img src="{{pic}}" class="img-responsive img-rounded">
+								</td>
+								
+								<!-- TODO: source these from another JSON -->
+								<!--
+								<td>Calories: {{calories}} <br>
+									Total Fat: {{total_fat}} <br>
+									Protein: {{protein}}
+								</td> -->
+								
+							</tr>
+						{{/each}}
+					{{/if}}
 				{{/each}}
 			</tbody>
 		</table>
