@@ -27,7 +27,7 @@
 					
 					<input type="number" placeholder="Servings" name="servings1" min="1" style="width:80px;">
 					
-					<span class="glyphicon glyphicon-question-sign" style="margin-left:5px;"></span>
+					<span class="glyphicon glyphicon-question-sign" style="margin-left:5px;" data-toggle="modal" data-target="#quaint"></span>
 				
 					<div id="2"></div>
 				</div>
@@ -85,6 +85,16 @@
 			Wizard of Oz
 				</h4> </div> <div class="modal-body" align="center">
 			Imagine you could simply "tell" your phone what you're eating, making the task of logging meals much simpler :)
+				</div> <div class="modal-footer">
+			<button type="button" class="btn" data-dismiss="modal">Dismiss
+		{{> popup-hack}}
+
+		<div class="modal fade" id="quaint" {{> popup}}
+			What is a serving?
+				</h4> </div> <div class="modal-body" align="center">
+			It corresponds to <b>how much a fast food restaurant serves you in its regular meals</b>.
+			<br/><br/>
+			For liquids, <i>1 serving = a small drink</i> (2 servings being a medium drink and so on).
 				</div> <div class="modal-footer">
 			<button type="button" class="btn" data-dismiss="modal">Dismiss
 		{{> popup-hack}}
