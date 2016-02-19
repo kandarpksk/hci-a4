@@ -23,7 +23,7 @@
 				<div id="1">
 					<span class="glyphicon glyphicon-plus-sign" style="margin-right:5px;" onClick="more()"></span>
 					
-					<input class="foods" type="text" placeholder="Main Course" name="food1" style="margin-bottom:5px;" onChange="update()">
+					<input class="foods" type="text" placeholder="Main Course" name="food1" style="margin-bottom:5px;">
 					
 					<input type="number" placeholder="Servings" name="servings1" min="1" style="width:80px;">
 					
@@ -48,7 +48,7 @@
 				Warning
 					</h4> </div> <div class="modal-body" align="center">
 				The main course (first item) of this meal
-				<br/><b id="list"></b>
+				<br/><b id="list">Please enter a food first...</b>
 				<br/>may cause you to consume excess of
 				<br/><b>Fats and Sodium</b>
 				<br/><br/>
@@ -65,12 +65,17 @@
 		<h5 style="display:inline;"> servings of </h5>
 		<input id="tags" placeholder="food item"> -->
 
+		<!-- The Original Fish Taco
+		{{dishes.1.menu.0.name}} -->
+
+		<div id="data"></div>
+
 		{{> take-a-pic}} <!-- overlay (code in the corresponding partial) -->
 
 		<!-- <h5 style="display:inline;">On </h5>
 		<h5 style="display:inline;"> for </h5> -->
 
-		<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#popup-choice">Add Meal</button>
+		<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#popup-choice" onClick="update()">Add Meal</button>
 
 		<br/><br/>
 
@@ -118,11 +123,12 @@
 		});
 		
 		function update() {
-			// console.log(document.forms["addMealForm"]["food1"].value);
-			if(document.forms["addMealForm"]["food1"].value == "" || document.forms["addMealForm"]["food1"].value == null){
-				document.getElementById("list").innerHTML="No food entered...";
+			var f = document.forms["addMealForm"]["food1"].value;
+			// console.log(f);
+			if(f == "" || f == null){
+				document.getElementById("list").innerHTML = "No food entered...";
 			} else {
-				document.getElementById("list").innerHTML=document.forms["addMealForm"]["food1"].value;
+				document.getElementById("list").innerHTML = f;
 			}
 		}
 

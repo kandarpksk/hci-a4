@@ -7,14 +7,12 @@ var handlebars = require('express3-handlebars')
 var welcome = require('./routes/welcome'); // first-run screen
 var login = require('./routes/login');
 var index = require('./routes/index'); // main screen
-var i2 = require('./routes/i2');
 var suggest = require('./routes/suggest'); // alternative main screen
 var settings = require('./routes/settings'); // toggle options
 var history = require('./routes/history'); // past meals
-var popup = require('./routes/popup'); // temporary screen
 var menu = require('./routes/menu'); // full screen (for now)
-var logout = require('./routes/logout'); // needs more options
 var onboarding = require('./routes/onboarding');
+var ndata = require('./routes/ndata');
 
 var app = express();
 
@@ -41,13 +39,11 @@ app.get('/welcome', welcome.view);
 app.get('/onboarding', onboarding.view);
 app.get('/login', login.view);
 app.get('/', index.view);
-app.get('/i2', i2.view);
 app.get('/suggest', suggest.view);
 app.get('/settings', settings.view);
 app.get('/history', history.view);
-app.get('/popup', popup.show);
 app.get('/menu', menu.view);
-app.get('/logout', logout.view);
+app.get('/ndata/:id', ndata.view);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
