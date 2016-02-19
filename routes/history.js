@@ -11,9 +11,18 @@ exports.view = function(req, res) {
 			'"time": "' + req.query.t + '", '+
 			'"pic": "' + default_pic + '" '+
 			'}');
+		
 		for (i = 0; i < data["users"].length; i++)
-			if (data["users"][i]["selected"] != "")
-				data["users"][i]["meals"].push(newMeal);
+			if (data["users"][i]["selected"] != ""){
+				var count = data["users"][i]["meals"].length;
+				if (count > 0){
+					if (JSON.stringify(data["users"][i]["meals"][count-1]) != JSON.stringify(newMeal))
+						data["users"][i]["meals"].push(newMeal);
+					// try more variety (or try again)...
+				}
+				else data["users"][i]["meals"].push(newMeal);
+				break;
+			}
 	}
 
 	res.render('history', data);

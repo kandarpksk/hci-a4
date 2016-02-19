@@ -6,9 +6,16 @@ h2, h6 {
 	color: #8382BF;
 }
 
-#card {
-    padding: 15px;
-    background-color: #EDEDE9;
+#card1 {
+	padding: 15px;
+	border-radius: 20px;
+	margin-left:10px;
+}
+
+#card2 {
+	padding: 15px;
+	border-radius: 20px;
+	margin-left:5px;
 }
 
 body {

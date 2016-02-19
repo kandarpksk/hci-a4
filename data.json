@@ -2,12 +2,12 @@
 	"users": [
 		{
 			"name": "firstuser",
-			"selected": "",
+			"selected": "yes",
 			"meals": [
 				{	"food1": "Grilled Chicken Tacos",
 					"servings1": "2",
 					"date": "02/09/2016",
-					"time": "dinner",
+					"time": "Dinner",
 					"pic": "http://thumbs.dreamstime.com/m/refresh-ccw-flat-black-color-rounded-vector-icon-symbol-drawn-light-gray-background-57876713.jpg"
 				},
 				{	"food1": "Hamburger",
@@ -15,19 +15,19 @@
 					"food2": "Blandburger",
 					"servings2": "1",
 					"date": "02/11/2016",
-					"time": "lunch",
+					"time": "Lunch",
 					"pic": "http://cdn4.iconfinder.com/data/icons/food-icons/128/hamburger.png"
 				}
 			]
 		},
 		{
 			"name": "second user",
-			"selected": "yes",
+			"selected": "",
 			"meals": [
 				{	"food1": "Milk Tea",
 					"servings1": "1",
 					"date": "02/10/2016",
-					"time": "dinner",
+					"time": "Brunch",
 					"pic": "http://www.tapiocaexpress.com/wp-content/uploads/2014/06/Tapioca-Milk-Tea.jpg"
 				}
 			]
@@ -38,7 +38,7 @@
 			"menu": [
 				{	"name": "Hamburger",
 					"exclude": "vegan,vegetarian",
-					
+
 					"calories": "600",
 					"total_fat": "17",
 					"saturated_fat": "5",

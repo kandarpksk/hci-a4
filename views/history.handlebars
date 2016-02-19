@@ -13,10 +13,10 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th>Day</th>
+					<th>Date</th>
 					<th>Meal</th>
 					<th>Picture</th>
-					<th>Totals</th>
+					<!-- <th>Totals</th> -->
 				</tr>
 			</thead>
 			
@@ -26,11 +26,23 @@
 					{{#if selected}}
 						{{#each meals}}
 							<tr>
-								<td style="width:20px;"> {{date}} </td>
-								<td style="width:25px;"> {{food1}} </td>
+								<td>{{date}}</td>
+								<td>
+									<u>{{time}}</u>
+									<br/> {{servings1}} x {{food1}}
+									{{#if food2}}
+									<br/> {{servings2}} x {{food2}}
+									{{/if}}
+									{{#if food3}}
+									<br/> {{servings3}} x {{food3}}
+									{{/if}}
+									{{#if food4}}
+									<br/> {{servings4}} x {{food4}}
+									{{/if}}
+								</td>
 
 								<!-- TODO: fix width (doesn't seem to work well) -->
-								<td style="width:30px;">
+								<td>
 									<img src="{{pic}}" class="img-responsive img-rounded">
 								</td>
 								
@@ -56,7 +68,7 @@
 	<script src="js/bootstrap.js"></script>
 	<script src="js/nutrition-check.js"></script>
 	<script>
-    	document.getElementById("history-iconbar").setAttribute("class","btn btn-secondary navbar-btn");
+    	document.getElementById("history-iconbar").setAttribute("class","btn btn-secondary btn-sm navbar-btn");
     	document.getElementById("history-link").setAttribute("href","#");
 	</script>
 </body>
