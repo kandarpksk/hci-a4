@@ -13,7 +13,7 @@
 		<br/>
 		<div class="col-lg-6" style="width:350px;" align="center">
 			<div class="input-group" align="center">
-				<input type="text" class="form-control" aria-label="my location" value="Where are you eating?">
+				<input type="text" class="form-control" aria-label="my location" value="Where are you eating *today*?">
 				<span class="input-group-btn">
 					<button class="btn btn-default" type="button" data-toggle="modal" data-target="#popup">Locate me!</button>
 				</span>
@@ -24,26 +24,42 @@
 
 		<h5 style="color:#8382BF" align="center">You're doing good. Feel free to indulge!</h5>
 
-		<div id="card">
-			<img alt="pic" src="https://cdn4.iconfinder.com/data/icons/food-icons/128/hamburger.png" style="width:35pt; margin-right:5pt; margin-bottom:10px">
-			
-			<h4 style="display:inline;">Hamburger</h4>
+		<br/>
 
-			<div class="progress"> fat
-			<div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%" style="display:inline;">
-			</div>
-			</div>
+		<div class="container-fluid">
+			<div class="row" style="margin-left:15px;">
+				<div class="col-xs-1"><span class="glyphicon glyphicon-chevron-left" style="margin-top:80px; margin-right:5px;"></span></div>
+				<div class="col-xs-4" id="card" align="center" style="margin-left:10px;">
+					<img alt="pic" src="https://cdn4.iconfinder.com/data/icons/food-icons/128/hamburger.png" style="width:35pt;">
+				
+					<h4>Hamburger</h4>
 
-			<div class="progress">
-			<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%"> protein
-			</div>
-			</div>
+					<div class="progress"> fat
+					<div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%" style="display:inline;">
+					</div> </div>
 
-			<h6 style="color:gray"> (swipe card for more options) </h6>
+					<div class="progress">
+					<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%"> protein
+					</div> </div>
+				</div>
+				<div class="col-xs-4" id="card" align="center" style="margin-left:5px;">
+					<img alt="pic" src="https://cdn4.iconfinder.com/data/icons/food-icons/128/hamburger.png" style="width:35pt;">
+				
+					<h4>Hamburger</h4>
 
+					<div class="progress"> fat
+					<div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%" style="display:inline;">
+					</div> </div>
+
+					<div class="progress">
+					<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%"> protein
+					</div> </div>
+				</div>
+				<div class="col-xs-1"><span class="glyphicon glyphicon-chevron-right" style="margin-top:80px; margin-left:-5px;"></span></div>
+			</div>
 		</div>
 
-		<br/>
+		<br/><br/>
 
 		<div class="ui-widget" align="center">
 			<input id="quantity" value="1 serving" style="width:120px">
