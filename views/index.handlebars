@@ -23,7 +23,7 @@
 				<div id="1">
 					<span class="glyphicon glyphicon-plus-sign" style="margin-right:5px;" onClick="more()"></span>
 					
-					<input type="text" placeholder="Main Course" name="food1" style="margin-bottom:5px;" onChange="update()">
+					<input class="foods" type="text" placeholder="Main Course" name="food1" style="margin-bottom:5px;" onChange="update()">
 					
 					<input type="number" placeholder="Servings" name="servings1" min="1" style="width:80px;">
 					
@@ -110,8 +110,11 @@
 
 	<!-- datepicker script -->
 	<script>
+		var availableFoods=["Chow Mein", "Chow Fun", "Fried Rice", "Brown Steamed Rice", "White Steamed Rice", "Mixed Vegetables", "Country Style Bean Curd", "Eggplant Tofu", "Hot Szechuan Tofu", "Black Pepper Chicken", "Kung Pao Chicken", "Grilled Teriyaki Chicken", "Grilled Asian Chicken", "Teriyaki Chicken", "Asian Chicken", "Mushroom Chicken", "Orange Chicken", "Potato Chicken", "Firecracker Chicken Breast", "String Bean Chicken Breast", "SweetFire Chicken Breast", "Sweet & Sour Chicken Breast", "Beijing Beef", "Broccoli Beef", "Shanghai Angus Steak", "Crispy Shrimp", "Honey Walnut Shrimp", "Golden Treasure Shrimp", "Steamed Ginger Fish", "Chicken Egg Roll", "Chicken Potsticker", "Cream Cheese Rangoon", "Vegetable Spring Roll", "Hot & Sour Soup", "Teriyaki Sauce", "Sweet & Sour Sauce", "Chili Sauce", "Soy Sauce", "Potsticker Sauce", "Fortune Cookies", "Chocolate Chip Chunk Cookie", "Pepsi", "Diet Pepsi", "Mountain Dew", "Dr. Pepper", "Mug Root Beer", "Sierra Mist", "Lipton No Calorie Brisk Peach", "Lipton Brisk Raspberry", "Sobe Lean", "Tropicana Fruit Punch", "Tropicana Lemonade", "Tropicana Pink Lemonade"];
+
 		$(function() {
-			$( "#datepicker" ).datepicker();
+			$("#datepicker").datepicker();
+			$(".foods").autocomplete({source: availableFoods});
 		});
 		
 		function update() {
@@ -134,10 +137,11 @@
 			for(i=1; i<=4; i++) {
 				if(document.getElementById(i).innerHTML == ""){
 					// console.log("next food item is #"+i);
-					var food_item = '<input type="text" placeholder="Food Item" name="food'+i+'" style="margin-bottom:5px;margin-right:5px;">'
+					var food_item = '<input class="foods" type="text" placeholder="Food Item" name="food'+i+'" style="margin-bottom:5px;margin-right:5px;">';
 					var servings = '<input type="number" placeholder="Servings" name="servings'+i+'" min="1" style="width:80px;">';
 					// console.log(food_item +"\n"+ servings + '\n<div id="'+(i+1)+'"></div>');
 					document.getElementById(i).innerHTML = food_item + servings + '<div id="'+(i+1)+'"></div>';
+					$(".foods").autocomplete({source: availableFoods});
 					
 					break;
 				}
