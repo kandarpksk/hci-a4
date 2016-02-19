@@ -11,9 +11,10 @@
 	<div class="container">
 
 		<br/>
+
 		<div class="col-lg-6" style="width:350px;" align="center">
 			<div class="input-group" align="center">
-				<input type="text" class="form-control" aria-label="my location" value="Where are you eating?">
+				<input type="text" class="form-control" aria-label="my location" value="Where are you eating *today*?">
 				<span class="input-group-btn">
 					<button class="btn btn-default" type="button" data-toggle="modal" data-target="#popup">Locate me!</button>
 				</span>
@@ -24,33 +25,36 @@
 
 		<h5 style="color:#8382BF" align="center">You're doing good. Feel free to indulge!</h5>
 
-		<div id="card">
-			<img alt="pic" src="https://cdn4.iconfinder.com/data/icons/food-icons/128/hamburger.png" style="width:35pt; margin-right:5pt; margin-bottom:10px">
-			
-			<h4 style="display:inline;">Hamburger</h4>
-
-			<div class="progress"> fat
-			<div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%" style="display:inline;">
-			</div>
-			</div>
-
-			<div class="progress">
-			<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%"> protein
-			</div>
-			</div>
-
-			<h6 style="color:gray"> (swipe card for more options) </h6>
-
-		</div>
-
 		<br/>
 
-		<div class="ui-widget" align="center">
-			<input id="quantity" value="1 serving" style="width:120px">
-			<h5 style="display:inline;"> for </h5>
-			<input id="time" value="Lunch" style="width:90px">
-			<a href="/history"><button type="button" class="btn btn-primary">Add</button></a>
-		</div>
+		<form id="addSuggestedMealForm" role="form" method="get" action="/history">
+			{{> cards}} <!-- do nothing on refreshing /history? -->
+
+			<br/><br/>
+
+			<div class="ui-widget" align="center">
+				<input type="number" placeholder="Servings" name="servings1" min="1" style="width:120px;">
+				<input type="text" id="datepicker" placeholder="Date of Meal" name="date" style="margin-bottom:10px;">
+
+				<br/>
+				
+				<select id="mealtype" name="t" style="width:90px">
+					<option value="Breakfast" selected>Breakfast</option>
+					<option value="Brunch">Brunch</option>
+					<option value="Lunch">Lunch</option>
+					<option value="Dinner">Dinner</option>
+					<option value="Snack">Snack</option>
+				</select>
+
+				<br/><br/>
+
+				<input type="submit" id="submitBtn" class="btn btn-primary" value="Add Suggested Meal"></input>
+			</div>
+		</form>
+
+		<br/>
+		
+		<!-- <h5 style="display:inline;"> for </h5> -->
 
 		{{> icon-panel}}
 
@@ -64,11 +68,32 @@
 
 	</div>
 
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<script src="js/jquery-1.11.0.js"></script>
 	<script src="js/bootstrap.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<script src="js/nutrition-check.js"></script>
 	<script>
-    	document.getElementById("suggest-iconbar").setAttribute("class","btn btn-secondary navbar-btn");
+		$(function() {
+			$( "#datepicker" ).datepicker();
+		});
+
+		function toggle(num) {
+			if(num == 2) {
+				document.getElementById("card2").setAttribute("style","border: 2px solid #73AD21;");
+				document.getElementById("card1").setAttribute("style","border: 2px solid gray;");
+				document.getElementById("fi2").setAttribute("name","food1");
+				document.getElementById("fi1").setAttribute("name","ignored");
+			}
+			else {
+				document.getElementById("card1").setAttribute("style","border: 2px solid #73AD21;");
+				document.getElementById("card2").setAttribute("style","border: 2px solid gray;");
+				document.getElementById("fi1").setAttribute("name","food1");
+				document.getElementById("fi2").setAttribute("name","ignored");
+			}
+		}
+
+    	document.getElementById("suggest-iconbar").setAttribute("class","btn btn-secondary btn-sm navbar-btn");
     	document.getElementById("suggest-link").setAttribute("href","#");
 	</script>
 </body>

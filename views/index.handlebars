@@ -8,7 +8,7 @@
 	{{> navbar}}
 		What Are You Eating?
 		<!-- voice input icon in a badge -->
-		<span class="badge" data-toggle="modal" data-target="#popup">
+		<span class="badge" data-toggle="modal" data-target="#popup" style="margin-left:140px;">
 			<img src="http://uxrepo.com/download.php?img=static/icon-sets/google-material/svg/android-mic.svg" class="img-responsive" style="width:10px;">
 		</span>
 	{{> navbar-hack}}
@@ -20,31 +20,39 @@
 		<form id="addMealForm" role="form" method="get" action="/history">
 			<!-- make pic clickable to upload "new" image -->
 			<div>
-				<!-- <label for="food"></label> -->
-				<input type="text" id="food" placeholder="Food Item" name="food1" style="margin-bottom:5px;" onChange="update()">
-				<!-- <label for="servings"></label> -->
-				<input type="number" id="servings" placeholder="Servings" name="servings1" min="1">
-				<!-- explain "servings" with a (?) button -->
+				<div id="1">
+					<span class="glyphicon glyphicon-plus-sign" style="margin-right:5px;" onClick="more()"></span>
+					
+					<input class="foods" type="text" placeholder="Main Course" name="food1" style="margin-bottom:5px;" onChange="update()">
+					
+					<input type="number" placeholder="Servings" name="servings1" min="1" style="width:80px;">
+					
+					<span class="glyphicon glyphicon-question-sign" style="margin-left:5px;"></span>
+				
+					<div id="2"></div>
+				</div>
+				
 				<input type="text" id="datepicker" placeholder="Date of Meal" name="date">
+				
 				<select id="mealtype" name="t">
-					<option value="breakfast" selected>Breakfast</option>
-					<option value="brunch">Brunch</option>
-					<option value="lunch">Lunch</option>
-					<option value="dinner">Dinner</option>
-					<option value="snack">Snack</option>
+					<option value="Breakfast" selected>Breakfast</option>
+					<option value="Brunch">Brunch</option>
+					<option value="Lunch">Lunch</option>
+					<option value="Dinner">Dinner</option>
+					<option value="Snack">Snack</option>
 				</select>
 			</div>
-			<!-- <span class="glyphicon glyphicon-plus-sign"></span> -->
+			
 
 			<div class="modal fade" id="popup-choice" {{> popup}}
 				Warning
 					</h4> </div> <div class="modal-body" align="center">
-				In the meal you're about to add, these foods
+				The main course (first item) of this meal
 				<br/><b id="list"></b>
 				<br/>may cause you to consume excess of
 				<br/><b>Fats and Sodium</b>
 				<br/><br/>
-				Are you sure you want to log this meal?
+				Are you sure you want to add it?
 					</div> <div class="modal-footer">
 				<input type="submit" id="submitBtn" class="btn btn-default" value="Add anyway"></input>
 				<button type="button" class="btn btn-primary" data-dismiss="modal">Choose something else
@@ -79,7 +87,7 @@
 		<div class="modal fade" id="soon" {{> popup}}
 			Coming soon...
 				</h4> </div> <div class="modal-body" align="center">
-			You will be able to upload an image/take one directly (depending on what is supported by web browsers).
+			You will be able to upload an image (or click one).
 				</div> <div class="modal-footer">
 			<button type="button" class="btn" data-dismiss="modal">Dismiss
 		{{> popup-hack}}
@@ -102,21 +110,45 @@
 
 	<!-- datepicker script -->
 	<script>
+		var availableFoods=["Chow Mein", "Chow Fun", "Fried Rice", "Brown Steamed Rice", "White Steamed Rice", "Mixed Vegetables", "Country Style Bean Curd", "Eggplant Tofu", "Hot Szechuan Tofu", "Black Pepper Chicken", "Kung Pao Chicken", "Grilled Teriyaki Chicken", "Grilled Asian Chicken", "Teriyaki Chicken", "Asian Chicken", "Mushroom Chicken", "Orange Chicken", "Potato Chicken", "Firecracker Chicken Breast", "String Bean Chicken Breast", "SweetFire Chicken Breast", "Sweet & Sour Chicken Breast", "Beijing Beef", "Broccoli Beef", "Shanghai Angus Steak", "Crispy Shrimp", "Honey Walnut Shrimp", "Golden Treasure Shrimp", "Steamed Ginger Fish", "Chicken Egg Roll", "Chicken Potsticker", "Cream Cheese Rangoon", "Vegetable Spring Roll", "Hot & Sour Soup", "Teriyaki Sauce", "Sweet & Sour Sauce", "Chili Sauce", "Soy Sauce", "Potsticker Sauce", "Fortune Cookies", "Chocolate Chip Chunk Cookie", "Pepsi", "Diet Pepsi", "Mountain Dew", "Dr. Pepper", "Mug Root Beer", "Sierra Mist", "Lipton No Calorie Brisk Peach", "Lipton Brisk Raspberry", "Sobe Lean", "Tropicana Fruit Punch", "Tropicana Lemonade", "Tropicana Pink Lemonade"];
+
 		$(function() {
-			$( "#datepicker" ).datepicker();
+			$("#datepicker").datepicker();
+			$(".foods").autocomplete({source: availableFoods});
 		});
+		
 		function update() {
-			console.log(document.forms["addMealForm"]["food1"].value);
+			// console.log(document.forms["addMealForm"]["food1"].value);
 			if(document.forms["addMealForm"]["food1"].value == "" || document.forms["addMealForm"]["food1"].value == null){
 				document.getElementById("list").innerHTML="No food entered...";
 			} else {
 				document.getElementById("list").innerHTML=document.forms["addMealForm"]["food1"].value;
 			}
 		}
-	</script>
 
-	<script>
-		document.getElementById("home-iconbar").setAttribute("class","btn btn-secondary navbar-btn");
+		function more() {
+			if(document.getElementById('2').innerHTML != "")
+				if(document.getElementById('3').innerHTML != "")
+					if(document.getElementById('4').innerHTML != "") {
+						document.getElementById('5').innerHTML = 'Sorry! Limited to 4 food items per meal.';
+						document.getElementById('5').setAttribute("style","margin-bottom:10px; color:red;");
+						return;
+					}
+			for(i=1; i<=4; i++) {
+				if(document.getElementById(i).innerHTML == ""){
+					// console.log("next food item is #"+i);
+					var food_item = '<input class="foods" type="text" placeholder="Food Item" name="food'+i+'" style="margin-bottom:5px;margin-right:5px;">';
+					var servings = '<input type="number" placeholder="Servings" name="servings'+i+'" min="1" style="width:80px;">';
+					// console.log(food_item +"\n"+ servings + '\n<div id="'+(i+1)+'"></div>');
+					document.getElementById(i).innerHTML = food_item + servings + '<div id="'+(i+1)+'"></div>';
+					$(".foods").autocomplete({source: availableFoods});
+					
+					break;
+				}
+			}
+		}
+	
+		document.getElementById("home-iconbar").setAttribute("class","btn btn-secondary btn-sm navbar-btn");
 		document.getElementById("home-link").setAttribute("href","#");
 	</script>
 </body>
