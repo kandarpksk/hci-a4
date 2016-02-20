@@ -6,11 +6,12 @@
 <body>
 	<!-- enter the page title between the partials -->
 	{{> navbar}}
-		What Are You Eating?
 		<!-- voice input icon in a badge -->
-		<span class="badge" data-toggle="modal" data-target="#popup" style="margin-left:140px;">
+		<span class="badge" data-toggle="modal" data-target="#popup" style="margin-right:5px;">
 			<img src="http://uxrepo.com/download.php?img=static/icon-sets/google-material/svg/android-mic.svg" class="img-responsive" style="width:10px;">
 		</span>
+
+		What Are You Eating?
 	{{> navbar-hack}}
 
 	<div class="container" align="center" style="padding-top:4px;">
@@ -125,7 +126,7 @@
 
 	<!-- datepicker script -->
 	<script>
-		var availableFoods=["Chow Mein", "Chow Fun", "Fried Rice", "Brown Steamed Rice", "White Steamed Rice", "Mixed Vegetables", "Country Style Bean Curd", "Eggplant Tofu", "Hot Szechuan Tofu", "Black Pepper Chicken", "Kung Pao Chicken", "Grilled Teriyaki Chicken", "Grilled Asian Chicken", "Teriyaki Chicken", "Asian Chicken", "Mushroom Chicken", "Orange Chicken", "Potato Chicken", "Firecracker Chicken Breast", "String Bean Chicken Breast", "SweetFire Chicken Breast", "Sweet & Sour Chicken Breast", "Beijing Beef", "Broccoli Beef", "Shanghai Angus Steak", "Crispy Shrimp", "Honey Walnut Shrimp", "Golden Treasure Shrimp", "Steamed Ginger Fish", "Chicken Egg Roll", "Chicken Potsticker", "Cream Cheese Rangoon", "Vegetable Spring Roll", "Hot & Sour Soup", "Teriyaki Sauce", "Sweet & Sour Sauce", "Chili Sauce", "Soy Sauce", "Potsticker Sauce", "Fortune Cookies", "Chocolate Chip Chunk Cookie", "Pepsi", "Diet Pepsi", "Mountain Dew", "Dr. Pepper", "Mug Root Beer", "Sierra Mist", "Lipton No Calorie Brisk Peach", "Lipton Brisk Raspberry", "Sobe Lean", "Tropicana Fruit Punch", "Tropicana Lemonade", "Tropicana Pink Lemonade", "The Original Fish Taco", "The Coastal Trio", "Fish Taco Especial", "Smoky Oaxacan Shrimp Two Taco Plate", "Surf & Turf Two Taco Plate", "Salsa Verde Shrimp Taco", "Regal Springs Tilapia Taco", "Grilled Gourmet Taco with Shrimp", "Pacific Mahi Mahi Taco", "Atlantic Salmon Taco", "Grilled Shrimp & Bacon Burrito", "Smoky Oaxacan Shrimp Burrito", "Beer-battered Fish Burrito", "Langostino Lobster Burrito", "Cabo Plate", "Pacific Mahi Mahi Burrito", "Classic Grilled Shrimp Burrito", "Ancho Citrus Shrimp Burrito", "Atlantic Salmon Burrito", "Regal Springs Tilapia Burrito", "Chipotle Ranch Salad", "Chopped Salad", "Balsamic & Roasted Veggie Salad", "Chipotle Orange Salad", "California Bowl", "Classic Steak Taco", "Classic Chicken Taco", "Rubio's Grilled Steak Street Tacos", "Burrito Especial with Grilled Steak", "Burrito Especial with Grilled Chicken", "Chicken Tortilla Soup", "H-mex Burrito with Chicken", "Rubio's Grilled Chicken Street Tacos", "Baja Grill Burrito with Chicken", "Grilled Gourmet Taco with Steak", "Grilled Gourmet Taco with Chicken", "Baja Grill Burrito with Grilled Steak", "Burrito Especial with Veggies", "Bean & Cheese Burrito", "Grilled Gourmet Taco with Veggies", "Cheese Enchilada Plate with Fire-roasted Sauce", "Shrimp Enchilada Plate with Verde Sauce", "Chicken Enchilada Plate with Fire-roasted Sauce", "Langostino Lobster Enchilada Plate", "Cheese Nachos", "Chicken Nachos", "Cheese Quesadilla", "Chicken Quesadilla", "Kids Original Fish Taco without Salsa", "Kids Chicken Taco", "Kids Chicken Bites", "Kids Chicken Taquitos", "Kids Bean & Cheese Burrito", "Kids Chicken Quesadilla", "Kids Cheese Quesadilla", "Large Side of Citrus Rice", "Large Side of Mexican Rice", "Large Side of Black Beans", "Large Side of No-fried Pinto Beans", "Large Side of Tortilla Chips", "Regular Side of Citrus Rice", "Regular Side of Mexican Rice", "Regular Side of Black Beans", "Regular Side of No-fried Pinto Beans", "Regular Side of Tortilla Chips"];
+		var availableFoods=[{{food-items}}];
 
 		$(function() {
 			$("#datepicker").datepicker();
@@ -153,7 +154,7 @@
 			for(i=1; i<=4; i++) {
 				if(document.getElementById(i).innerHTML == ""){
 					// console.log("next food item is #"+i);
-					var food_item = '<input class="foods" type="text" placeholder="Food Item" name="food'+i+'" style="margin-bottom:5px;margin-right:5px;">';
+					var food_item = '<input class="foods" type="text" placeholder="Food Item" name="food'+i+'" style="margin-bottom:5px;margin-right:4px;">';
 					var servings = '<input type="number" placeholder="Servings" name="servings'+i+'" min="1" style="width:80px;">';
 					// console.log(food_item +"\n"+ servings + '\n<div id="'+(i+1)+'"></div>');
 					document.getElementById(i).innerHTML = food_item + servings + '<div id="'+(i+1)+'"></div>';
