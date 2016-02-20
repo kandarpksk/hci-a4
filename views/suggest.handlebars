@@ -16,7 +16,9 @@
 			<div class="input-group" align="center">
 				<input type="text" class="form-control" aria-label="my location" placeholder="Where are you eating?">
 				<span class="input-group-btn">
-					<button class="btn btn-default" type="button" data-toggle="modal" data-target="#popup">Locate me!</button>
+					<button class="btn btn-default" type="button" data-toggle="modal" data-target="#popup">
+						<span class="glyphicon glyphicon-question-sign"></span>
+					</button>
 				</span>
 			</div>
 		</div>
@@ -30,14 +32,16 @@
 		<form id="addSuggestedMealForm" role="form" method="get" action="/history">
 			{{> cards}} <!-- do nothing on refreshing /history? -->
 
-			<br/><br/>
+			<br/>
 
 			<div class="ui-widget" align="center">
-				<input type="number" placeholder="Servings" name="servings1" min="1" style="width:120px;">
-				<input type="text" id="datepicker" placeholder="Date of Meal" name="date" style="margin-bottom:10px;">
-
-				<br/>
+				<input type="number" placeholder="Servings" name="servings1" min="1" style="width:120px; margin-bottom:10px;">
 				
+				<br/>
+
+				<input type="text" id="datepicker" placeholder="Date of Meal" name="date">
+				
+				<!-- make these "bigger" -->
 				<select id="mealtype" name="t" style="width:90px">
 					<option value="Breakfast" selected>Breakfast</option>
 					<option value="Brunch">Brunch</option>

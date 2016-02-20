@@ -5,10 +5,10 @@
 function info() {
 	var f = document.forms["addMealForm"]["food1"].value;
 	$.get("/ndata/"+f, showInfo);
+	// when there is no food input yet...
 }
 
 function showInfo(result) {
-	console.log(result);
 	document.getElementById("overlay").innerHTML='\
 	<div id="stat" class="alert alert-info" role="alert">\
 		<div id="overlay" style="margin-bottom:-10px;">\

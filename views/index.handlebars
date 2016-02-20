@@ -1,3 +1,5 @@
+<!-- next: push, no popup if err, sessions -->
+
 <!doctype html>
 
 <html>
@@ -18,13 +20,16 @@
 
 		<br/>
 
+		<!-- make it flash... -->
+		<div id="corrections" style="color:maroon"></div>
+
 		<form id="addMealForm" role="form" method="get" action="/history">
 			<!-- make pic clickable to upload "new" image -->
 			<div>
 				<div id="1">
 					<span class="glyphicon glyphicon-plus-sign" style="margin-right:5px;" onClick="more()"></span>
 					
-					<input class="foods" type="text" placeholder="Main Course" name="food1" style="margin-bottom:5px;">
+					<input class="foods" type="text" placeholder="Main Course" name="food1" style="margin-bottom:5px; width:130px;">
 					
 					<input type="number" placeholder="Servings" name="servings1" min="1" style="width:80px;">
 					
@@ -55,9 +60,10 @@
 				<br/><br/>
 				Are you sure you want to add it?
 					</div> <div class="modal-footer">
+				<!-- doesn't serve the "purpose" -->
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Choose something else</button>
 				<input type="submit" id="submitBtn" class="btn btn-default" value="Add anyway"></input>
-				<button type="button" class="btn btn-primary" data-dismiss="modal">Choose something else
-			{{> popup-hack}}
+			</div></div></div></div>
 		</form>
 
 		<br/>
@@ -80,12 +86,26 @@
 
 		<br/><br/>
 
-		<!-- code for various popups follows; it mave be moved anywhere (maybe) -->
+		<!-- code for various popups follows; it may be moved anywhere (maybe) -->
 
 		<div class="modal fade" id="popup" {{> popup}}
 			Wizard of Oz
 				</h4> </div> <div class="modal-body" align="center">
-			Imagine you could simply "tell" your phone what you're eating, making the task of logging meals much simpler :)
+			Imagine such a <i>conversation</i> with your phone:
+			<br/><br/>
+			You: I'm eating two servings of Teriyaki Chicken.
+			<br/>
+			<b>Hmm... Try making it one serving.
+			<br/>
+			Or you may choose another healthier dish, such as -Potato Chicken-?</b>
+			<br/>
+			You: Just add it anyway.
+			<br/><br/>
+			<b>Is this your meal for lunch today?</b>
+			<br/>
+			You: Yes.
+			<br/>
+			<b>Enjoy your meal!</b>
 				</div> <div class="modal-footer">
 			<button type="button" class="btn" data-dismiss="modal">Dismiss
 		{{> popup-hack}}
@@ -137,7 +157,7 @@
 			var f = document.forms["addMealForm"]["food1"].value;
 			// console.log(f);
 			if(f == "" || f == null){
-				document.getElementById("list").innerHTML = "No food entered...";
+				document.getElementById("corrections").innerHTML = "Please enter a main course first!<br/><br/>";
 			} else {
 				document.getElementById("list").innerHTML = f;
 			}
@@ -154,7 +174,7 @@
 			for(i=1; i<=4; i++) {
 				if(document.getElementById(i).innerHTML == ""){
 					// console.log("next food item is #"+i);
-					var food_item = '<input class="foods" type="text" placeholder="Food Item" name="food'+i+'" style="margin-bottom:5px;margin-right:4px;">';
+					var food_item = '<input class="foods" type="text" placeholder="Food Item" name="food'+i+'" style="margin-bottom:5px; margin-right:4px; width:130px;">';
 					var servings = '<input type="number" placeholder="Servings" name="servings'+i+'" min="1" style="width:80px;">';
 					// console.log(food_item +"\n"+ servings + '\n<div id="'+(i+1)+'"></div>');
 					document.getElementById(i).innerHTML = food_item + servings + '<div id="'+(i+1)+'"></div>';
