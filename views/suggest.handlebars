@@ -17,7 +17,7 @@
 				<input type="text" class="form-control" aria-label="my location" placeholder="Where are you eating?">
 				<span class="input-group-btn">
 					<button class="btn btn-default" type="button" data-toggle="modal" data-target="#popup">
-						<span class="glyphicon glyphicon-question-sign"></span>
+						<span class="glyphicon glyphicon-glyphicon glyphicon-map-marker"></span>
 					</button>
 				</span>
 			</div>
@@ -63,9 +63,11 @@
 		{{> icon-panel}}
 
 		<div class="modal fade" id="popup" {{> popup}}
-			Please wait...
+			Please wait
 				</h4> </div> <div class="modal-body" align="center">
-			It's taking a bit longer than expected to find where you are.
+			It's taking a bit longer than expected
+			<br/>
+			to find where you are.
 				</div> <div class="modal-footer">
 			<button type="button" class="btn" data-dismiss="modal">Dismiss
 		{{> popup-hack}}
@@ -84,16 +86,30 @@
 
 		function toggle(num) {
 			if(num == 2) {
-				document.getElementById("card2").setAttribute("style","border: 2px solid #73AD21;");
-				document.getElementById("card1").setAttribute("style","border: 2px solid gray;");
-				document.getElementById("fi2").setAttribute("name","food1");
-				document.getElementById("fi1").setAttribute("name","ignored");
-			}
-			else {
-				document.getElementById("card1").setAttribute("style","border: 2px solid #73AD21;");
-				document.getElementById("card2").setAttribute("style","border: 2px solid gray;");
-				document.getElementById("fi1").setAttribute("name","food1");
-				document.getElementById("fi2").setAttribute("name","ignored");
+				console.log(document.getElementById("fi2").name);
+				if (document.getElementById("fi2").name == "food1") {
+					var random_color = '#'+Math.floor(Math.random()*16777215).toString(16);
+					document.getElementById("card2").setAttribute("style","border: 4px solid "+random_color+";");
+				} else {
+					document.getElementById("card2").setAttribute("style","border: 4px solid #73AD21;");
+					document.getElementById("card1").setAttribute("style","border: 4px solid lightgray;");
+					document.getElementById("fi2").setAttribute("name","food1");
+					document.getElementById("fi2").setAttribute("style","margin-bottom:10px; width:85px; background-color:#d1d1d1");
+					document.getElementById("fi1").setAttribute("name","ignored");
+					document.getElementById("fi1").setAttribute("style","margin-bottom:10px; width:85px;");
+				}
+			} else {
+				if (document.getElementById("fi1").name == "food1") {
+					var random_color = '#'+Math.floor(Math.random()*16777215).toString(16);
+					document.getElementById("card1").setAttribute("style","border: 4px solid "+random_color+";");
+				} else {
+					document.getElementById("card1").setAttribute("style","border: 4px solid #73AD21;");
+					document.getElementById("card2").setAttribute("style","border: 4px solid lightgray;");
+					document.getElementById("fi1").setAttribute("name","food1");
+					document.getElementById("fi1").setAttribute("style","margin-bottom:10px; width:85px; background-color:#d1d1d1;");
+					document.getElementById("fi2").setAttribute("name","ignored");
+					document.getElementById("fi2").setAttribute("style","margin-bottom:10px; width:85px;");
+				}
 			}
 		}
 

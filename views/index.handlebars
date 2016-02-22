@@ -21,7 +21,7 @@
 		<br/>
 
 		<!-- make it flash... -->
-		<div id="corrections" style="color:maroon"></div>
+		<div id="corrections"></div>
 
 		<form id="addMealForm" role="form" method="get" action="/history">
 			<!-- make pic clickable to upload "new" image -->
@@ -54,7 +54,7 @@
 				Warning
 					</h4> </div> <div class="modal-body" align="center">
 				The main course (first item) of this meal
-				<br/><b id="list">Please enter a food first...</b>
+				<br/><b id="list"><!--visible-->error: please enter a food first...</b>
 				<br/>may cause you to consume excess of
 				<br/><b>Fats and Sodium</b>
 				<br/><br/>
@@ -93,19 +93,20 @@
 				</h4> </div> <div class="modal-body" align="center">
 			Imagine such a <i>conversation</i> with your phone:
 			<br/><br/>
-			You: I'm eating two servings of Teriyaki Chicken.
+			<b>What are you eating?</b>
 			<br/>
-			<b>Hmm... Try making it one serving.
-			<br/>
-			Or you may choose another healthier dish, such as -Potato Chicken-?</b>
+			You: I'll probably have two servings of Teriyaki Chicken.
+			<br/><br/>
+			<b>It's very heavy on protein: try making it one serving.
+			Otherwise, you may choose a healthier alternative, such as Potato Chicken.</b>
 			<br/>
 			You: Just add it anyway.
 			<br/><br/>
 			<b>Is this your meal for lunch today?</b>
 			<br/>
 			You: Yes.
-			<br/>
-			<b>Enjoy your meal!</b>
+			<br/><br/>
+			<b>Your lunch has been input. <br/> Enjoy your meal!</b>
 				</div> <div class="modal-footer">
 			<button type="button" class="btn" data-dismiss="modal">Dismiss
 		{{> popup-hack}}
@@ -154,7 +155,7 @@
 		}
 		window.onload = mobilecheck;
 
-		var availableFoods=[{{food-items}}];
+		var availableFoods=["Chow Mein", "Chow Fun", "Fried Rice", "Brown Steamed Rice", "White Steamed Rice", "Mixed Vegetables", "Country Style Bean Curd", "Eggplant Tofu", "Hot Szechuan Tofu", "Black Pepper Chicken", "Kung Pao Chicken", "Grilled Teriyaki Chicken", "Grilled Asian Chicken", "Teriyaki Chicken", "Asian Chicken", "Mushroom Chicken", "Orange Chicken", "Potato Chicken", "Firecracker Chicken Breast", "String Bean Chicken Breast", "SweetFire Chicken Breast", "Sweet & Sour Chicken Breast", "Beijing Beef", "Broccoli Beef", "Shanghai Angus Steak", "Crispy Shrimp", "Honey Walnut Shrimp", "Golden Treasure Shrimp", "Steamed Ginger Fish", "Chicken Egg Roll", "Chicken Potsticker", "Cream Cheese Rangoon", "Vegetable Spring Roll", "Hot & Sour Soup", "Teriyaki Sauce", "Sweet & Sour Sauce", "Chili Sauce", "Soy Sauce", "Potsticker Sauce", "Fortune Cookies", "Chocolate Chip Chunk Cookie", "Pepsi", "Diet Pepsi", "Mountain Dew", "Dr. Pepper", "Mug Root Beer", "Sierra Mist", "Lipton No Calorie Brisk Peach", "Lipton Brisk Raspberry", "Sobe Lean", "Tropicana Fruit Punch", "Tropicana Lemonade", "Tropicana Pink Lemonade", "The Original Fish Taco", "The Coastal Trio", "Fish Taco Especial", "Smoky Oaxacan Shrimp Two Taco Plate", "Surf & Turf Two Taco Plate", "Salsa Verde Shrimp Taco", "Regal Springs Tilapia Taco", "Grilled Gourmet Taco with Shrimp", "Pacific Mahi Mahi Taco", "Atlantic Salmon Taco", "Grilled Shrimp & Bacon Burrito", "Smoky Oaxacan Shrimp Burrito", "Beer-battered Fish Burrito", "Langostino Lobster Burrito", "Cabo Plate", "Pacific Mahi Mahi Burrito", "Classic Grilled Shrimp Burrito", "Ancho Citrus Shrimp Burrito", "Atlantic Salmon Burrito", "Regal Springs Tilapia Burrito", "Chipotle Ranch Salad", "Chopped Salad", "Balsamic & Roasted Veggie Salad", "Chipotle Orange Salad", "California Bowl", "Classic Steak Taco", "Classic Chicken Taco", "Rubio's Grilled Steak Street Tacos", "Burrito Especial with Grilled Steak", "Burrito Especial with Grilled Chicken", "Chicken Tortilla Soup", "H-mex Burrito with Chicken", "Rubio's Grilled Chicken Street Tacos", "Baja Grill Burrito with Chicken", "Grilled Gourmet Taco with Steak", "Grilled Gourmet Taco with Chicken", "Baja Grill Burrito with Grilled Steak", "Burrito Especial with Veggies", "Bean & Cheese Burrito", "Grilled Gourmet Taco with Veggies", "Cheese Enchilada Plate with Fire-roasted Sauce", "Shrimp Enchilada Plate with Verde Sauce", "Chicken Enchilada Plate with Fire-roasted Sauce", "Langostino Lobster Enchilada Plate", "Cheese Nachos", "Chicken Nachos", "Cheese Quesadilla", "Chicken Quesadilla", "Kids Original Fish Taco without Salsa", "Kids Chicken Taco", "Kids Chicken Bites", "Kids Chicken Taquitos", "Kids Bean & Cheese Burrito", "Kids Chicken Quesadilla", "Kids Cheese Quesadilla", "Large Side of Citrus Rice", "Large Side of Mexican Rice", "Large Side of Black Beans", "Large Side of No-fried Pinto Beans", "Large Side of Tortilla Chips", "Regular Side of Citrus Rice", "Regular Side of Mexican Rice", "Regular Side of Black Beans", "Regular Side of No-fried Pinto Beans", "Regular Side of Tortilla Chips"];
 
 		$(function() {
 			$("#datepicker").datepicker();
@@ -165,7 +166,10 @@
 			var f = document.forms["addMealForm"]["food1"].value;
 			// console.log(f);
 			if(f == "" || f == null){
-				document.getElementById("corrections").innerHTML = "Please enter a main course first!<br/><br/>";
+				// random_color code courtesy of paulirish.com/2009/random-hex-color-code-snippets/
+				var random_color = '#'+Math.floor(Math.random()*16777215).toString(16);
+				document.getElementById("corrections").innerHTML = "Please enter a main course before trying to add a meal!<br/><br/>";
+				document.getElementById("corrections").setAttribute("style","color:"+random_color+";");
 			} else {
 				document.getElementById("list").innerHTML = f;
 			}
@@ -176,7 +180,8 @@
 				if(document.getElementById('3').innerHTML != "")
 					if(document.getElementById('4').innerHTML != "") {
 						document.getElementById('5').innerHTML = 'Sorry! Limited to 4 food items per meal.';
-						document.getElementById('5').setAttribute("style","margin-bottom:10px; color:red;");
+						var random_color = '#'+Math.floor(Math.random()*16777215).toString(16);
+						document.getElementById('5').setAttribute("style","margin-bottom:10px; color:"+random_color+";");
 						return;
 					}
 			for(i=1; i<=4; i++) {

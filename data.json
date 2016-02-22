@@ -5,17 +5,17 @@
 			"selected": "yes",
 			"meals": [
 				{	"food1": "Grilled Chicken Tacos",
-					"servings1": "2",
-					"date": "02/09/2016",
+					"servings1": "1",
+					"date": "02/21/2016",
 					"time": "Dinner",
 					"pic": "http://thumbs.dreamstime.com/m/refresh-ccw-flat-black-color-rounded-vector-icon-symbol-drawn-light-gray-background-57876713.jpg"
 				},
 				{	"food1": "Hamburger",
 					"servings1": "1",
 					"food2": "Blandburger",
-					"servings2": "1",
-					"date": "02/11/2016",
-					"time": "Lunch",
+					"servings2": "2",
+					"date": "02/21/2016",
+					"time": "Breakfast",
 					"pic": "http://cdn4.iconfinder.com/data/icons/food-icons/128/hamburger.png"
 				}
 			]
