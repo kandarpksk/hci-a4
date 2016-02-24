@@ -8,13 +8,13 @@
 	Suggestions
 	{{> navbar-hack}}
 
-	<div class="container">
+	<div class="container" align="center">
 
 		<br/>
 
-		<div class="col-lg-6" style="width:350px;" align="center">
-			<div class="input-group" align="center">
-				<input type="text" class="form-control" aria-label="my location" placeholder="Where are you eating?">
+		<div class="col-lg-6" style="width:350px;">
+			<div class="input-group">
+				<input id="places" type="text" class="form-control" aria-label="my location" placeholder="Where are you eating?">
 				<span class="input-group-btn">
 					<button class="btn btn-default" type="button" data-toggle="modal" data-target="#popup">
 						<span class="glyphicon glyphicon-glyphicon glyphicon-map-marker"></span>
@@ -25,7 +25,8 @@
 
 		<br/>
 
-		<h5 style="color:#8382BF" align="center">You're doing good. Feel free to indulge!</h5>
+		<h4 style="color:#8382BF" style="margin-bottom:-10px;">You're doing well.</h4>
+		<h5>Feel free to indulge (a bit)!</h5>
 
 		<br/>
 
@@ -34,7 +35,7 @@
 
 			<br/>
 
-			<div class="ui-widget" align="center">
+			<div class="ui-widget">
 				<input type="number" placeholder="Servings" name="servings1" min="1" style="width:120px; margin-bottom:10px;">
 				
 				<br/>
@@ -64,7 +65,7 @@
 
 		<div class="modal fade" id="popup" {{> popup}}
 			Please wait
-				</h4> </div> <div class="modal-body" align="center">
+				</h4> </div> <div class="modal-body">
 			It's taking a bit longer than expected
 			<br/>
 			to find where you are.
@@ -81,7 +82,8 @@
 	<script src="js/nutrition-check.js"></script>
 	<script>
 		$(function() {
-			$( "#datepicker" ).datepicker();
+			$("#datepicker").datepicker();
+			$("#places").autocomplete({source: ["Rubio's", "Panda Express"]});
 		});
 
 		function toggle(num) {
