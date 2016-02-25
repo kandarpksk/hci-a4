@@ -161,10 +161,10 @@
 			$("#datepicker").datepicker();
 			$(".foods").autocomplete({source: availableFoods});
 			$(".foods").on("autocompletechange", function() {
-				info("autocompletechange");
+				info("autocomplete change");
 			});
 			$(".foods").change(function() {
-				info("change");
+				info("manual typing change");
 			});
 		});
 		

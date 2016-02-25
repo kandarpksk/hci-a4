@@ -3,6 +3,7 @@
 // })
 
 function info(where) {
+	console.log("called for nutritional information from: "+where)
 	var f = document.forms["addMealForm"]["food1"].value;
 	if(f=="" || f==null)
 		console.log("probably a bug: called for nutritional information with no food");
@@ -43,7 +44,7 @@ function showInfo(result) {
 	<div class="caption" style="margin-top:-20px">\
 		<div class="btn-group" role="group" aria-label="...">\
 			<button type="button" class="btn btn-sm btn-default" onclick="pic()">Take a Pic</button>\
-			<button type="button" class="btn btn-sm" onclick=""info("button")">Nutrition Info.</button>\
+			<button type="button" class="btn btn-sm" onclick="info(\"update button press\")">Nutrition Info.</button>\
 		</div>\
 	</div>';
 }
