@@ -8,13 +8,19 @@
 	Suggested Foods
 	{{> navbar-hack}}
 
-	<div class="container">
+	<div class="container" align="center">
 
 		<br/>
 
+<<<<<<< HEAD
 		<div class="col-lg-6" style="width:350px;" align="center">
 			<div class="input-group" align="center">
 				<!--  Old location button <input type="text" class="form-control" aria-label="my location" placeholder="Where are you eating?">
+=======
+		<div class="col-lg-6" style="width:350px;">
+			<div class="input-group">
+				<input id="places" type="text" class="form-control" aria-label="my location" placeholder="Where are you eating?">
+>>>>>>> 8aea631f4c294b9ae601aba12310639357fd502d
 				<span class="input-group-btn">
 					<button class="btn btn-default" type="button" data-toggle="modal" data-target="#popup">
 						<span class="glyphicon glyphicon-glyphicon glyphicon-map-marker"></span>
@@ -39,6 +45,11 @@
 
 		<br/>
 
+<<<<<<< HEAD
+=======
+		<h4 style="color:#8382BF" style="margin-bottom:-10px;">You're doing well.</h4>
+		<h5>Feel free to indulge (a bit)!</h5>
+>>>>>>> 8aea631f4c294b9ae601aba12310639357fd502d
 
 
 		<div class="suggestions" style="display:none;">
@@ -47,9 +58,15 @@
 
 			<br/>
 
+<<<<<<< HEAD
 			<form id="addSuggestedMealForm" role="form" method="get" action="/history">
 				{{> cards}} <!-- do nothing on refreshing /history? -->
 
+=======
+			<div class="ui-widget">
+				<input type="number" placeholder="Servings" name="servings1" min="1" style="width:120px; margin-bottom:10px;">
+				
+>>>>>>> 8aea631f4c294b9ae601aba12310639357fd502d
 				<br/>
 
 				<div class="ui-widget" align="center">
@@ -82,6 +99,7 @@
 		{{> icon-panel}}
 
 		<div class="modal fade" id="popup" {{> popup}}
+<<<<<<< HEAD
 			Choose Nearby Restaurant
 				</div> <div class="modal-body" align="center">
 				<input type="radio" name="group1" value="Rubio's"> Rubio's<br>
@@ -89,6 +107,13 @@
 				<h
 			
 		
+=======
+			Please wait
+				</h4> </div> <div class="modal-body">
+			It's taking a bit longer than expected
+			<br/>
+			to find where you are.
+>>>>>>> 8aea631f4c294b9ae601aba12310639357fd502d
 				</div> <div class="modal-footer">
 			<button type="button" class="btn" data-dismiss="modal">Select
 		{{> popup-hack}}
@@ -102,7 +127,8 @@
 	<script src="js/nutrition-check.js"></script>
 	<script>
 		$(function() {
-			$( "#datepicker" ).datepicker();
+			$("#datepicker").datepicker();
+			$("#places").autocomplete({source: ["Rubio's", "Panda Express"]});
 		});
 
 		function toggle(num) {
