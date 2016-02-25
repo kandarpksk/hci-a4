@@ -5,7 +5,7 @@
 
 <body>
 	{{> navbar}}
-	Suggestions
+	Suggested Foods
 	{{> navbar-hack}}
 
 	<div class="container">
@@ -14,62 +14,83 @@
 
 		<div class="col-lg-6" style="width:350px;" align="center">
 			<div class="input-group" align="center">
-				<input type="text" class="form-control" aria-label="my location" placeholder="Where are you eating?">
+				<!--  Old location button <input type="text" class="form-control" aria-label="my location" placeholder="Where are you eating?">
 				<span class="input-group-btn">
 					<button class="btn btn-default" type="button" data-toggle="modal" data-target="#popup">
 						<span class="glyphicon glyphicon-glyphicon glyphicon-map-marker"></span>
 					</button>
-				</span>
+				</span>-->
+		
+				<h4>Choose a Retaurant: </h4>
+			
+				<select name="Restaurants" onClick="selectPlace()">
+				    <option value="Rubio's">Rubio's</option>
+				    <option value="Panda Express">Panda Express</option>
+			  	</select>
+			
 			</div>
 		</div>
 
+		<script>
+			function selectPlace() {
+			    $(".suggestions").show();  
+			}
+		</script>
+
 		<br/>
 
-		<h5 style="color:#8382BF" align="center">You're doing good. Feel free to indulge!</h5>
 
-		<br/>
 
-		<form id="addSuggestedMealForm" role="form" method="get" action="/history">
-			{{> cards}} <!-- do nothing on refreshing /history? -->
+		<div class="suggestions" style="display:none;">
+
+			<h5 style="color:#8382BF" align="center">You're low on protein! Here are some suggestions:</h5>
 
 			<br/>
 
-			<div class="ui-widget" align="center">
-				<input type="number" placeholder="Servings" name="servings1" min="1" style="width:120px; margin-bottom:10px;">
-				
+			<form id="addSuggestedMealForm" role="form" method="get" action="/history">
+				{{> cards}} <!-- do nothing on refreshing /history? -->
+
 				<br/>
 
-				<input type="text" id="datepicker" placeholder="Date of Meal" name="date">
-				
-				<!-- make these "bigger" -->
-				<select id="mealtype" name="t" style="width:90px">
-					<option value="Breakfast" selected>Breakfast</option>
-					<option value="Brunch">Brunch</option>
-					<option value="Lunch">Lunch</option>
-					<option value="Dinner">Dinner</option>
-					<option value="Snack">Snack</option>
-				</select>
+				<div class="ui-widget" align="center">
+					<input type="number" placeholder="Servings" name="servings1" min="1" style="width:120px; margin-bottom:10px;">
+					
+					<br/>
 
-				<br/><br/>
+					<input type="text" id="datepicker" placeholder="Date of Meal" name="date">
+					
+					<!-- make these "bigger" -->
+					<select id="mealtype" name="t" style="width:90px">
+						<option value="Breakfast" selected>Breakfast</option>
+						<option value="Brunch">Brunch</option>
+						<option value="Lunch">Lunch</option>
+						<option value="Dinner">Dinner</option>
+						<option value="Snack">Snack</option>
+					</select>
 
-				<input type="submit" id="submitBtn" class="btn btn-primary" value="Add Suggested Meal"></input>
-			</div>
-		</form>
+					<br/><br/>
 
-		<br/>
+					<input type="submit" id="submitBtn" class="btn btn-primary" value="Add Suggested Meal"></input>
+				</div>
+			</form>
+
+			<br/>
+		</dib>
 		
 		<!-- <h5 style="display:inline;"> for </h5> -->
 
 		{{> icon-panel}}
 
 		<div class="modal fade" id="popup" {{> popup}}
-			Please wait
-				</h4> </div> <div class="modal-body" align="center">
-			It's taking a bit longer than expected
-			<br/>
-			to find where you are.
+			Choose Nearby Restaurant
+				</div> <div class="modal-body" align="center">
+				<input type="radio" name="group1" value="Rubio's"> Rubio's<br>
+				<input type="radio" name="group1" value="Panda Express"> Panda Express<br>
+				<h
+			
+		
 				</div> <div class="modal-footer">
-			<button type="button" class="btn" data-dismiss="modal">Dismiss
+			<button type="button" class="btn" data-dismiss="modal">Select
 		{{> popup-hack}}
 
 	</div>
