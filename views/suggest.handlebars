@@ -5,72 +5,117 @@
 
 <body>
 	{{> navbar}}
-	Suggestions
+	Suggested Foods
 	{{> navbar-hack}}
 
 	<div class="container" align="center">
 
 		<br/>
 
+<<<<<<< HEAD
+		<div class="col-lg-6" style="width:350px;" align="center">
+			<div class="input-group" align="center">
+				<!--  Old location button <input type="text" class="form-control" aria-label="my location" placeholder="Where are you eating?">
+=======
 		<div class="col-lg-6" style="width:350px;">
 			<div class="input-group">
 				<input id="places" type="text" class="form-control" aria-label="my location" placeholder="Where are you eating?">
+>>>>>>> 8aea631f4c294b9ae601aba12310639357fd502d
 				<span class="input-group-btn">
 					<button class="btn btn-default" type="button" data-toggle="modal" data-target="#popup">
 						<span class="glyphicon glyphicon-glyphicon glyphicon-map-marker"></span>
 					</button>
-				</span>
+				</span>-->
+		
+				<h4>Choose a Retaurant: </h4>
+			
+				<select name="Restaurants" onClick="selectPlace()">
+				    <option value="Rubio's">Rubio's</option>
+				    <option value="Panda Express">Panda Express</option>
+			  	</select>
+			
 			</div>
 		</div>
 
+		<script>
+			function selectPlace() {
+			    $(".suggestions").show();  
+			}
+		</script>
+
 		<br/>
 
+<<<<<<< HEAD
+=======
 		<h4 style="color:#8382BF" style="margin-bottom:-10px;">You're doing well.</h4>
 		<h5>Feel free to indulge (a bit)!</h5>
+>>>>>>> 8aea631f4c294b9ae601aba12310639357fd502d
 
-		<br/>
 
-		<form id="addSuggestedMealForm" role="form" method="get" action="/history">
-			{{> cards}} <!-- do nothing on refreshing /history? -->
+		<div class="suggestions" style="display:none;">
+
+			<h5 style="color:#8382BF" align="center">You're low on protein! Here are some suggestions:</h5>
 
 			<br/>
 
+<<<<<<< HEAD
+			<form id="addSuggestedMealForm" role="form" method="get" action="/history">
+				{{> cards}} <!-- do nothing on refreshing /history? -->
+
+=======
 			<div class="ui-widget">
 				<input type="number" placeholder="Servings" name="servings1" min="1" style="width:120px; margin-bottom:10px;">
 				
+>>>>>>> 8aea631f4c294b9ae601aba12310639357fd502d
 				<br/>
 
-				<input type="text" id="datepicker" placeholder="Date of Meal" name="date">
-				
-				<!-- make these "bigger" -->
-				<select id="mealtype" name="t" style="width:90px">
-					<option value="Breakfast" selected>Breakfast</option>
-					<option value="Brunch">Brunch</option>
-					<option value="Lunch">Lunch</option>
-					<option value="Dinner">Dinner</option>
-					<option value="Snack">Snack</option>
-				</select>
+				<div class="ui-widget" align="center">
+					<input type="number" placeholder="Servings" name="servings1" min="1" style="width:120px; margin-bottom:10px;">
+					
+					<br/>
 
-				<br/><br/>
+					<input type="text" id="datepicker" placeholder="Date of Meal" name="date">
+					
+					<!-- make these "bigger" -->
+					<select id="mealtype" name="t" style="width:90px">
+						<option value="Breakfast" selected>Breakfast</option>
+						<option value="Brunch">Brunch</option>
+						<option value="Lunch">Lunch</option>
+						<option value="Dinner">Dinner</option>
+						<option value="Snack">Snack</option>
+					</select>
 
-				<input type="submit" id="submitBtn" class="btn btn-primary" value="Add Suggested Meal"></input>
-			</div>
-		</form>
+					<br/><br/>
 
-		<br/>
+					<input type="submit" id="submitBtn" class="btn btn-primary" value="Add Suggested Meal"></input>
+				</div>
+			</form>
+
+			<br/>
+		</dib>
 		
 		<!-- <h5 style="display:inline;"> for </h5> -->
 
 		{{> icon-panel}}
 
 		<div class="modal fade" id="popup" {{> popup}}
+<<<<<<< HEAD
+			Choose Nearby Restaurant
+				</div> <div class="modal-body" align="center">
+				<input type="radio" name="group1" value="Rubio's"> Rubio's<br>
+				<input type="radio" name="group1" value="Panda Express"> Panda Express<br>
+				<h
+			
+		
+=======
 			Please wait
 				</h4> </div> <div class="modal-body">
 			It's taking a bit longer than expected
 			<br/>
 			to find where you are.
+>>>>>>> 8aea631f4c294b9ae601aba12310639357fd502d
 				</div> <div class="modal-footer">
-			<button type="button" class="btn" data-dismiss="modal">Dismiss
+			<button type="button" class="btn" data-dismiss="modal">Select
 		{{> popup-hack}}
 
 	</div>
