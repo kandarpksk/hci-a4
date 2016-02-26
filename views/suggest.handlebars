@@ -12,25 +12,19 @@
 
 		<br/>
 
-<<<<<<< HEAD
-		<div class="col-lg-6" style="width:350px;" align="center">
-			<div class="input-group" align="center">
-				<!--  Old location button <input type="text" class="form-control" aria-label="my location" placeholder="Where are you eating?">
-=======
 		<div class="col-lg-6" style="width:350px;">
 			<div class="input-group">
-				<input id="places" type="text" class="form-control" aria-label="my location" placeholder="Where are you eating?">
->>>>>>> 8aea631f4c294b9ae601aba12310639357fd502d
+				<!--  Old location button <input id="places" type="text" class="form-control" aria-label="my location" placeholder="Where are you eating?">
 				<span class="input-group-btn">
 					<button class="btn btn-default" type="button" data-toggle="modal" data-target="#popup">
 						<span class="glyphicon glyphicon-glyphicon glyphicon-map-marker"></span>
 					</button>
 				</span>-->
 		
-				<h4>Choose a Retaurant: </h4>
+				<h4>Choose a Restaurant:</h4>
 			
 				<select name="Restaurants" onClick="selectPlace()">
-				    <option value="Rubio's">Rubio's</option>
+				    <option value="Rubios">Rubio's</option>
 				    <option value="Panda Express">Panda Express</option>
 			  	</select>
 			
@@ -39,18 +33,11 @@
 
 		<script>
 			function selectPlace() {
-			    $(".suggestions").show();  
+			    $(".suggestions").fadeIn();  
 			}
 		</script>
 
 		<br/>
-
-<<<<<<< HEAD
-=======
-		<h4 style="color:#8382BF" style="margin-bottom:-10px;">You're doing well.</h4>
-		<h5>Feel free to indulge (a bit)!</h5>
->>>>>>> 8aea631f4c294b9ae601aba12310639357fd502d
-
 
 		<div class="suggestions" style="display:none;">
 
@@ -58,18 +45,12 @@
 
 			<br/>
 
-<<<<<<< HEAD
 			<form id="addSuggestedMealForm" role="form" method="get" action="/history">
 				{{> cards}} <!-- do nothing on refreshing /history? -->
 
-=======
-			<div class="ui-widget">
-				<input type="number" placeholder="Servings" name="servings1" min="1" style="width:120px; margin-bottom:10px;">
-				
->>>>>>> 8aea631f4c294b9ae601aba12310639357fd502d
 				<br/>
 
-				<div class="ui-widget" align="center">
+				<div class="ui-widget">
 					<input type="number" placeholder="Servings" name="servings1" min="1" style="width:120px; margin-bottom:10px;">
 					
 					<br/>
@@ -99,21 +80,10 @@
 		{{> icon-panel}}
 
 		<div class="modal fade" id="popup" {{> popup}}
-<<<<<<< HEAD
 			Choose Nearby Restaurant
-				</div> <div class="modal-body" align="center">
-				<input type="radio" name="group1" value="Rubio's"> Rubio's<br>
-				<input type="radio" name="group1" value="Panda Express"> Panda Express<br>
-				<h
-			
-		
-=======
-			Please wait
 				</h4> </div> <div class="modal-body">
-			It's taking a bit longer than expected
-			<br/>
-			to find where you are.
->>>>>>> 8aea631f4c294b9ae601aba12310639357fd502d
+			<input type="radio" name="group1" value="Rubios"> Rubio's<br>
+			<input type="radio" name="group1" value="Panda Express"> Panda Express<br>
 				</div> <div class="modal-footer">
 			<button type="button" class="btn" data-dismiss="modal">Select
 		{{> popup-hack}}
@@ -128,7 +98,7 @@
 	<script>
 		$(function() {
 			$("#datepicker").datepicker();
-			$("#places").autocomplete({source: ["Rubio's", "Panda Express"]});
+			$("#places").autocomplete({source: ["Rubios", "Panda Express"]});
 		});
 
 		function toggle(num) {
