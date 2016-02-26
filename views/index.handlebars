@@ -63,8 +63,8 @@
 				Are you sure you want to add it?
 					</div> <div class="modal-footer">
 				<!-- doesn't serve the "purpose" -->
-				<button type="button" class="btn btn-primary" data-dismiss="modal">Choose something else</button>
-				<input type="submit" id="submitBtn" class="btn btn-default" value="Add anyway"></input>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Choose something else</button>
+				<input type="submit" id="submitBtn" class="btn btn-primary" value="Add anyway"></input>
 			</div></div></div></div>
 
 			<div class="modal fade" id="popup-conf" {{> popup}}
@@ -199,12 +199,8 @@
 		$(function() {
 			$("#datepicker").datepicker();
 			$(".foods").autocomplete({source: availableFoods});
-			$(".foods").on("autocompletechange", function() {
-				info("autocomplete change");
-			});
-			$(".foods").change(function() {
-				info("manual typing change");
-			});
+			$(".foods").on("autocompletechange", function() { info("autocomplete change"); });
+			$(".foods").change(function() { info("manual typing change"); });
 		});
 		
 		function update() {
