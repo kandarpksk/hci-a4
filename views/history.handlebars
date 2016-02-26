@@ -5,17 +5,17 @@
 
 <body>
 	{{> navbar}}
-	Previous Meals
+	Past Meals
 	{{> navbar-hack}}
 
 	<div class="container">
 		
-		<table class="table">
+		<table class="table" sortable="sortable">
 			<thead>
 				<tr>
 					<th>Date</th>
 					<th>Meal</th>
-					<th>Picture</th>
+					<th>Nutrition</th>
 					<!-- <th>Totals</th> -->
 				</tr>
 			</thead>
@@ -26,10 +26,10 @@
 					{{#if selected}}
 						{{#each meals}}
 							<tr>
-								<td>{{date}}</td>
+								<td>{{date}}<br/><img src="{{pic}}" class="img-responsive img-rounded" width="60" height="60"></td>
 								<td>
 									<u>{{time}}</u>
-									<br/> {{servings1}} x {{food1}}
+									<br/> <b>{{servings1}} x</b> {{food1}}
 									{{#if food2}}
 									<br/> {{servings2}} x {{food2}}
 									{{/if}}
@@ -42,8 +42,15 @@
 								</td>
 
 								<!-- TODO: fix width (doesn't seem to work well) -->
-								<td>
-									<img src="{{pic}}" class="img-responsive img-rounded">
+								<td class="nutrient" id="{{date}}"> 
+									<script> </script>
+									<!-- $.get("/ndata/"+f, showInfo);  -->
+									{{food1}}
+									
+									<!-- data["dishes"][0]["menu"][i]["name"] == req.params.id-->
+									Calories: {{calories}} <br>
+									Total Fat: {{total_fat}} <br>
+									Protein: {{protein}}
 								</td>
 								
 								<!-- TODO: source these from another JSON -->
@@ -67,6 +74,7 @@
 	<script src="js/jquery-1.11.0.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script src="js/nutrition-check.js"></script>
+	<script src="js/history.js"></script>
 	<script>
     	document.getElementById("history-iconbar").setAttribute("class","btn btn-secondary btn-sm navbar-btn");
     	document.getElementById("history-link").setAttribute("href","#");

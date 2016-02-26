@@ -2,6 +2,7 @@
 // $(document).ready(function() {
 // })
 
+
 function info() {
 	var f = document.forms["addMealForm"]["food1"].value;
 	$.get("/ndata/"+f, showInfo);
