@@ -38,7 +38,7 @@
 					<span id="minus-button" style="color:orange" class="glyphicon glyphicon-minus-sign" style="margin-right:5px;" onClick="window.alert('todo: remove last food input field')"></span>
 				</div>
 				
-				<input type="text" id="datepicker" placeholder="Date of Meal" name="date">
+				<input type="text" id="datepicker" placeholder="Date of Meal" name="date" style="margin-bottom:5px;">
 				
 				<br/>
 
@@ -78,7 +78,7 @@
 					</div> <div class="modal-footer">
 				<!-- doesn't serve the "purpose" -->
 				<button type="button" class="btn btn-primary" data-dismiss="modal">Change something</button>
-				<input type="submit" id="submitBtn" class="btn btn-default" value="Add this meal"></input>
+				<input type="submit" id="submitBtn" class="btn btn-default" value="Log this meal"></input>
 			</div></div></div></div>
 		</form>
 
@@ -237,6 +237,8 @@
 					// console.log(food_item +"\n"+ servings + '\n<div id="'+(i+1)+'"></div>');
 					document.getElementById(i).innerHTML = food_item + servings + '<div id="'+(i+1)+'"></div>';
 					$(".foods").autocomplete({source: availableFoods});
+					$(".foods").on("autocompletechange", function() { info("autocomplete change"); });
+					$(".foods").change(function() { info("manual typing change"); });
 
 					document.getElementById("minus-button").style.visibility = "visible";
 					
