@@ -43,14 +43,14 @@
 
 								<!-- TODO: fix width (doesn't seem to work well) -->
 								<td class="nutrient" id="{{date}}"> 
-									<script> </script>
-									<!-- $.get("/ndata/"+f, showInfo);  -->
-									{{food1}}
 									
-									<!-- data["dishes"][0]["menu"][i]["name"] == req.params.id-->
-									Calories: {{calories}} <br>
-									Total Fat: {{total_fat}} <br>
-									Protein: {{protein}}
+									<!-- $.get("/ndata/"+f, showInfo);  -->
+									<div class="nutrition-info" id="{{date}}-{{time}}-{{food1}}">
+										<!-- data["dishes"][0]["menu"][i]["name"] == req.params.id-->
+										Calories: {{calories}} <br>
+										Total Fat: {{total_fat}} <br>
+										Protein: {{protein}}
+									</div>
 								</td>
 								
 								<!-- TODO: source these from another JSON -->
