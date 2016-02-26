@@ -25,21 +25,23 @@
 
 		<form id="addMealForm" role="form" method="get" action="/history">
 			<!-- make pic clickable to upload "new" image -->
-			<div>
-				<div id="1">
-					<span class="glyphicon glyphicon-plus-sign" style="margin-right:5px;" onClick="more()"></span>
-					
+			<div align="left">
+				<div id="1" style="margin-bottom:15px;">
 					<input class="foods" type="text" placeholder="Main Course" name="food1" style="margin-bottom:5px; width:130px;">
-					
 					<input type="number" placeholder="Servings" name="servings1" min="1" style="width:80px;">
-					
-					<span class="glyphicon glyphicon-question-sign" style="margin-left:5px;" data-toggle="modal" data-target="#quaint"></span>
-				
+					<span class="glyphicon glyphicon-question-sign" style="color:gray;" data-toggle="modal" data-target="#quaint"></span>
+
 					<div id="2"></div>
+
+					<span class="glyphicon glyphicon-plus-sign" style="color:orange;" onClick="more()"></span>
+					<!-- check if hidden element can be "clicked" -->
+					<span id="minus-button" style="color:orange" class="glyphicon glyphicon-minus-sign" style="margin-right:5px;" onClick="window.alert('todo: remove last food input field')"></span>
 				</div>
 				
 				<input type="text" id="datepicker" placeholder="Date of Meal" name="date">
 				
+				<br/>
+
 				<select id="mealtype" name="t">
 					<option value="Breakfast" selected>Breakfast</option>
 					<option value="Brunch">Brunch</option>
@@ -52,7 +54,7 @@
 
 			<div class="modal fade" id="popup-choice" {{> popup}}
 				Warning
-					</h4> </div> <div class="modal-body" align="center">
+					</h4> </div> <div class="modal-body">
 				The main course (first item) of this meal
 				<br/><b id="list"><!--visible-->error: please enter a food first...</b>
 				<br/>may cause you to consume excess of
@@ -77,7 +79,28 @@
 
 		<div id="data"></div>
 
-		{{> take-a-pic}} <!-- overlay (code in the corresponding partial) -->
+		<div id="stat" class="alert alert-info" role="alert">
+			<div id="overlay" style="margin-bottom:-10px;">
+				
+				<h4 align="left">Daily Nutritional Progress</h4>
+				
+				<div class="progress"> calories
+					<div class="progress-bar progress-bar-success" style="width: 20%"></div>
+				</div>
+				
+				<div class="progress">
+					<div class="progress-bar progress-bar-success" style="width: 50%">total fat</div>
+				</div>
+				
+				<div class="progress"> protein
+					<div class="progress-bar progress-bar-success" style="width: 10%"></div>
+				</div>
+				
+				<div class="progress"> fiber
+					<div class="progress-bar progress-bar-success" style="width: 25%"></div>
+				</div>
+			</div>
+		</div>
 
 		<!-- <h5 style="display:inline;">On </h5>
 		<h5 style="display:inline;"> for </h5> -->
@@ -90,7 +113,7 @@
 
 		<div class="modal fade" id="popup" {{> popup}}
 			Wizard of Oz
-				</h4> </div> <div class="modal-body" align="center">
+				</h4> </div> <div class="modal-body">
 			Imagine such a <i>conversation</i> with your phone:
 			<br/><br/>
 			<b>What are you eating?</b>
@@ -113,7 +136,7 @@
 
 		<div class="modal fade" id="quaint" {{> popup}}
 			What is a serving?
-				</h4> </div> <div class="modal-body" align="center">
+				</h4> </div> <div class="modal-body">
 			It corresponds to <b>how much a fast food restaurant serves you in its regular meals</b>.
 			<br/><br/>
 			For liquids, <i>1 serving = a small drink</i> (2 servings being a medium drink and so on).
@@ -123,7 +146,7 @@
 
 		<div class="modal fade" id="soon" {{> popup}}
 			Coming soon...
-				</h4> </div> <div class="modal-body" align="center">
+				</h4> </div> <div class="modal-body">
 			You will be able to upload an image (or click one).
 				</div> <div class="modal-footer">
 			<button type="button" class="btn" data-dismiss="modal">Dismiss
@@ -155,11 +178,19 @@
 		}
 		window.onload = mobilecheck;
 
+		document.getElementById("minus-button").style.visibility = "hidden";
+
 		var availableFoods=["Chow Mein", "Chow Fun", "Fried Rice", "Brown Steamed Rice", "White Steamed Rice", "Mixed Vegetables", "Country Style Bean Curd", "Eggplant Tofu", "Hot Szechuan Tofu", "Black Pepper Chicken", "Kung Pao Chicken", "Grilled Teriyaki Chicken", "Grilled Asian Chicken", "Teriyaki Chicken", "Asian Chicken", "Mushroom Chicken", "Orange Chicken", "Potato Chicken", "Firecracker Chicken Breast", "String Bean Chicken Breast", "SweetFire Chicken Breast", "Sweet & Sour Chicken Breast", "Beijing Beef", "Broccoli Beef", "Shanghai Angus Steak", "Crispy Shrimp", "Honey Walnut Shrimp", "Golden Treasure Shrimp", "Steamed Ginger Fish", "Chicken Egg Roll", "Chicken Potsticker", "Cream Cheese Rangoon", "Vegetable Spring Roll", "Hot & Sour Soup", "Teriyaki Sauce", "Sweet & Sour Sauce", "Chili Sauce", "Soy Sauce", "Potsticker Sauce", "Fortune Cookies", "Chocolate Chip Chunk Cookie", "Pepsi", "Diet Pepsi", "Mountain Dew", "Dr. Pepper", "Mug Root Beer", "Sierra Mist", "Lipton No Calorie Brisk Peach", "Lipton Brisk Raspberry", "Sobe Lean", "Tropicana Fruit Punch", "Tropicana Lemonade", "Tropicana Pink Lemonade", "The Original Fish Taco", "The Coastal Trio", "Fish Taco Especial", "Smoky Oaxacan Shrimp Two Taco Plate", "Surf & Turf Two Taco Plate", "Salsa Verde Shrimp Taco", "Regal Springs Tilapia Taco", "Grilled Gourmet Taco with Shrimp", "Pacific Mahi Mahi Taco", "Atlantic Salmon Taco", "Grilled Shrimp & Bacon Burrito", "Smoky Oaxacan Shrimp Burrito", "Beer-battered Fish Burrito", "Langostino Lobster Burrito", "Cabo Plate", "Pacific Mahi Mahi Burrito", "Classic Grilled Shrimp Burrito", "Ancho Citrus Shrimp Burrito", "Atlantic Salmon Burrito", "Regal Springs Tilapia Burrito", "Chipotle Ranch Salad", "Chopped Salad", "Balsamic & Roasted Veggie Salad", "Chipotle Orange Salad", "California Bowl", "Classic Steak Taco", "Classic Chicken Taco", "Rubio's Grilled Steak Street Tacos", "Burrito Especial with Grilled Steak", "Burrito Especial with Grilled Chicken", "Chicken Tortilla Soup", "H-mex Burrito with Chicken", "Rubio's Grilled Chicken Street Tacos", "Baja Grill Burrito with Chicken", "Grilled Gourmet Taco with Steak", "Grilled Gourmet Taco with Chicken", "Baja Grill Burrito with Grilled Steak", "Burrito Especial with Veggies", "Bean & Cheese Burrito", "Grilled Gourmet Taco with Veggies", "Cheese Enchilada Plate with Fire-roasted Sauce", "Shrimp Enchilada Plate with Verde Sauce", "Chicken Enchilada Plate with Fire-roasted Sauce", "Langostino Lobster Enchilada Plate", "Cheese Nachos", "Chicken Nachos", "Cheese Quesadilla", "Chicken Quesadilla", "Kids Original Fish Taco without Salsa", "Kids Chicken Taco", "Kids Chicken Bites", "Kids Chicken Taquitos", "Kids Bean & Cheese Burrito", "Kids Chicken Quesadilla", "Kids Cheese Quesadilla", "Large Side of Citrus Rice", "Large Side of Mexican Rice", "Large Side of Black Beans", "Large Side of No-fried Pinto Beans", "Large Side of Tortilla Chips", "Regular Side of Citrus Rice", "Regular Side of Mexican Rice", "Regular Side of Black Beans", "Regular Side of No-fried Pinto Beans", "Regular Side of Tortilla Chips"];
 
 		$(function() {
 			$("#datepicker").datepicker();
 			$(".foods").autocomplete({source: availableFoods});
+			$(".foods").on("autocompletechange", function() {
+				info("autocomplete change");
+			});
+			$(".foods").change(function() {
+				info("manual typing change");
+			});
 		});
 		
 		function update() {
@@ -187,11 +218,13 @@
 			for(i=1; i<=4; i++) {
 				if(document.getElementById(i).innerHTML == ""){
 					// console.log("next food item is #"+i);
-					var food_item = '<input class="foods" type="text" placeholder="Food Item" name="food'+i+'" style="margin-bottom:5px; margin-right:4px; width:130px;">';
+					var food_item = '<input class="foods" type="text" placeholder="Food Item #'+i+'" name="food'+i+'" style="margin-bottom:5px; margin-right:4px; width:130px;">';
 					var servings = '<input type="number" placeholder="Servings" name="servings'+i+'" min="1" style="width:80px;">';
 					// console.log(food_item +"\n"+ servings + '\n<div id="'+(i+1)+'"></div>');
 					document.getElementById(i).innerHTML = food_item + servings + '<div id="'+(i+1)+'"></div>';
 					$(".foods").autocomplete({source: availableFoods});
+
+					document.getElementById("minus-button").style.visibility = "visible";
 					
 					break;
 				}
