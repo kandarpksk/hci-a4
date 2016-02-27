@@ -2,14 +2,18 @@
 var meal_total = [0, 0, 0, 0];
 var reqs = [2000, 65, 50, 25];
 
-function info(where) {
-	console.log("called for nutritional information from: "+where)
+function info(where, l) {
+	console.log("called for nutritional information from: "+where+" with l="+l)
 	
-	var f = document.forms["addMealForm"]["food1"].value;
-	if(f=="" || f==null)
-		console.log("probably a bug: called for nutritional information with no food");
-	else
-		$.get("/ndata/"+f, showInfo);
+	meal_total = [0, 0, 0, 0];
+	console.log("reset done")
+	for(i=1; i<=l; i++) {
+		var f = document.forms["addMealForm"]["food"+i].value;
+		if(f!="" && f!=null)
+			// might need something called closures
+			$.get("/ndata/"+f, showInfo);
+	}
+
 	// when there is no food input yet...
 }
 
@@ -17,10 +21,13 @@ var flag = false;
 function reset() {
 	meal_total = [0, 0, 0, 0];
 	flag = true;
-	showInfo(flag);
+	var dummy;
+	showInfo(dummy);
 }
 
 function showInfo(result) {
+	console.log("showInfo() called for: (below)");
+	console.log(result);
 	if(!flag) {
 		meal_total[0] += Number(result["calories"]);
 		meal_total[1] += Number(result["total_fat"]);

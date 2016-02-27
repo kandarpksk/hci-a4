@@ -12,61 +12,15 @@
 
 		<br/>
 
-		<!--<div class="col-lg-6" style="width:350px;">-->
-			<div class="input-group">
-				<!--  Old location button <input id="places" type="text" class="form-control" aria-label="my location" placeholder="Where are you eating?">
-				<span class="input-group-btn">
-					<button class="btn btn-default" type="button" data-toggle="modal" data-target="#popup">
-						<span class="glyphicon glyphicon-glyphicon glyphicon-map-marker"></span>
-					</button>
-				</span>-->
+		<div class="input-group">
+			<input id="rest" type="text" class="form-control" aria-label="my location" placeholder="Choose a Restaurant">
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="button" data-toggle="modal" data-target="#popup">
+					<span class="glyphicon glyphicon-glyphicon glyphicon-map-marker"></span>
+				</button>
+			</span>
+		</div>
 		
-				<h4>Choose a Restaurant:</h4>
-			
-				<form id="chooseRestaurantForm" role="form" method="get" action="/suggest">
-					<select name="Restaurants" id="restaurantChoice" onClick="selectPlace()">
-						<option value="--select--">--select--</option>
-					    <option value="Rubios">Rubio's</option>
-					    <option value="Panda Express">Panda Express</option>
-				  	</select>	
-
-			  	</form>
-			</div>
-		<!--</div>-->
-
-		<script>
-			function selectPlace() {
-			   	var id = $(this).children(":selected").attr("value");
-				// console.log(id);
-				if(id == "Panda Express") {
-					$("#rubios").hide();
-					$("#panda").fadeIn();
-					$(".suggestions").fadeIn();
-				} else if(id == "Rubios") {
-					$("#panda").hide();
-					$("#rubios").fadeIn();
-					$(".suggestions").fadeIn();
-				}
-
-			    //$var place = ("#Restaurants")
-				//console.log(#restaurantChoice);
-				$('#restaurantChoice').change(function() {
-					console.log("id");
-					var id = $(this).children(":selected").attr("value");
-					console.log(id);
-					if(id == "Panda Express"){
-						$("#rubios").hide();
-						$("#panda").fadeIn();
-						$(".suggestions").fadeIn();
-					} else if(id == "Rubios") {
-						$("#panda").hide();
-						$("#rubios").fadeIn();
-						$(".suggestions").fadeIn();
-					}
-				});
-			}
-		</script>
-
 		<br/>
 
 		<div class="container-fluid" id="rubios" style="display:none;">
@@ -98,7 +52,7 @@
 								<div class="col-xs-4" id="card2" style="border: 4px solid lightgray;" align="center">
 									
 								
-									<h4>Burrito Expecial With Chicken</h4>
+									<h4>Burrito Expecial with Chicken</h4>
 									<input type="hidden" id="fi2" name="food2"  onClick="toggle(2)" readonly>
 
 									<div class="progress" style="margin-bottom:5px">
@@ -225,7 +179,7 @@
 	<script>
 		$(function() {
 			$("#datepicker").datepicker();
-			$("#places").autocomplete({source: ["Rubios", "Panda Express"]});
+			$("#rest").autocomplete({source: ["Rubios", "Panda Express"]});
 		});
 
 		function toggle(num) {
@@ -257,8 +211,22 @@
 			}
 		}
 
-    	document.getElementById("suggest-iconbar").setAttribute("class","btn btn-secondary btn-sm navbar-btn");
-    	document.getElementById("suggest-link").setAttribute("href","#");
+		$('#rest').on("autocompletechange", function() {
+			var id = $(this)[0].value;
+
+			if(id == "Panda Express"){
+				$("#rubios").hide();
+				$("#panda").fadeIn();
+				$(".suggestions").fadeIn();
+			} else if(id == "Rubios") {
+				$("#panda").hide();
+				$("#rubios").fadeIn();
+				$(".suggestions").fadeIn();
+			}
+		});
+
+    	// document.getElementById("suggest-iconbar").setAttribute("class","btn btn-secondary btn-sm navbar-btn");
+    	// document.getElementById("suggest-link").setAttribute("href","#");
 	</script>
 </body>
 </html>

@@ -1,20 +1,75 @@
-<nav class="navbar navbar-default navbar-fixed-bottom">
+<div id="footer-wrapper">
+	<div class="footer navbar-fixed-bottom">
+		<div class="container-fluid">
+			<div class="btn-group btn-group-justified" role="group" aria-label="...">
+			<div class="btn-group" role="group">
+				<a 
+					type="button" 
+					class="my-nav-footer-btn btn btn-lg btn-default {{#if page_home}} active {{/if}}" 
+					{{#unless page_home}} href="/" {{/unless}}
+				>
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					<br/>
+					<p style="font-size:13px; margin-top:2px;">Enter<br/>a Meal</p>
+				</a>
+			</div>
+			<div class="btn-group" role="group">
+				<a 
+					type="button" 
+					class="my-nav-footer-btn btn btn-lg btn-default {{#if page_suggestions}} active {{/if}}" 
+					{{#unless page_suggestions}} href="/suggest"{{/unless}}
+				>
+					<span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span>
+					<br/>
+					<p style="font-size:13px; margin-top:2px;">Suggest<br/>-ions</p>
+				</a>
+			</div>
+			<div class="btn-group" role="group">
+				<a 
+					type="button" 
+					class="my-nav-footer-btn btn btn-lg btn-default {{#if page_history}} active {{/if}}"
+					{{#unless page_history}} href="/history" {{/unless}}
+				>
+					<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+					<br/>
+					<p style="font-size:13px; margin-top:2px;">Past<br/>Meals</p>
+				</a>
+			</div>
+			<div class="btn-group" role="group">
+				<a 
+					type="button" 
+					class="my-nav-footer-btn btn btn-lg btn-default {{#if page_settings}} active {{/if}}" 
+					{{#unless page_settings}} href="/settings" {{/unless}}
+				>
+					<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+					<br/>
+					<font size="2px">Settings</font>
+					<br>
+					<font style="visibility:hidden;">...</font>
+				</a>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>
+
+<!-- <nav class="navbar navbar-default navbar-fixed-bottom">
 	<div class="container-fluid">
 		<div class="navbar-header" align="center">
 			<div class="btn-group" role="group" aria-label="navbar">
 				<a href="/" id="home-link">
 					<button type="button" class="btn btn-default btn-sm navbar-btn" aria-label="add" id="home-iconbar">Add Meal
-						<!-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> -->
+						<! <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> >
 					</button>
 				</a>
 				<a href="/suggest" id="suggest-link">
 					<button type="button" class="btn btn-default btn-sm navbar-btn" aria-label="suggest" id="suggest-iconbar">Suggestions
-						<!-- <span class="glyphicon glyphicon-flash" aria-hidden="true"></span> -->
+						<! <span class="glyphicon glyphicon-flash" aria-hidden="true"></span> >
 					</button>
 				</a>
 				<a href="/history" id="history-link">
 					<button type="button" class="btn btn-default btn-sm navbar-btn" aria-label="history" id="history-iconbar">Past Meals
-						<!-- <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> -->
+						<! <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> >
 					</button>
 				</a>
 				<a href="/settings" id="settings-link">
@@ -25,15 +80,4 @@
 			</div>
 		</div>
 	</div>
-</nav>
-
-<!-- <div id="footer">
-	<div class="col-xs-12 navbar-inverse navbar-fixed-bottom">
-	<div class="row" id="bottomNav">
-		<div class="col-xs-3 text-center"><a href="/"><i class="glyphicon glyphicon-plus"></i></a></div>
-		<div class="col-xs-3 text-center"><a href="/suggest"><i class="glyphicon glyphicon-flash"></i></a></div>
-		<div class="col-xs-3 text-center"><a href="/history"><i class="glyphicon glyphicon-calendar"></i></a></div>
-		<div class="col-xs-3 text-center"><a href="/settings"><i class="glyphicon glyphicon-cog"></i></a></div>
-	</div>
-	</div>
-</div> -->
+</nav> -->
