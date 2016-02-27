@@ -12,7 +12,7 @@ var settings = require('./routes/settings'); // toggle options
 var history = require('./routes/history'); // past meals
 var menu = require('./routes/menu'); // full screen (for now)
 var onboarding = require('./routes/onboarding');
-var ndata = require('./routes/ndata');
+var data = require('./routes/data');
 
 var app = express();
 
@@ -43,7 +43,8 @@ app.get('/suggest', suggest.view);
 app.get('/settings', settings.view);
 app.get('/history', history.view);
 app.get('/menu', menu.view);
-app.get('/ndata/:id', ndata.view);
+app.get('/data/nutrition/:dish', data.detail);
+app.get('/data/dishes/:restaurant', data.list);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

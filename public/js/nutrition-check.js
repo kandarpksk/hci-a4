@@ -11,7 +11,7 @@ function info(where, l) {
 		var f = document.forms["addMealForm"]["food"+i].value;
 		if(f!="" && f!=null)
 			// might need something called closures
-			$.get("/ndata/"+f, showInfo);
+			$.get("/data/nutrition/"+f, showInfo);
 	}
 
 	// when there is no food input yet...
