@@ -24,8 +24,8 @@
 		<br/>
 
 		<div class="container-fluid" id="page" style="display:none;">
-			<h5 style="color:#8382BF; margin-bottom:1px;">You're low on protein!</h5>
-			<a onclick="wth()">Refresh</a> suggestions below.
+			<h5 style="color:#8382BF; margin-bottom:1px;">You're low on <i>protein</i>.</h5>
+			See suggestions below. <a onclick="source_suggestions('random')">Click here for more!</a>
 			<br/><br/>
 			<div class="row" style="margin-left:10px;">
 				<div onClick="toggle(1)">
@@ -33,12 +33,12 @@
 						<h4 id="food1-name"></h4>
 						<input type="hidden" id="fi1" name="food1" readonly>
 						<!-- cap to 100%? -->
-						<div class="progress" style="margin-bottom:5px"> fat
-							<div id="food1-fat" class="progress-bar" role="progressbar" style="width:40%" style="display:inline;">
+						<div class="progress" style="margin-bottom:5px"><span id="outside-fat1">fat</span>
+							<div id="food1-fat" class="progress-bar" role="progressbar" style="width:0%; min-width:2em;" style="display:inline;">0%
 							</div>
 						</div>
-						<div class="progress" style="margin-bottom:5px"> protein
-							<div id="food1-protein" class="progress-bar" role="progressbar" style="width:70%">
+						<div class="progress" style="margin-bottom:5px"><span id="outside-protein2">protein</span>
+							<div id="food1-protein" class="progress-bar" role="progressbar" style="width:0%; min-width:2em;">0%
 							</div>
 						</div>
 					</div>
@@ -47,12 +47,12 @@
 					<div class="col-xs-5" id="card2" style="border: 4px solid lightgray;" align="center">
 						<h4 id="food2-name"></h4>
 						<input type="hidden" id="fi2" name="food2" readonly>
-						<div class="progress" style="margin-bottom:5px">
-							<div id="food2-fat" class="progress-bar" role="progressbar" style="width:80%" style="display:inline;"> fat
+						<div class="progress" style="margin-bottom:5px"><span id="outside-fat2">fat</span>
+							<div id="food2-fat" class="progress-bar" role="progressbar" style="width:0%; min-width:2em;" style="display:inline;">0%
 							</div>
 						</div>
-						<div class="progress" style="margin-bottom:5px">
-							<div id="food2-protein" class="progress-bar" role="progressbar" style="width:30%"> protein
+						<div class="progress" style="margin-bottom:5px"><span id="outside-protein2">protein</span>
+							<div id="food2-protein" class="progress-bar" role="progressbar" style="width:0%; min-width:2em;">0%
 							</div>
 						</div>
 					</div>
@@ -105,10 +105,12 @@
 			var reqs = [2000, 65, 50, 25];
 			var fp = (result["total_fat"]*100)/reqs[1];
 			var p = (result["protein"]*100)/reqs[2];
-			// console.log(fp);
-			// console.log(p);
-			document.getElementById("food1-fat").setAttribute("style", "width:"+fp+"%;");
-			document.getElementById("food1-protein").setAttribute("style", "width:"+p+"%;");
+			var min=3; if (fp<10) min=2;
+			document.getElementById("food1-fat").innerHTML = parseInt(fp)+"%";
+			document.getElementById("food1-fat").setAttribute("style", "width:"+fp+"%; min-width:"+min+"em;");
+			var min=3; if (p<10) min=2;
+			document.getElementById("food1-protein").innerHTML = parseInt(p)+"%";
+			document.getElementById("food1-protein").setAttribute("style", "width:"+p+"%; min-width:"+min+"em;");
 			var re = $("#rest")[0].value;
 			if (re == "Rubio's") re = "Rubios";
 			$.get("/data/dishes/"+re, update2);
@@ -120,18 +122,20 @@
 			var p = (result["protein"]*100)/reqs[2];
 			// console.log(fp);
 			// console.log(p);
-			document.getElementById("food2-fat").setAttribute("style", "width:"+fp+"%;");
-			document.getElementById("food2-protein").setAttribute("style", "width:"+p+"%;");
+			var min=3; if(fp<10) min=2;
+			document.getElementById("food2-fat").innerHTML = parseInt(fp)+"%";
+			document.getElementById("food2-fat").setAttribute("style", "width:"+fp+"%; min-width:"+min+"em;");
+			var min=3; if(p<10) min=2;
+			document.getElementById("food2-protein").innerHTML = parseInt(p)+"%";
+			document.getElementById("food2-protein").setAttribute("style", "width:"+p+"%; min-width:"+min+"em;");
 		}
-		function wth() {
+		function source_suggestions(nutrient) {
 			var re = $("#rest")[0].value;
 			if (re == "Rubio's") re = "Rubios";
-			$.get("/data/dishes/"+re, update_suggestions);
+			$.get("/data/dishes/"+re+"/"+nutrient, update_suggestions);
 		}
 		$('#rest').on("autocompletechange", function() {
-			var re = $(this)[0].value;
-			if (re == "Rubio's") re = "Rubios";
-			$.get("/data/dishes/"+re, update_suggestions);
+			source_suggestions('protein');
 			$("#page").fadeIn();
 			$(".suggestions").fadeIn();
 		});

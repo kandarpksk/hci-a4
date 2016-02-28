@@ -44,7 +44,8 @@ app.get('/settings', settings.view);
 app.get('/history', history.view);
 app.get('/menu', menu.view);
 app.get('/data/nutrition/:dish', data.detail);
-app.get('/data/dishes/:restaurant', data.list);
+app.get('/data/dishes/:restaurant', data.random);
+app.get('/data/dishes/:restaurant/:nutrient', data.list);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

@@ -10,10 +10,21 @@ exports.detail = function(req, res){
 	}
 };
 
+exports.random = function(req, res){
+	for (r=0; r<data["dishes"].length; r++) {
+		if (data["dishes"][r]["restaurant"] == req.params.restaurant) {
+			var num = data["dishes"][r]["menu"].length;
+			var pick = Math.floor(Math.random()*num);
+			res.json(data["dishes"][r]["menu"][pick]);
+		}
+	}
+};
+
 exports.list = function(req, res){
 	for (r=0; r<data["dishes"].length; r++) {
 		if (data["dishes"][r]["restaurant"] == req.params.restaurant) {
-			// add logic later //
+			if (req.params.nutrient != 'random')
+				console.log(req.params); //
 			var num = data["dishes"][r]["menu"].length;
 			var pick = Math.floor(Math.random()*num);
 			res.json(data["dishes"][r]["menu"][pick]);
