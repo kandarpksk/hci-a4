@@ -22,3 +22,13 @@ body {
 	padding-top: 55px;
 	padding-bottom: 50px;
 }
+
+.profile {
+    margin-bottom: 10px;
+}
+
+.profile div, video, canvas {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+}

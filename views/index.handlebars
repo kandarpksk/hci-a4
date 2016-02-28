@@ -23,6 +23,10 @@
 		<!-- make it flash... -->
 		<div id="corrections"></div>
 
+		Check out various foods and log what you're eating on this page.
+
+		<br/><br/>
+
 		<form id="addMealForm" role="form" method="get" action="/history">
 			<!-- make pic clickable to upload "new" image -->
 			<div align="left">
@@ -34,12 +38,32 @@
 					<div id="2"></div>
 
 					<span class="glyphicon glyphicon-plus-sign" style="color:orange; font-size:21px;" onClick="more()"></span>
-					<p style="font-size:12px; display:inline;" id="plus-help-text">(choose more food items)</p>
+					<!-- <p style="font-size:12px; display:inline;" id="plus-help-text">(choose more food items)</p> -->
 
 					<!-- check if hidden element can be "clicked" -->
 					<span id="minus-button" style="color:orange; font-size:21px;" class="glyphicon glyphicon-minus-sign" onClick="window.alert('todo: remove last food input field')"></span>
 				</div>
-				
+
+				<div id="camera" class="profile" align="left" style="display:none;">
+					<!-- stretch goal: onclick prompt to change image -->
+					<canvas id="photo-canvas" style="display:none;"></canvas>
+					<video autoplay id="live-video"></video>
+					<button id="camera-button"
+							onclick="(function(e) { e.preventDefault(); $('#photo-canvas').show(); })(event)">
+						Click snapshot of Meal
+					</button>
+					<!-- dismiss option -->
+				</div>
+
+				<button id="take-a-picture" style="margin-bottom:5px;"
+						onclick="(function(e) { e.preventDefault(); $('#camera').show();
+								$('#take-a-picture').hide(); $('#TAP-br').hide(); initCamera();
+							})(event)">
+						Take a Picture
+				</button>
+
+				<br id="TAP-br">
+
 				<input type="text" id="datepicker" placeholder="Date of Meal" name="date" style="margin-bottom:5px;">
 				
 				<br/>
@@ -97,26 +121,37 @@
 
 		<div id="stat" class="alert alert-info" role="alert">
 			<div id="overlay" style="margin-bottom:-15px;">
+				<h4 align="left">
+					<!-- dynamic title. ^ no overlay now -->
+					Daily Nutritional Progress
+					<span class="glyphicon glyphicon-ban-circle" style="color:black; margin-left:23px;" onclick="reset()"></span>
+				</h4>
 				
-				<h4 align="left">Daily Nutritional Progress</h4>
-				
-				<div class="progress"> calories
+				<div class="progress" style="margin-bottom:10px;"> calories
 					<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
+					<div id="calories" class="progress-bar progress-bar-warning" style="width: 0%; display:none;"></div>
 				</div>
 				
-				<div class="progress"> total fat
+				<div class="progress" style="margin-bottom:10px;"> total fat
 					<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
+					<div id="total fat" class="progress-bar progress-bar-warning" style="width: 0%; display:none;"></div>
 				</div>
 				
-				<div class="progress"> protein
+				<div class="progress" style="margin-bottom:10px;"> protein
 					<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
+					<div id="protein" class="progress-bar progress-bar-warning" style="width: 0%; display:none;"></div>
 				</div>
 				
-				<div class="progress"> fiber
+				<div class="progress" style="margin-bottom:25px;"> fiber
 					<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
+					<div id="fiber" class="progress-bar progress-bar-warning" style="width: 0%; display:none;"></div>
 				</div>
 			</div>
-			<font color="black"><span style="color:white; background-color:green;">Green</span> bars show already fulfilled requirements <br/> <span style="color:white; background-color:orange;">Orange</span> bars show the nutrition this meal provides</font>
+			<font color="black">
+				<span style="color:white; background-color:green;">Green</span> bars show <!-- already --> fulfilled requirements
+				<br/>
+				<span style="color:white; background-color:orange;">Orange</span> bars show <!-- the nutrition --> this meal's nutrition <!-- provides -->
+			</font>
 		</div>
 
 		<!-- <h5 style="display:inline;">On </h5>
@@ -182,8 +217,9 @@
 	<!-- from website for datepicker -->
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
-	<!-- our custom scripts that are pretty long or used in multiple places -->
+	<!-- our custom scripts that are long or used in multiple places -->
 	<script src="js/nutrition-check.js"></script>
+	<script src="js/camera.js"></script>
 
 	<!-- datepicker script -->
 	<script>
@@ -244,15 +280,12 @@
 					$(".foods").change(function() { window.alert("Please choose a matching food from the options presented."); });
 
 					$("#minus-button").fadeIn();
-					$("#plus-help-text").hide();
+					// $("#plus-help-text").hide();
 					
 					break;
 				}
 			}
 		}
-	
-		document.getElementById("home-iconbar").setAttribute("class","btn btn-secondary btn-sm navbar-btn");
-		document.getElementById("home-link").setAttribute("href","#");
 	</script>
 </body>
 </html>
