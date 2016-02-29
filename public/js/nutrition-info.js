@@ -1,18 +1,21 @@
 
 var meal_total = [0, 0, 0, 0];
 
-function info(where, l) {
-	// console.log("called for nutritional information from: "+where+" with l="+l)
+function info(where) {
+	// console.log("called for nutritional information from: "+where)
 	
 	meal_total = [0, 0, 0, 0];
-	var temp = ""; // console.log("reset done")
-	for(i=1; i<=l; i++) {
-		temp += "food"+i+" ";
-		var f = document.forms["addMealForm"]["food"+i].value;
-		if(f!="" && f!=null)
-			// might need something called closures
-			$.get("/data/nutrition/"+f, showInfo);
-		else break; // might work
+	var temp = "info. of "; // console.log("reset done")
+	for(i=1; i<=4; i++) {
+		if (document.forms["addMealForm"]["food"+i] != null) {
+			var f = document.forms["addMealForm"]["food"+i].value;
+			if(f!="" && f!=null) {
+				// might need something called closures
+				$.get("/data/nutrition/"+f, showInfo);
+				temp += f+", ";
+			}
+			else break; // might work
+		} else break;
 	}
 	console.log(temp);
 
