@@ -1,5 +1,6 @@
 
 var meal_total = [0, 0, 0, 0];
+var s = 0;
 
 function info(where) {
 	// console.log("called for nutritional information from: "+where)
@@ -9,15 +10,18 @@ function info(where) {
 	for(i=1; i<=4; i++) {
 		if (document.forms["addMealForm"]["food"+i] != null) {
 			var f = document.forms["addMealForm"]["food"+i].value;
+			servings = document.forms["addMealForm"]["servings"+i].value;
+			if (servings == "" || servings == null) s = 0;
+			else s = Number(servings);
 			if(f!="" && f!=null) {
 				// might need something called closures
-				$.get("/data/nutrition/"+f, showInfo);
-				temp += f+", ";
+				$.get("/data/nutrition/"+f+"/"+s, showInfo);
+				// temp += f+", ";
 			}
 			else break; // might work
 		} else break;
 	}
-	console.log(temp);
+	// console.log(temp);
 
 	// when there is no food input yet...
 }
@@ -41,16 +45,19 @@ function showInfo(result) {
 	if(reset_flag)
 		reset_flag = false
 	else {
-		meal_total[0] += Number(result["calories"]);
-		meal_total[1] += Number(result["total_fat"]);
-		meal_total[2] += Number(result["protein"]);
-		meal_total[3] += Number(result["dietary_fiber"]);
-	}
+		var q = result["servings"]; if (q == 0) q=1;
+		meal_total[0] += q * Number(result["calories"]);
+		meal_total[1] += q * Number(result["total_fat"]);
+		meal_total[2] += q * Number(result["protein"]);
+		meal_total[3] += q * Number(result["dietary_fiber"]);
 
-	if((meal_total[1]*100)/reqs[1] > 45)
-		$("#add-meal-button").attr("data-target","#popup-warn");
-	else
-		$("#add-meal-button").attr("data-target","#popup-confirm");
+		if (result["servings"] > 0) { // can't have no servings
+			if((meal_total[1]*100)/reqs[1] > 45 && s > 0)
+				$("#add-meal-button").attr("data-target","#popup-warn");
+			else
+				$("#add-meal-button").attr("data-target","#popup-confirm");
+		}
+	}
 
 	console.log(parseInt((meal_total[0]*100)/reqs[0])+"% "+
 			parseInt((meal_total[1]*100)/reqs[1])+"% "+

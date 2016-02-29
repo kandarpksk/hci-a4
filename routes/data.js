@@ -5,8 +5,11 @@ exports.detail = function(req, res){
 	for (r=0; r<c; r++) {
 		var l = data["dishes"][r]["menu"].length; // number of items
 		for (i=0; i<l; i++)
-			if(data["dishes"][r]["menu"][i]["name"] == req.params.dish)
-				res.json(data["dishes"][r]["menu"][i]);
+			if(data["dishes"][r]["menu"][i]["name"] == req.params.dish){
+				var temp = data["dishes"][r]["menu"][i];
+				temp["servings"] = req.params.servings;
+				res.json(temp);
+			}
 	}
 };
 

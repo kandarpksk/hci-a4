@@ -39,7 +39,7 @@
 				<div id="1">
 					<input class="foods1" type="text" placeholder="Main Course"
 							name="food1" style="margin-bottom:5px; width:130px;">
-					<input type="number" placeholder="Servings"
+					<input type="number" placeholder="Servings" id="servings1"
 							name="servings1" min="1" style="width:80px;" onclick="explain()">
 					<span class="glyphicon glyphicon-question-sign" style="color:gray;"
 							data-toggle="modal" data-target="#quaint" onclick="found()"></span>
@@ -79,7 +79,7 @@
 				<br id="TAP-br"/>
 
 				<input type="text" id="datepicker" placeholder="Date of Meal"
-						name="date" style="margin-bottom:3px;">
+						name="date" style="margin-bottom:3px;" onclick="this.value='';">
 				
 				<br/>
 
@@ -249,9 +249,11 @@
 	<script src="js/camera.js"></script>
 	<script src="js/nutrition-info.js"></script>
 	<script src="js/servings.js"></script>
-	<!-- is this "good" practice to separate out scripts? -->
+	<!-- todo: is this "good" practice to separate out scripts? -->
 	<script src="js/mobilecheck.js"></script>
+	<script src="js/common.js"></script>
 	<script>
+		$("#datepicker").attr("value", today());
 		window.onload = mobilecheck;
 		if (screen.width > 320) // check if it works fine on actual phones
 			$("#reset").attr("style", "color:black; margin-left:"+(23 + screen.width-320)+"px;");
@@ -261,16 +263,20 @@
 		$(".foods1").autocomplete({source: availableFoods});
 		$(".foods1").on("autocompletechange", function() { info("autocomplete change"); });
 		$(".foods1").change(function() { window.alert("Please choose a matching food from the options presented."); }); /*todo*/
-		
+		$("#servings1").change(function() { info("servings change", document.forms["addMealForm"]["servings1"].value); });
+
 		function update() {
 			var f = document.forms["addMealForm"]["food1"].value;
-			if(f == "" || f == null){
+			var s = document.forms["addMealForm"]["servings1"].value;
+			if (f == "" || f == null) {
 				// random_color code courtesy of paulirish.com/2009/random-hex-color-code-snippets/
 				var random_color = '#'+Math.floor(Math.random()*16777215).toString(16);
-				document.getElementById("corrections").innerHTML =
-						"Please enter a main course before trying to add a meal!<br/><br/>";
-					// confirm blank extra food fields
-				document.getElementById("corrections").setAttribute("style","color:"+random_color+";");
+				$("#corrections").text("Please enter a main course before trying to add a meal!");
+				document.getElementById("corrections").setAttribute("style","color:"+random_color+"; margin-bottom:10px;"); //br2
+			} else if (s == "" || s == null) {
+				var random_color = '#'+Math.floor(Math.random()*16777215).toString(16);
+				$("#corrections").text("Please enter the number of servings before trying to add a meal!"); //tags
+				document.getElementById("corrections").setAttribute("style","color:"+random_color+"; margin-bottom:10px;");
 			} else $(".list").text(f);
 		}
 
@@ -288,15 +294,17 @@
 				if(document.getElementById(i).innerHTML == ""){
 					var food_item = '<input class="foods'+i+'" type="text" placeholder="Food Item #'+i+'" '+
 							'name="food'+i+'" style="margin-bottom:5px; margin-right:4px; width:130px;">';
-					var servings = '<input type="number" placeholder="Servings" \
+					var servings = '<input type="number" placeholder="Servings" id="servings'+i+'"\
 							name="servings'+i+'" min="1" style="width:80px;">';
 					document.getElementById(i).innerHTML = food_item + servings +
 							'<div id="'+(i+1)+'" style="display:none;"></div>';
+					var id="servings"+i;
 					$("#"+i).fadeIn();
 					$(".foods"+i).autocomplete({source: availableFoods});
 					// why don't IDs work?
 					$(".foods"+i).on("autocompletechange", function() { info("autocomplete change"); });
 					$(".foods"+i).change(function() { window.alert("Please choose a matching food from the options presented."); });
+					$("#servings"+i).change(function() { info("servings change"); });
 
 					$("#minus-button").show(); // todo: just hide informative alert
 					// $("#plus-help-text").hide();
@@ -305,9 +313,9 @@
 				}
 		}
 		
-		// fadeout, jq.text, todo
 		function remove(i) {
 			document.getElementById(i).innerHTML = "";
+			info("food item #"+(i-1)+" removed");
 		}
 
 		function less() {
