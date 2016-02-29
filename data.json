@@ -1,17 +1,31 @@
-{
-	"users": [
-		{
-			"name": "Kandarp S. Khandwala",
-			"selected": true,
+{	"users": [
+		{	"name": "Kandarp S. Khandwala",
+			"selected": false,
 			"empty": true,
-			"meals": [
+			"days": [
 			]
 		},
-		{
-			"name": "second user",
-			"selected": false,
+		{	"name": "test1 surname",
+			"selected": true,
 			"empty": false,
-			"meals": [
+			"days": [
+				{	"date" : "02/21/2016",
+					"snapshots": true,
+					"meals": [
+						{	"food1": "Hamburger",
+							"servings1": "1",
+							"food2": "Blandburger",
+							"servings2": "2",
+							"time": "Breakfast",
+							"pic": "http://cdn4.iconfinder.com/data/icons/food-icons/128/hamburger.png"
+						},
+						{	"food1": "Grilled Chicken Tacos",
+							"servings1": "1",
+							"time": "Dinner",
+							"pic": ""
+						}
+					]
+				}
 			]
 		}
 	],
@@ -1063,7 +1077,7 @@
 					"sugars": "2",
 					"protein": "13"
 				},
-				{	"name": "Rubio's Grilled Steak Street Tacos",
+				{	"name": "Grilled Steak Street Tacos",
 					"exclude": "vegan,vegetarian",
 					"calories": "120",
 					"total_fat": "4",
@@ -1128,7 +1142,7 @@
 					"sugars": "5",
 					"protein": "36"
 				},
-				{	"name": "Rubio's Grilled Chicken Street Tacos",
+				{	"name": "Grilled Chicken Street Tacos",
 					"exclude": "vegan,vegetarian",
 					"calories": "100",
 					"total_fat": "3",

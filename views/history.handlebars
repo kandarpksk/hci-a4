@@ -34,26 +34,33 @@
 								</td>
 							</tr>
 						{{else}}
-							{{#each meals}}
+							{{#each days}}
 								<tr>
 									<td>{{date}}
 										{{#if snapshots}}
-											<br/> <img src="{{pic}}" class="img-responsive img-rounded" width="60" height="60"></td>
+											{{#each meals}}
+												{{#if pic}}
+													<br/> <img src="{{pic}}" class="img-responsive img-rounded" width="60" height="60"></td>
+												{{/if}}
+											{{/each}}
 										{{else}}
 											<br/> <img src="http://thumbs.dreamstime.com/m/refresh-ccw-flat-black-color-rounded-vector-icon-symbol-drawn-light-gray-background-57876713.jpg" class="img-responsive img-rounded" width="60" height="60"></td>
 										{{/if}}
 									<td>
-										<u>{{time}}</u>
-											<br/> <b>{{servings1}} x</b> {{food1}}
-										{{#if food2}}
-											<br/> <b>{{servings2}} x</b> {{food2}}
-										{{/if}}
-										{{#if food3}}
-											<br/> <b>{{servings3}} x</b> {{food3}}
-										{{/if}}
-										{{#if food4}}
-											<br/> <b>{{servings4}} x</b> {{food4}}
-										{{/if}}
+										{{#each meals}}
+											<u>{{time}}</u>
+												<br/> <b>{{servings1}} x</b> {{food1}}
+											{{#if food2}}
+												<br/> <b>{{servings2}} x</b> {{food2}}
+											{{/if}}
+											{{#if food3}}
+												<br/> <b>{{servings3}} x</b> {{food3}}
+											{{/if}}
+											{{#if food4}}
+												<br/> <b>{{servings4}} x</b> {{food4}}
+											{{/if}}
+											<br/>
+										{{/each}}
 									</td>
 
 									<!-- TODO: fix width (doesn't seem to work well) -->
