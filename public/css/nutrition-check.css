@@ -28,7 +28,7 @@ body {
 }
 
 .profile div, video, canvas {
-    width: 75%;
+    width: 210px;
     margin-left: auto;
     margin-right: auto;
 }

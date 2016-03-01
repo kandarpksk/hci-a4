@@ -25,22 +25,22 @@
 		<!-- make it flash... -->
 		<div id="corrections"></div>
 
-		<div class="alert alert-warning fade in"> <!-- todo: check fade in -->
+		<!-- <div class="alert alert-warning fade in"> <todo: check fade in>
 			<a href="#" class="close" data-dismiss="alert">&times;</a>
 			
 			<strong>Check out</strong> foods
-			<br class="show-small"/> <!-- note this -->
+			<br class="show-small"/> <note this>
 			and <strong>log what you eat</strong>!
-		</div>
+		</div> -->
 
-		<form id="addMealForm" role="form" method="get" action="/history">
+		<form id="addMealForm" role="form" method="get" action="/history" class="form-group">
 			<!-- make pic clickable to upload "new" image -->
 			<div align="left">
-				<div id="1">
-					<input class="foods1" type="text" placeholder="Main Course"
-							name="food1" style="margin-bottom:5px; width:130px;">
-					<input type="number" placeholder="Servings" id="servings1"
-							name="servings1" min="1" style="width:80px;" onclick="explain()">
+				<div id="1" style='margin-bottom:5px'>
+					<input class="foods1 form-control" type="text" placeholder="Main Course"
+							name="food1" style="width:120px; display:inline;">
+					<input type="number" placeholder="Servings" id="servings1" class="form-control"
+							name="servings1" min="1" style="width:120px; display:inline;" onclick="explain()">
 					<!-- <span class="glyphicon glyphicon-question-sign" style="color:gray;"
 							data-toggle="modal" data-target="#quaint" onclick="found()"></span> -->
 					<span class="glyphicon glyphicon-plus"
@@ -53,14 +53,14 @@
 					<!-- stretch goal: onclick prompt to change image -->
 					<canvas id="photo-canvas" style="display:none;"></canvas>
 					<video autoplay id="live-video"></video>
-					<button id="camera-button" onclick="(function(e) {
+					<button id="camera-button" class="btn" style="width:180px;" onclick="(function(e) {
 							e.preventDefault(); $('#photo-canvas').show(); })(event)">
 						Click snapshot of Meal
 					</button>
 					<!-- dismiss option -->
 				</div>
 
-				<button id="take-a-picture" style="margin-bottom:5px;"
+				<button id="take-a-picture" class="btn" style="margin-bottom:5px; width:120px;"
 						onclick="(function(e) { e.preventDefault(); $('#camera').show();
 								$('#take-a-picture').hide(); $('#TAP-br').hide(); initCamera();
 							})(event)">
@@ -69,12 +69,10 @@
 
 				<br id="TAP-br"/>
 
-				<input type="text" id="datepicker" placeholder="Date of Meal"
-						name="date" style="margin-bottom:3px;" onclick="this.value='';">
+				<input type="text" id="datepicker" placeholder="Date of Meal" class="form-control"
+						name="date" style="width:120px; display:inline;" onclick="this.value='';">
 				
-				<br/>
-
-				<select id="mealtype" name="t">
+				<select id="mealtype" name="t" class="form-control" style="width:120px; display:inline;">
 					<option value="Breakfast" selected>Breakfast</option>
 					<option value="Brunch">Brunch</option>
 					<option value="Lunch">Lunch</option>
@@ -83,7 +81,6 @@
 				</select>
 			</div>
 			
-
 			<div class="modal fade" id="popup-warn" {{> popup}}
 				Warning
 					</h4> </div> <div class="modal-body">
@@ -120,8 +117,6 @@
 						class="btn btn-default" value="Log this meal"></input>
 			</div></div></div></div>
 		</form>
-
-		<br/>
 
 		<!-- <input id="quantity" style="width:25px" maxlength="2" placeholder="x">
 		<h5 style="display:inline;"> servings of </h5>

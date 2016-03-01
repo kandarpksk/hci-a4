@@ -21,11 +21,9 @@
 			</span>
 		</div>
 		
-		<br/>
-
 		<div class="container-fluid" id="page" style="display:none;">
 																	<!-- storytelling -->
-			<h5 style="color:#8382BF; margin-bottom:1px;">You're low on <i>protein</i>.</h5>
+			<h3 style="color:#8382BF; margin-bottom:1px;">You're low on <span style="font-style:italic;">protein</span>.</h3>
 			See suggestions below. <a onclick="source_suggestions('random')">Click here for more!</a>
 			<br/><br/>
 			<div class="row" style="margin-left:10px;">
@@ -61,21 +59,19 @@
 			</div>
 		</div>
 
-		<div class="suggestions" style="display:none;">
+		<div class="suggestions form-group" style="display:none;">
 			<br/>
 			<form id="addSuggestedMealForm" role="form" method="get" action="/history">
-				<input type="number" placeholder="Servings" name="servings1" min="1" style="width:120px; margin-bottom:5px;">
-				<br/>
-				<input type="text" id="datepicker" placeholder="Date of Meal" name="date" style="margin-bottom:5px;">
-				<br/>
-				<select id="mealtype" name="t" style="width:90px">
+				<input class="form-control" type="number" placeholder="Servings" name="servings1" min="1" style="width:120px; margin-bottom:5px;">
+				<input class="form-control" type="text" id="datepicker" placeholder="Date of Meal" name="date" style="width:120px; margin-bottom:5px;">
+				<label for="t" style="margin-bottom:-5px; font-variant:small-caps">Meal by time:</label>
+				<select id="mealtype" class="form-control" name="t" style="width:120px">
 					<option value="Breakfast" selected>Breakfast</option>
 					<option value="Brunch">Brunch</option>
 					<option value="Lunch">Lunch</option>
 					<option value="Dinner">Dinner</option>
 					<option value="Snack">Snack</option>
 				</select>
-				<br/>
 				<br/>
 				<input type="submit" id="submitBtn" class="btn btn-primary" value="Add Suggested Meal"></input>
 			</form>
@@ -102,6 +98,7 @@
 	<script src="js/common.js"></script>
 	<script>
 		$("#rest").autocomplete({source: ["Rubio's", "Panda Express"]});
+		$("#datepicker").attr("value", today());
 
 		var reqs = [2000, 65, 50, 25]; var temp; // might not work as intended
 		function update_suggestions(result) {
