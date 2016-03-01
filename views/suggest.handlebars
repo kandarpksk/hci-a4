@@ -31,7 +31,7 @@
 				<div onClick="toggle(1)">
 					<div class="col-xs-5" id="card1" style="border: 4px solid lightgray;" align="center">
 						<h4 id="food1-name"></h4>
-						<input type="hidden" id="fi1" name="ignored" readonly>
+						<input type="hidden" id="fi1" name="ignored" value="" form="addSuggestedMealForm" readonly>
 						<!-- cap to 100%? -->
 						<div class="progress" style="margin-bottom:5px"><span id="outside-fat1">fat</span>
 							<div id="food1-fat" class="progress-bar" role="progressbar" style="width:0%; min-width:2em;" style="display:inline;">0%
@@ -46,7 +46,7 @@
 				<div onClick="toggle(2)">
 					<div class="col-xs-5" id="card2" style="border: 4px solid lightgray;" align="center">
 						<h4 id="food2-name"></h4>
-						<input type="hidden" id="fi2" name="ignored" readonly>
+						<input type="hidden" id="fi2" name="ignored" value="" form="addSuggestedMealForm" readonly>
 						<div class="progress" style="margin-bottom:5px"><span id="outside-fat2">fat</span>
 							<div id="food2-fat" class="progress-bar" role="progressbar" style="width:0%; min-width:2em;" style="display:inline;">0%
 							</div>
@@ -101,9 +101,10 @@
 	<script>
 		$("#rest").autocomplete({source: ["Rubio's", "Panda Express"]});
 
-		var reqs = [2000, 65, 50, 25]; var temp;
+		var reqs = [2000, 65, 50, 25]; var temp; // might not work as intended
 		function update_suggestions(result) {
 			document.getElementById("food1-name").innerHTML = result["name"];
+			$("#fi1").attr("value", result["name"]);
 			var fp = parseInt((result["total_fat"]*100)/reqs[1]);
 			var p = parseInt((result["protein"]*100)/reqs[2]);
 			temp=fp+"% "+p+"% ";
@@ -119,6 +120,7 @@
 		}
 		function update2(result) {
 			document.getElementById("food2-name").innerHTML = result["name"];
+			$("#fi2").attr("value", result["name"]);
 			var fp = parseInt((result["total_fat"]*100)/reqs[1]);
 			var p = parseInt((result["protein"]*100)/reqs[2]);
 			console.log(temp+fp+"% "+p+"%");

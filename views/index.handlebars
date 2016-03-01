@@ -267,17 +267,27 @@
 
 		function update() {
 			var f = document.forms["addMealForm"]["food1"].value;
-			var s = document.forms["addMealForm"]["servings1"].value;
 			if (f == "" || f == null) {
 				// random_color code courtesy of paulirish.com/2009/random-hex-color-code-snippets/
 				var random_color = '#'+Math.floor(Math.random()*16777215).toString(16);
 				$("#corrections").text("Please enter a main course before trying to add a meal!");
 				document.getElementById("corrections").setAttribute("style","color:"+random_color+"; margin-bottom:10px;"); //br2
-			} else if (s == "" || s == null) {
-				var random_color = '#'+Math.floor(Math.random()*16777215).toString(16);
-				$("#corrections").text("Please enter the number of servings before trying to add a meal!"); //tags
-				document.getElementById("corrections").setAttribute("style","color:"+random_color+"; margin-bottom:10px;");
-			} else $(".list").text(f);
+			} else {
+				$(".list").text(f);
+
+				for (i = 1; i <= 4; i++) {
+					if (document.forms["addMealForm"]["food"+i] != null) {
+						if (document.forms["addMealForm"]["food"+i].value != "")
+							var s = document.forms["addMealForm"]["servings"+i].value;
+							if (s == "" || s == null) {
+								var random_color = '#'+Math.floor(Math.random()*16777215).toString(16);
+								$("#corrections").text("Please enter the number of servings before trying to add a meal!"); //tags
+								document.getElementById("corrections").setAttribute("style","color:"+random_color+"; margin-bottom:10px;");
+								break;
+							}
+					} else break;
+				}
+			}
 		}
 
 		function more() {
@@ -315,7 +325,7 @@
 		
 		function remove(i) {
 			document.getElementById(i).innerHTML = "";
-			info("food item #"+(i-1)+" removed");
+			info("item field "+(i-1)+" removed");
 		}
 
 		function less() {
