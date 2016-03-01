@@ -42,10 +42,10 @@
 								</td>
 
 								<!-- TODO: fix width (doesn't seem to work well) -->
-								<td class="nutrient" id="{{date}}"> 
+								<td class="{{food1}}" id="{{date}}"> 
 									
 									<!-- $.get("/ndata/"+f, showInfo);  -->
-									<div class="nutrition-info" id="{{date}}-{{time}}-{{food1}}">
+									<div class="nutrition-info" id="Date:{{date}},Time:{{time}},Food:{{food1}}">
 										<!-- data["dishes"][0]["menu"][i]["name"] == req.params.id-->
 										Calories: {{calories}} <br>
 										Total Fat: {{total_fat}} <br>
