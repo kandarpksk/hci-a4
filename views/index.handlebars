@@ -124,8 +124,9 @@
 							Click snapshot of Meal
 						</button>
 					{{/if}}
-					<canvas id="photo-canvas" style="border:dotted gray; display:none;"></canvas>
-					<video autoplay id="live-video" style="border:dotted gray;"></video> <!-- glyph poster -->
+					<!-- some indication that this will be uploaded, stretch goal: square images -->
+					<canvas id="photo-canvas" style="display:none;"></canvas>
+					<video autoplay id="live-video" style="border:dotted lightgray;"></video> <!-- glyph poster -->
 					<!-- dismiss option -->
 				</div>
 			</div>
@@ -135,17 +136,15 @@
 			<div class="modal fade" id="popup-warn" {{> popup}}
 				Warning
 					</h4> </div> <div class="modal-body">
-				<b class="list"><!--visible-->
-					error: please enter a food first...</b>
-				<br/>may cause you to consume excess of
-				<br/><b>(Total) Fat</b>
+				<b class="list"></b>
+				<!-- <br/> -->
+				<br/><b>is not very balanced, nutritionally.</b>
 				<br/><br/>
 				Are you sure you want to add it?
 				<br/><br/>
 				<i>PS</i>: Try reducing the number of servings or having
 				a similar, but healthier variant of the dish.
 					</div> <div class="modal-footer">
-				<!-- doesn't serve the "purpose" -->
 				<button type="button" data-dismiss="modal" onclick="dismissed_without_buttons=false; ga('send','event','choice','click','something-else')"
 						class="btn {{#if alt}}btn-primary{{else}}btn-default{{/if}}">
 					Choose something else
@@ -158,14 +157,12 @@
 			<div class="modal fade" id="popup-confirm" {{> popup}}
 				Confirmation
 					</h4> </div> <div class="modal-body">
-				Good choice! The main course of this meal
-				<br/><b class="list"><!--visible-->
-					error: please enter a food first...</b>
+				Good choice! This meal, comprising of
+				<br/><b class="list"></b>
 				<br/>is pretty balanced in terms of nutrition.
 				<br/><br/>
 				Go ahead and log this meal?
 					</div> <div class="modal-footer">
-				<!-- doesn't serve the "purpose" -->
 				<button type="button" class="btn btn-primary" data-dismiss="modal">
 					Change something
 				</button>

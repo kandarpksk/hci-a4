@@ -41,6 +41,7 @@ function reset() {
 function showInfo(result) {
 	var reqs = [2000, 65, 50, 25];
 
+	// scrolling to find error msg. is not nice
 	if (result != "dummy") {
 		// console.log("showInfo() called for: (below)");
 		// console.log(result);
@@ -56,12 +57,11 @@ function showInfo(result) {
 		meal_total[3] += q * Number(result["dietary_fiber"]);
 
 		if (result["servings"] > 0) { // can't have no servings to add a food item
-			if((meal_total[1]*100)/reqs[1] > 45 && s > 0)
-				{ if($(".add-meal-button").attr("data-target") != "#bs")
-						$(".add-meal-button").attr("data-target","#popup-warn"); }
-			else
-				{ if($(".add-meal-button").attr("data-target") != "#bs")
-						$(".add-meal-button").attr("data-target","#popup-confirm"); }
+			if(((meal_total[1]*100)/reqs[1] > 40 || (meal_total[0]*100)/reqs[0] > 40) && s > 0) {// why 's' here?
+				if($(".add-meal-button").attr("data-target") != "#bs")
+					$(".add-meal-button").attr("data-target","#popup-warn");
+			} else if($(".add-meal-button").attr("data-target") != "#bs")
+				$(".add-meal-button").attr("data-target","#popup-confirm");
 		} else $(".add-meal-button").attr("data-target", "#bs");
 	}
 
