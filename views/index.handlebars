@@ -18,7 +18,7 @@
 		Enter a Meal
 	{{> navbar-hack}}
 
-	<div class="container" align="center" style="padding-top:4px;">
+	<div class="container" align="center" style="margin-top:-6px;">
 
 		<br/>
 
@@ -38,42 +38,29 @@
 			<div align="left">
 				<div id="1" style='margin-bottom:5px'>
 					<input class="foods1 form-control" type="text" placeholder="Main Course"
-							name="food1" style="width:120px; display:inline;">
+							name="food1" style="width:140px; display:inline;">
 					<input type="number" placeholder="Servings" id="servings1" class="form-control"
-							name="servings1" min="1" style="width:120px; display:inline;" onclick="explain()">
-					<span class="glyphicon glyphicon-question-sign" style="color:gray;"
-							data-toggle="modal" data-target="#quaint" onclick="found()"></span>
+							name="servings1" min="1" style="width:100px; display:inline;" onclick="explain()">
+					{{#if alt}}
+						<span class="glyphicon glyphicon-plus" onclick="more()"
+							style="color:gray; font-size:21px;"></span>
+					{{else}}
+						<span class="glyphicon glyphicon-question-sign" style="color:orange; font-size:21px;"
+								data-toggle="modal" data-target="#quaint" onclick="found()"></span>
+					{{/if}}
 
 					<div id="2" style="display:none;"></div>
 				</div>
 
-				<span class="glyphicon glyphicon-plus-sign"
-						style="color:orange; font-size:21px; margin-bottom:10px;" onclick="more()"></span>
-
-				<span id="minus-button" style="color:orange; font-size:21px; display:none;"
-						class="glyphicon glyphicon-minus-sign" onclick="less()"></span>
+				{{#if alt}}
+				{{else}} <!-- directly negate, possibly? -->
+					<span id="minus-button" style="color:gray; font-size:21px; display:none;"
+							class="glyphicon glyphicon-minus" onclick="less()"></span>
+					<span class="glyphicon glyphicon-plus" onclick="more()"
+						style="color:gray; font-size:21px; margin-bottom:10px;"></span>
 
 				<br/>
-
-				<div id="camera" class="profile" align="left" style="display:none;">
-					<!-- stretch goal: onclick prompt to change image -->
-					<canvas id="photo-canvas" style="display:none;"></canvas>
-					<video autoplay id="live-video"></video>
-					<button id="camera-button" class="btn" style="width:180px;" onclick="(function(e) {
-							e.preventDefault(); $('#photo-canvas').show(); })(event)">
-						Click snapshot of Meal
-					</button>
-					<!-- dismiss option -->
-				</div>
-
-				<button id="take-a-picture" class="btn" style="margin-bottom:5px; width:120px;"
-						onclick="(function(e) { e.preventDefault(); $('#camera').show();
-								$('#take-a-picture').hide(); $('#TAP-br').hide(); initCamera();
-							})(event)">
-						Take a Picture
-				</button>
-
-				<br id="TAP-br"/>
+				{{/if}}
 
 				<input type="text" id="datepicker" placeholder="Date of Meal" class="form-control"
 						name="date" style="width:120px; display:inline;" onclick="this.value='';">
@@ -85,6 +72,40 @@
 					<option value="Dinner">Dinner</option>
 					<option value="Snack">Snack</option>
 				</select>
+
+				<div style="margin-top:10px;">
+					<button id="take-a-picture" class="btn btn-primary" style="width:120px; background:skyblue; border-color:skyblue;"
+							onclick="(function(e) { e.preventDefault(); $('#camera-button').show();
+									$('#take-a-picture').hide(); initCamera();
+								})(event)">
+							Take a Picture
+					</button>
+
+					{{#if alt}}
+						<button id="camera-button" class="btn" style="width:180px; display:none;"
+								onclick="(function(e) { e.preventDefault(); $('#photo-canvas').show(); })(event)">
+							Click snapshot of Meal
+						</button>
+						<button type="button" style="display:none; background:lightgray;"
+								data-toggle="modal" onClick="update()" class="btn add-meal-button">
+							Add Meal
+						</button>
+					{{/if}}
+				</div>
+
+				<div id="camera" class="profile" align="left" style="margin-top:5px;">
+					<!-- stretch goal: onclick prompt to change image -->
+					{{#if alt}}
+					{{else}}
+						<button id="camera-button" class="btn" style="width:180px; display:none; margin-bottom:5px;"
+								onclick="(function(e) { e.preventDefault(); $('#photo-canvas').show(); })(event)">
+							Click snapshot of Meal
+						</button>
+					{{/if}}
+					<canvas id="photo-canvas" style="border:dotted gray; display:none;"></canvas>
+					<video autoplay id="live-video" style="border:dotted gray;"></video> <!-- glyph poster -->
+					<!-- dismiss option -->
+				</div>
 			</div>
 			
 			<div class="modal fade" id="popup-warn" {{> popup}}
@@ -133,56 +154,52 @@
 
 		<div id="data"></div>
 
-		<div id="stat" class="alert alert-info" role="alert">
-			<div id="overlay" style="margin-bottom:-15px;">
-				<h4 align="left">
-					<!-- dynamic title. ^ no overlay now -->
-					Daily Nutritional Progress
-					<!-- <span id="reset" class="glyphicon glyphicon-ban-circle"
-							style="color:black; margin-left:23px;" onclick="reset()"></span> -->
-				</h4>
-				
-				<div class="progress" style="margin-bottom:10px;"> calories
-					<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
-					<!-- max-width to compensate -->
-					<div id="calories" class="progress-bar progress-bar-warning"
-							style="width: 0%; display:none;"></div>
+		<div id="stat" style="display:none;">
+			<div class="alert alert-info" role="alert" style="border:0px">
+				<div id="overlay" style="margin-bottom:-15px;">
+					<h4 align="left">
+						<!-- dynamic title. ^ no overlay now -->
+						Daily Nutritional Progress
+						<!-- <span id="reset" class="glyphicon glyphicon-ban-circle"
+								style="color:black; margin-left:23px;" onclick="reset()"></span> -->
+					</h4>
+					
+					<div class="progress" style="margin-bottom:10px;"> calories
+						<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
+						<!-- max-width to compensate -->
+						<div id="calories" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
+					</div>
+					
+					<div class="progress" style="margin-bottom:10px;"> total fat
+						<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
+						<div id="total fat" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
+					</div>
+					
+					<div class="progress" style="margin-bottom:10px;"> protein
+						<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
+						<div id="protein" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
+					</div>
+					
+					<div class="progress" style="margin-bottom:25px;"> fiber
+						<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
+						<div id="fiber" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
+					</div>
 				</div>
-				
-				<div class="progress" style="margin-bottom:10px;"> total fat
-					<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
-					<div id="total fat" class="progress-bar progress-bar-warning"
-							style="width: 0%; display:none;"></div>
-				</div>
-				
-				<div class="progress" style="margin-bottom:10px;"> protein
-					<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
-					<div id="protein" class="progress-bar progress-bar-warning"
-							style="width: 0%; display:none;"></div>
-				</div>
-				
-				<div class="progress" style="margin-bottom:25px;"> fiber
-					<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
-					<div id="fiber" class="progress-bar progress-bar-warning"
-							style="width: 0%; display:none;"></div>
-				</div>
+				<font color="black">
+					<span style="color:green; background-color:green;">ux</span> fulfilled requirements
+					<span style="color:orange; background-color:orange;">ux</span> current meal
+				</font>
 			</div>
-			<font color="black">
-				<span style="color:white; background-color:green;">Green</span> bars show
-						<!-- already --> fulfilled requirements
-				<br/>
-				<span style="color:white; background-color:orange;">Orange</span> bars show
-						<!-- the nutrition --> this meal's nutrition <!-- provides -->
-			</font>
+
+			{{#if alt}}
+			{{else}}
+				<button type="button" class="btn btn-primary btn-lg add-meal-button"
+						data-toggle="modal" onClick="update()" style="background:black; border:0px;">Add Meal</button>
+			{{/if}}
 		</div>
 
 		<!-- <h5 style="display:inline;">On </h5>
 		<h5 style="display:inline;"> for </h5> -->
-
-		<button type="button" id="add-meal-button" class="btn btn-primary btn-lg"
-				data-toggle="modal" onClick="update()">Add Meal</button>
-
-		<br/><br/>
 
 		<!-- code for various popups follows; it may be moved anywhere (maybe) -->
 
@@ -240,6 +257,10 @@
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<script src="js/camera.js"></script>
 	<script src="js/nutrition-info.js"></script>
+	<script>
+		var line3 = '\nYou may press the question symbol to see this information again.';
+		{{#if alt}} line3 = ""; {{/if}}
+	</script>
 	<script src="js/servings.js"></script>
 	<!-- todo: is this "good" practice to separate out scripts? -->
 	<script src="js/mobilecheck.js"></script>
@@ -283,22 +304,24 @@
 		}
 
 		function more() {
-			if(document.getElementById('2').innerHTML != "")
-				if(document.getElementById('3').innerHTML != "")
-					if(document.getElementById('4').innerHTML != "") {
-						document.getElementById('5').innerHTML = 'Sorry! Limited to 4 food items per meal.';
-						var random_color = '#'+Math.floor(Math.random()*16777215).toString(16);
-						document.getElementById('5').setAttribute("style","margin-bottom:10px; color:"+random_color+";");
-						// see old plan for missed TODOs such as limiting to shades of red
-						return;
-					}
+			// if(document.getElementById('2').innerHTML != "")
+			// 	if(document.getElementById('3').innerHTML != "")
+			// 		if(document.getElementById('4').innerHTML != "") {
+			// 			// document.getElementById('5').innerHTML = '<p style="margin-top:5px; margin-bottom:-10px;">Sorry! Limited to 4 food items per meal.</p>';
+			// 			// var random_color = '#'+Math.floor(Math.random()*16777215).toString(16);
+			// 			// document.getElementById('5').setAttribute("style","margin-bottom:10px; color:"+random_color+";");
+			// 			// see old plan for missed TODOs such as limiting to shades of red
+			// 			return;
+			// 		}
 			for(i=1; i<=4; i++)
 				if(document.getElementById(i).innerHTML == ""){
-					var food_item = '<input class="foods'+i+'" type="text" placeholder="Food Item #'+i+'" '+
-							'name="food'+i+'" style="margin-bottom:5px; margin-right:4px; width:130px;">';
-					var servings = '<input type="number" placeholder="Servings" id="servings'+i+'"\
-							name="servings'+i+'" min="1" style="width:80px;">';
-					document.getElementById(i).innerHTML = food_item + servings +
+					if (i == 4) $(".glyphicon-plus").attr("style", "color:lightgray; font-size:21px;");
+					var food_item = '<input class="foods'+i+' form-control" type="text" placeholder="Food Item #'+i+'" '+
+							'name="food'+i+'" style="margin-right:4px; width:140px; display:inline;">';
+					var servings = '<input type="number" placeholder="Servings" id="servings'+i+'" class="form-control"\
+							name="servings'+i+'" min="1" style="width:100px; display:inline;"> {{#if alt}}\
+							<span style="color:gray; font-size:21px;" class="glyphicon glyphicon-remove" onclick="less()"></span> {{/if}}';
+					document.getElementById(i).innerHTML = "<div style='margin-top:5px;'>" + food_item + servings + "</div>" +
 							'<div id="'+(i+1)+'" style="display:none;"></div>';
 					var id="servings"+i;
 					$("#"+i).fadeIn();
@@ -308,8 +331,11 @@
 					$(".foods"+i).change(function() { window.alert("Please choose a matching food from the options presented."); });
 					$("#servings"+i).change(function() { info("servings change"); });
 
+					{{#if alt}}
+					{{else}}
 					$("#minus-button").show(); // todo: just hide informative alert
-					
+					{{/if}}
+
 					break;
 				}
 		}
@@ -321,10 +347,11 @@
 
 		function less() {
 			if (document.getElementById('4') != null) {
-				if (document.getElementById('4').innerHTML != "") remove(4);
-				else remove(3);
+				if (document.getElementById('4').innerHTML != "") {
+					remove(4); $(".glyphicon-plus").attr("style", "color:gray; font-size:21px;");
+				} else remove(3);
 			} else if (document.getElementById('2').innerHTML != "") {
-				remove(2); $("#minus-button").hide();
+				remove(2); {{#if alt}} {{else}} $("#minus-button").hide(); {{/if}}
 			} // else error
 		}
 	</script>

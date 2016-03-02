@@ -39,6 +39,7 @@ app.get('/welcome', welcome.view);
 app.get('/onboarding', onboarding.view);
 app.get('/login', login.view);
 app.get('/', index.view);
+app.get('/home', index.viewAlt);
 app.get('/suggest', suggest.view);
 app.get('/settings', settings.view);
 app.get('/history', history.view);
