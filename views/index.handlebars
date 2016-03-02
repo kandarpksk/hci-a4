@@ -3,7 +3,29 @@
 <!doctype html>
 
 <html>
-{{> html-header}}
+<head>
+	<!-- Google Analytics Content Experiment code -->
+	<script>function utmx_section(){}function utmx(){}(function(){var
+	k='117778876-1',d=document,l=d.location,c=d.cookie;
+	if(l.search.indexOf('utm_expid='+k)>0)return;
+	function f(n){if(c){var i=c.indexOf(n+'=');if(i>-1){var j=c.
+	indexOf(';',i);return escape(c.substring(i+n.length+1,j<0?c.
+	length:j))}}}var x=f('__utmx'),xx=f('__utmxx'),h=l.hash;d.write(
+	'<sc'+'ript src="'+'http'+(l.protocol=='https:'?'s://ssl':
+	'://www')+'.google-analytics.com/ga_exp.js?'+'utmxkey='+k+
+	'&utmx='+(x?x:'')+'&utmxx='+(xx?xx:'')+'&utmxtime='+new Date().
+	valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
+	'" type="text/javascript" charset="utf-8"><\/sc'+'ript>')})();
+	</script><script>utmx('url','A/B');</script>
+	<!-- End of Google Analytics Content Experiment code -->
+
+	<title>Nutriplus</title>	
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/bootstrap-theme.css" rel="stylesheet">
+	<link href="css/nutrition-check.css" rel="stylesheet">
+</head>
 
 <body>
 	<!-- enter the page title between the partials -->
@@ -46,7 +68,7 @@
 							style="color:gray; font-size:21px;"></span>
 					{{else}}
 						<span class="glyphicon glyphicon-question-sign" style="color:orange; font-size:21px;"
-								data-toggle="modal" data-target="#quaint" onclick="found()"></span>
+								data-toggle="modal" data-target="#quaint" onclick="ga('send','event','servings-explanation','click'); found()"></span>
 					{{/if}}
 
 					<div id="2" style="display:none;"></div>
@@ -108,23 +130,29 @@
 				</div>
 			</div>
 			
+			<!-- todo: fix move to position of camera button -->
+
 			<div class="modal fade" id="popup-warn" {{> popup}}
 				Warning
 					</h4> </div> <div class="modal-body">
-				The first item of this meal
-				<br/><b class="list"><!--visible-->
+				<b class="list"><!--visible-->
 					error: please enter a food first...</b>
 				<br/>may cause you to consume excess of
 				<br/><b>(Total) Fat</b>
 				<br/><br/>
 				Are you sure you want to add it?
+				<br/><br/>
+				<i>PS</i>: Try reducing the number of servings or having
+				a similar, but healthier variant of the dish.
 					</div> <div class="modal-footer">
 				<!-- doesn't serve the "purpose" -->
-				<button type="button" class="btn btn-default" data-dismiss="modal">
+				<button type="button" data-dismiss="modal" onclick="dismissed_without_buttons=false; ga('send','event','choice','click','something-else')"
+						class="btn {{#if alt}}btn-primary{{else}}btn-default{{/if}}">
 					Choose something else
 				</button>
-				<input type="submit" id="submitBtn"
-						class="btn btn-primary" value="Add anyway"></input>
+				<input type="submit" id="submitBtn" value="Add anyway" onclick="dismissed_without_buttons=false; ga('send','event','choice','click','add-anyway')"
+						class="btn {{#if alt}}btn-default{{else}}btn-primary{{/if}}">
+				</input>
 			</div></div></div></div>
 
 			<div class="modal fade" id="popup-confirm" {{> popup}}
@@ -138,10 +166,12 @@
 				Go ahead and log this meal?
 					</div> <div class="modal-footer">
 				<!-- doesn't serve the "purpose" -->
-				<button type="button" class="btn btn-primary"
-						data-dismiss="modal">Change something</button>
-				<input type="submit" id="submitBtn"
-						class="btn btn-default" value="Log this meal"></input>
+				<button type="button" class="btn btn-primary" data-dismiss="modal">
+					Change something
+				</button>
+				<input type="submit" class="btn btn-default"
+						id="submitBtn" value="Log this meal">
+				</input>
 			</div></div></div></div>
 		</form>
 
@@ -249,6 +279,8 @@
 
 	</div>
 
+	<br/> <!-- wth? -->
+
 	{{> icon-panel}}
 
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -266,6 +298,12 @@
 	<script src="js/mobilecheck.js"></script>
 	<script src="js/common.js"></script>
 	<script>
+		var dismissed_without_buttons = true;
+		$('#popup-warn').on('hidden.bs.modal', function () {
+			if (dismissed_without_buttons)
+				ga('send','event','choice','dismiss','neither-button');
+		})
+
 		$("#datepicker").attr("value", today());
 		window.onload = mobilecheck;
 		if (screen.width > 320) // check if it works fine on actual phones
@@ -304,6 +342,7 @@
 		}
 
 		function more() {
+			ga('send','event','plus-button','click');
 			// if(document.getElementById('2').innerHTML != "")
 			// 	if(document.getElementById('3').innerHTML != "")
 			// 		if(document.getElementById('4').innerHTML != "") {
@@ -355,5 +394,6 @@
 			} // else error
 		}
 	</script>
+	{{> google-analytics}}
 </body>
 </html>
