@@ -22,3 +22,23 @@ body {
 	padding-top: 55px;
 	padding-bottom: 50px;
 }
+
+.profile {
+    margin-bottom: 10px;
+}
+
+.profile div, video, canvas {
+    width: 210px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media only screen and (max-device-width: 374px) {
+	.show-small { display: block; }
+	.hide-small { display: none; }
+}
+
+@media only screen and (min-device-width: 375px) {
+	.show-small { display: none; }
+	.hide-small { display: block; }
+}

@@ -19,49 +19,67 @@
 					<!-- <th>Totals</th> -->
 				</tr>
 			</thead>
-			
+
+			<!-- dynamic table how-to? -->
+			<h4 id="welcome" align="center"></h4>
+
 			<tbody>
 				<!-- any other <each> instances to "note"? -->
 				{{#each users}}
 					{{#if selected}}
-						{{#each meals}}
+						{{#if empty}}
 							<tr>
-								<td>{{date}}<br/><img src="{{pic}}" class="img-responsive img-rounded" width="60" height="60"></td>
-								<td>
-									<u>{{time}}</u>
-									<br/> <b>{{servings1}} x</b> {{food1}}
-									{{#if food2}}
-									<br/> {{servings2}} x {{food2}}
-									{{/if}}
-									{{#if food3}}
-									<br/> {{servings3}} x {{food3}}
-									{{/if}}
-									{{#if food4}}
-									<br/> {{servings4}} x {{food4}}
-									{{/if}}
+								<td colspan="3" align="center"><hr/>
+								<h5 style="color:#8382BF;">No meals input yet. Not feeling hungry?</h5>
 								</td>
-
-								<!-- TODO: fix width (doesn't seem to work well) -->
-								<td class="{{food1}}" id="{{date}}"> 
-									
-									<!-- $.get("/ndata/"+f, showInfo);  -->
-									<div class="nutrition-info" id="Date:{{date}},Time:{{time}},Food:{{food1}}">
-										<!-- data["dishes"][0]["menu"][i]["name"] == req.params.id-->
-										Calories: {{calories}} <br>
-										Total Fat: {{total_fat}} <br>
-										Protein: {{protein}}
-									</div>
-								</td>
-								
-								<!-- TODO: source these from another JSON -->
-								<!--
-								<td>Calories: {{calories}} <br>
-									Total Fat: {{total_fat}} <br>
-									Protein: {{protein}}
-								</td> -->
-								
 							</tr>
-						{{/each}}
+						{{else}}
+							{{#each days}}
+								<tr>
+									<td>{{date}}
+										{{#if snapshots}}
+											{{#each meals}}
+												{{#if pic}}
+													<br/> <img src="{{pic}}" class="img-responsive img-rounded" width="60" height="60">
+												{{/if}}
+											{{/each}}
+										{{else}}
+											<br/> <img src="http://thumbs.dreamstime.com/m/refresh-ccw-flat-black-color-rounded-vector-icon-symbol-drawn-light-gray-background-57876713.jpg" class="img-responsive img-rounded" width="60" height="60">
+										{{/if}}
+									</td>
+									
+									<td>
+										{{#each meals}}
+											<!-- breakfast, lunch, etc. -->
+											<u>{{time}}</u> <!-- at which place -->
+												<br/> <b>{{servings1}} x</b> {{food1}}
+											{{#if food2}}
+												<br/> <b>{{servings2}} x</b> {{food2}}
+											{{/if}}
+											{{#if food3}}
+												<br/> <b>{{servings3}} x</b> {{food3}}
+											{{/if}}
+											{{#if food4}}
+												<br/> <b>{{servings4}} x</b> {{food4}}
+											{{/if}}
+											<br/>
+										{{/each}}
+									</td>
+
+									<!-- TODO: fix width (doesn't seem to work well) -->
+									<td class="{{food1}}" id="{{date}}"> 
+										
+										<!-- $.get("/ndata/"+f, showInfo);  -->
+										<div class="nutrition-info" id="Date:{{date}},Time:{{time}},Food:{{food1}}">
+											<!-- data["dishes"][0]["menu"][i]["name"] == req.params.id-->
+											Calories: {{calories}} <br>
+											Total Fat: {{total_fat}} <br>
+											Protein: {{protein}}
+										</div>
+									</td>
+								</tr>
+							{{/each}}
+						{{/if}}
 					{{/if}}
 				{{/each}}
 			</tbody>
@@ -73,11 +91,14 @@
 
 	<script src="js/jquery-1.11.0.js"></script>
 	<script src="js/bootstrap.js"></script>
-	<script src="js/nutrition-check.js"></script>
-	<script src="js/history.js"></script>
+	<script src="js/common.js"></script>
 	<script>
-    	document.getElementById("history-iconbar").setAttribute("class","btn btn-secondary btn-sm navbar-btn");
-    	document.getElementById("history-link").setAttribute("href","#");
+		// document.getElementById("history-iconbar").setAttribute("class","btn btn-secondary btn-sm navbar-btn");
+		// document.getElementById("history-link").setAttribute("href","#");
+		{{#each users}}
+			{{#if selected}}
+				$("#welcome").text("Hello, " + ("{{name}}").split(" ")[0] + "!");
+		{{/if}}{{/each}}
 	</script>
 </body>
 </html>
