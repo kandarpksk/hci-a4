@@ -41,13 +41,19 @@
 							name="food1" style="width:120px; display:inline;">
 					<input type="number" placeholder="Servings" id="servings1" class="form-control"
 							name="servings1" min="1" style="width:120px; display:inline;" onclick="explain()">
-					<!-- <span class="glyphicon glyphicon-question-sign" style="color:gray;"
-							data-toggle="modal" data-target="#quaint" onclick="found()"></span> -->
-					<span class="glyphicon glyphicon-plus"
-							style="color:orange; font-size:21px;" onclick="more()"></span>
+					<span class="glyphicon glyphicon-question-sign" style="color:gray;"
+							data-toggle="modal" data-target="#quaint" onclick="found()"></span>
 
 					<div id="2" style="display:none;"></div>
 				</div>
+
+				<span class="glyphicon glyphicon-plus-sign"
+						style="color:orange; font-size:21px; margin-bottom:10px;" onclick="more()"></span>
+
+				<span id="minus-button" style="color:orange; font-size:21px; display:none;"
+						class="glyphicon glyphicon-minus-sign" onclick="less()"></span>
+
+				<br/>
 
 				<div id="camera" class="profile" align="left" style="display:none;">
 					<!-- stretch goal: onclick prompt to change image -->
@@ -280,9 +286,9 @@
 			if(document.getElementById('2').innerHTML != "")
 				if(document.getElementById('3').innerHTML != "")
 					if(document.getElementById('4').innerHTML != "") {
-						$("#corrections").text("Sorry! Limited to 4 food items per meal.");
+						document.getElementById('5').innerHTML = 'Sorry! Limited to 4 food items per meal.';
 						var random_color = '#'+Math.floor(Math.random()*16777215).toString(16);
-						document.getElementById("corrections").setAttribute("style","color:"+random_color+"; margin-bottom:10px;");
+						document.getElementById('5').setAttribute("style","margin-bottom:10px; color:"+random_color+";");
 						// see old plan for missed TODOs such as limiting to shades of red
 						return;
 					}
@@ -291,9 +297,7 @@
 					var food_item = '<input class="foods'+i+'" type="text" placeholder="Food Item #'+i+'" '+
 							'name="food'+i+'" style="margin-bottom:5px; margin-right:4px; width:130px;">';
 					var servings = '<input type="number" placeholder="Servings" id="servings'+i+'"\
-							name="servings'+i+'" min="1" style="width:80px;">\
-							<span style="color:orange; font-size:21px;"\
-								class="glyphicon glyphicon-remove" onclick="less()"></span>';
+							name="servings'+i+'" min="1" style="width:80px;">';
 					document.getElementById(i).innerHTML = food_item + servings +
 							'<div id="'+(i+1)+'" style="display:none;"></div>';
 					var id="servings"+i;
@@ -304,7 +308,7 @@
 					$(".foods"+i).change(function() { window.alert("Please choose a matching food from the options presented."); });
 					$("#servings"+i).change(function() { info("servings change"); });
 
-					// todo: just hide informative alert
+					$("#minus-button").show(); // todo: just hide informative alert
 					
 					break;
 				}
@@ -320,7 +324,7 @@
 				if (document.getElementById('4').innerHTML != "") remove(4);
 				else remove(3);
 			} else if (document.getElementById('2').innerHTML != "") {
-				remove(2);
+				remove(2); $("#minus-button").hide();
 			} // else error
 		}
 	</script>
