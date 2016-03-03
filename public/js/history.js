@@ -5,59 +5,47 @@ $(document).ready(function() {
 
 /*
  * Function that is called when the document is ready.
+ * Fetches nutrient info, tallies them up, and displays them in the 
  */
 function initializePage() {
-	console.log("Page initialized (now in public/js/history.js)");
-
-	/*$(".nutrients").each( function (){
-		//alert($(this).text());
-		console.log("oweifjsdlkfj");
-
-	});*/
-
+	//each meal
 	$(".nutrition-info").each( function (){
-		//Get foodname of closest ancestor td
-		var foodname = $(this).closest("td").attr('class');
-		$.get("/ndata/"+foodname, showInfo);
+		//Used later in the callback function (same scope)
+		var this_meal_div = $(this);
 
+		//Get the date of this meal inherent in its id
+		var date = $(this).closest('td').attr('id');
 
+		//for each food (e.g. food1)...
+		$(this).children('div.foods').children('div').each(function () {
+    		var f = $(this).attr('class'); // "this" is the current element in the loop
+    		var s = $(this).children('div').attr('class');
+    		//console.log(s + " serving(s) of " + f);
+    		$.get("/data/nutrition/"+f+"/"+s, showInfo);
+    	});
 
 		/*
 		 * Function to show nutrition info ( called from $.get() )
 		 */
 		function showInfo(result) {
-			console.log("POOP");
-			console.log(result["name"]);
-			var x = document.getElementsByClassName(result["name"]);
-			var selectorName = "."+result["name"];
-			console.log("selectorName: " + selectorName);
-			alert($(selectorName).text());
-			alert($(".nutrition-info").text());
+			//Get the nutrient counts already on the page for the corr. meal
+			var calories = parseInt(this_meal_div.children("div.calories").text());
+			var total_fat = parseInt(this_meal_div.children("div.total_fat").text());
+			var protein = parseInt(this_meal_div.children("div.protein").text());
 
+			//tally up nutrients
+			calories += parseInt(result["calories"]) * parseInt(result["servings"]);
+			total_fat += parseInt(result["total_fat"]) * parseInt(result["servings"]);
+			protein += parseInt(result["protein"]) * parseInt(result["servings"]);
 
-			/*$("." + result["name"]).each( function(){
-				alert($(this).text());
-			})
-			console.log( $(this).closest("td").attr('class') );
-			console.log("name: " + result["name"]);
-			console.log(result["calories"]);*/
+			//display nutrients
+			this_meal_div.children("div.calories").text(calories);
+			this_meal_div.children("div.total_fat").text(total_fat);
+			this_meal_div.children("div.protein").text(protein);
 		}
 
-
-
-	})
-
-	console.log("eeeeeeeeee");
-	var x = document.getElementById("myHeader");
-
-	// compose the HTML
-	var new_html =
-		'SDLFSJELFIJSDLFKSJDLFKJ';
-
-	/*
-	// get the DIV to add content to
-	var nutrition_div = $("{{date}}-{{time}}-{{food1}}");
-	// add the content to the DIV
-	nutrition_div.html(new_html);*/
+	});
 }
+
+
 
