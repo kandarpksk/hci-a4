@@ -5,9 +5,12 @@ var s = 0;
 function info(where) {
 	// console.log("called for nutritional information from: "+where)
 	
+	$("#stat").fadeIn();
+	$(".add-meal-button").fadeIn();
+
 	meal_total = [0, 0, 0, 0];
 	var temp = "info. of "; // console.log("reset done")
-	$("#add-meal-button").attr("data-target","");
+	$(".add-meal-button").attr("data-target","");
 	for(i=1; i<=4; i++) {
 		if (document.forms["addMealForm"]["food"+i] != null) {
 			var f = document.forms["addMealForm"]["food"+i].value;
@@ -54,12 +57,12 @@ function showInfo(result) {
 
 		if (result["servings"] > 0) { // can't have no servings to add a food item
 			if((meal_total[1]*100)/reqs[1] > 45 && s > 0)
-				{ if($("#add-meal-button").attr("data-target") != "#bs")
-						$("#add-meal-button").attr("data-target","#popup-warn"); }
+				{ if($(".add-meal-button").attr("data-target") != "#bs")
+						$(".add-meal-button").attr("data-target","#popup-warn"); }
 			else
-				{ if($("#add-meal-button").attr("data-target") != "#bs")
-						$("#add-meal-button").attr("data-target","#popup-confirm"); }
-		} else $("#add-meal-button").attr("data-target", "#bs");
+				{ if($(".add-meal-button").attr("data-target") != "#bs")
+						$(".add-meal-button").attr("data-target","#popup-confirm"); }
+		} else $(".add-meal-button").attr("data-target", "#bs");
 	}
 
 	console.log(parseInt((meal_total[0]*100)/reqs[0])+"% "+

@@ -131,6 +131,8 @@
 			document.getElementById("food2-protein").setAttribute("style", "width:"+p+"%; min-width:"+min+"em;");
 		}
 		function source_suggestions(nutrient) {
+			if (nutrient == 'random')
+				ga('send','event','more-suggestions','click');
 			var re = $("#rest")[0].value;
 			if (re == "Rubio's") re = "Rubios";
 			$.get("/data/dishes/"+re+"/"+nutrient, update_suggestions);
@@ -144,6 +146,7 @@
 		// identify drinks and don't suggest them!
 
 		function toggle(num) {
+			ga("send","event","card","click",num);
 			if(num == 2) {
 				if (document.getElementById("fi2").name == "food1") {
 					document.getElementById("card2").setAttribute("style","border: 4px solid lightgray;");
@@ -170,5 +173,6 @@
     	// document.getElementById("suggest-iconbar").setAttribute("class","btn btn-secondary btn-sm navbar-btn");
     	// document.getElementById("suggest-link").setAttribute("href","#");
 	</script>
+	{{> google-analytics}}
 </body>
 </html>
