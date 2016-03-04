@@ -4,7 +4,7 @@
 
 <html>
 <head>
-	<!-- Google Analytics Content Experiment code -->
+	<!-- < Google Analytics Content Experiment code >
 	<script>function utmx_section(){}function utmx(){}(function(){var
 	k='117778876-1',d=document,l=d.location,c=d.cookie;
 	if(l.search.indexOf('utm_expid='+k)>0)return;
@@ -17,7 +17,7 @@
 	valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
 	'" type="text/javascript" charset="utf-8"><\/sc'+'ript>')})();
 	</script><script>utmx('url','A/B');</script>
-	<!-- End of Google Analytics Content Experiment code -->
+	< End of Google Analytics Content Experiment code > -->
 
 	<title>Nutriplus</title>	
 	<meta charset="utf-8">
@@ -59,17 +59,24 @@
 			<!-- make pic clickable to upload "new" image -->
 			<div align="left">
 				<div id="1" style='margin-bottom:5px'>
-					<input class="foods1 form-control" type="text" placeholder="Main Course"
-							name="food1" style="width:140px; display:inline;">
-					<input type="number" placeholder="Servings" id="servings1" class="form-control"
-							name="servings1" min="1" style="width:100px; display:inline;" onclick="explain()">
-					{{#if alt}}
-						<span class="glyphicon glyphicon-plus" onclick="more()"
-							style="color:gray; font-size:21px;"></span>
-					{{else}}
-						<span class="glyphicon glyphicon-question-sign" style="color:orange; font-size:21px;"
-								data-toggle="modal" data-target="#quaint" onclick="ga('send','event','servings-explanation','click'); found()"></span>
-					{{/if}}
+					<div class="input-group">
+						<span class="input-group-addon" data-toggle="modal" data-target="#popup">
+							<img src="http://uxrepo.com/download.php?img=static/icon-sets/google-material/svg/android-mic.svg"
+									style="width:11px; display:inline;">
+						</span>
+						<label class="control-label sr-only" for="abcxyz">Food Item 1</label>
+						<input class="foods1 form-control" type="text" placeholder="Food Item" id="abcxyz"
+								name="food1" style="width:126px; display:inline;">
+						<input type="number" placeholder="Servings" id="servings1" class="form-control"
+								name="servings1" min="1" style="width:100px; display:inline; margin-right:5px;" onclick="explain()">
+						{{#if alt}}
+							<span class="glyphicon glyphicon-plus" onclick="more()"
+								style="color:gray; font-size:21px;"></span>
+						{{else}}
+							<span class="glyphicon glyphicon-question-sign" style="color:orange; font-size:21px;"
+									data-toggle="modal" data-target="#quaint" onclick="ga('send','event','servings-explanation','click'); found()"></span>
+						{{/if}}
+					</div>
 
 					<div id="2" style="display:none;"></div>
 				</div>
@@ -85,7 +92,7 @@
 				{{/if}}
 
 				<input type="text" id="datepicker" placeholder="Date of Meal" class="form-control"
-						name="date" style="width:120px; display:inline;" onclick="this.value='';">
+						name="date" style="width:120px; display:inline; margin-right:5px;" onclick="this.value='';">
 				
 				<select id="mealtype" name="t" class="form-control" style="width:120px; display:inline;">
 					<option value="Breakfast" selected>Breakfast</option>
@@ -352,12 +359,12 @@
 			for(i=1; i<=4; i++)
 				if(document.getElementById(i).innerHTML == ""){
 					if (i == 4) $(".glyphicon-plus").attr("style", "color:lightgray; font-size:21px;");
-					var food_item = '<input class="foods'+i+' form-control" type="text" placeholder="Food Item #'+i+'" '+
-							'name="food'+i+'" style="margin-right:4px; width:140px; display:inline;">';
+					var food_item = '<div class="input-group"><input class="foods'+i+' form-control" type="text" placeholder="Food Item '+i+'" '+
+							'name="food'+i+'" style="width:162px; display:inline;">';
 					var servings = '<input type="number" placeholder="Servings" id="servings'+i+'" class="form-control"\
-							name="servings'+i+'" min="1" style="width:100px; display:inline;"> {{#if alt}}\
+							name="servings'+i+'" min="1" style="width:100px; display:inline;"></div> {{#if alt}}\
 							<span style="color:gray; font-size:21px;" class="glyphicon glyphicon-remove" onclick="less()"></span> {{/if}}';
-					document.getElementById(i).innerHTML = "<div style='margin-top:5px;'>" + food_item + servings + "</div>" +
+					document.getElementById(i).innerHTML = "<div style='margin-top:9px;'>" + food_item + servings + "</div>" +
 							'<div id="'+(i+1)+'" style="display:none;"></div>';
 					var id="servings"+i;
 					$("#"+i).fadeIn();
