@@ -13,7 +13,7 @@
 		<table class="table table-striped" sortable="sortable">
 			<thead>
 				<tr>
-					<th>Date</th>
+					<th>Picture</th>
 					<th>Meal</th>
 					<th>Nutrition</th>
 					<!-- <th>Totals</th> -->
@@ -24,8 +24,8 @@
 			<h4 id="welcome" align="center"></h4>
 
 			<tbody>
-				<col width="20%">
-				<col width="45%">
+				<col width="25%">
+				<col width="40%">
 				<col width="35%">
 
 				<!-- any other <each> instances to "note"? -->
@@ -37,81 +37,80 @@
 								<h5 style="color:#8382BF;">No meals input yet. Not feeling hungry?</h5>
 								</td>
 							</tr>
-						{{else}} {{#each days}}
-							<tr>
-								<td>{{date}}
-									{{#if snapshots}}
-										{{#each meals}}
+						{{else}}
+							{{#each days}}
+								<tr>
+									<td colspan="3" align="center">
+									<b>{{date}}</b>
+									</td>
+								</tr>
+								{{#each meals}}
+									<tr>
+										<td>
 											{{#if pic}}
 												<br/> <img src="{{pic}}" class="img-responsive img-rounded" width="60" height="60">
+											{{else}}
+												<br/> <img src="http://thumbs.dreamstime.com/m/refresh-ccw-flat-black-color-rounded-vector-icon-symbol-drawn-light-gray-background-57876713.jpg" class="img-responsive img-rounded" width="60" height="60">
 											{{/if}}
-										{{/each}}
-									{{else}}
-										<br/> <img src="http://thumbs.dreamstime.com/m/refresh-ccw-flat-black-color-rounded-vector-icon-symbol-drawn-light-gray-background-57876713.jpg" class="img-responsive img-rounded" width="60" height="60">
-									{{/if}}
-								</td>
+										</td>
 
-								<td>
-									{{#each meals}}
-										<!-- breakfast, lunch, etc. -->
-										<u>{{time}}</u> <!-- at which place -->
-											<br/> <b>{{servings1}} x</b> {{food1}}
-										{{#if food2}}
-											<br/> <b>{{servings2}} x</b> {{food2}}
-										{{/if}}
-										{{#if food3}}
-											<br/> <b>{{servings3}} x</b> {{food3}}
-										{{/if}}
-										{{#if food4}}
-											<br/> <b>{{servings4}} x</b> {{food4}}
-										{{/if}}
-										<br/><br/>
-									{{/each}}
-								</td>
+										<td>
+											<!-- breakfast, lunch, etc. -->
+											<u>{{time}}</u> <!-- at which place -->
+												<br/> <b>{{servings1}} x</b> {{food1}}
+											{{#if food2}}
+												<br/> <b>{{servings2}} x</b> {{food2}}
+											{{/if}}
+											{{#if food3}}
+												<br/> <b>{{servings3}} x</b> {{food3}}
+											{{/if}}
+											{{#if food4}}
+												<br/> <b>{{servings4}} x</b> {{food4}}
+											{{/if}}
+										</td>
 
-								<td id="{{date}}"> 
-									{{#each meals}}
-										<!-- data injected from js/history.js -->
-										<div class="nutrition-info">
-											<!-- divs to get info -->
-											<div class="foods">
-												<div class="{{food1}}">
-													<div class="{{servings1}}"></div>
+										<td id="{{date}}"> 
+											<!-- data injected from js/history.js -->
+											<div class="nutrition-info">
+												<!-- divs to get info -->
+												<div class="foods">
+													<div class="{{food1}}">
+														<div class="{{servings1}}"></div>
+													</div>
+													{{#if food2}}
+														<div class="{{food2}}">
+															<div class="{{servings2}}"></div>
+														</div>
+													{{/if}}
+													{{#if food3}}
+														<div class="{{food3}}">
+															<div class="{{servings3}}"></div>
+														</div>
+													{{/if}}
+													{{#if food4}}
+														<div class="{{food4}}">
+															<div class="{{servings4}}"></div>
+														</div>
+													{{/if}}
 												</div>
-												{{#if food2}}
-													<div class="{{food2}}">
-														<div class="{{servings2}}"></div>
-													</div>
-												{{/if}}
-												{{#if food3}}
-													<div class="{{food3}}">
-														<div class="{{servings3}}"></div>
-													</div>
-												{{/if}}
-												{{#if food4}}
-													<div class="{{food4}}">
-														<div class="{{servings4}}"></div>
-													</div>
-												{{/if}}
+
+												<!-- stuff to display: -->
+												<b>Calories: </b>
+												<div class="calories" style="display:inline;">0</div><br/>
+												<b>Total Fat: </b>
+												<div class="total_fat" style="display:inline;">0</div>g<br/>
+												<b>Protein: </b>
+												<div class="protein" style="display:inline;">0</div>g<br/>
+												<b>Fiber: </b>
+												<div class="fiber" style="display:inline;">0</div>g<br/>
+
+												<!-- data["dishes"][0]["menu"][i]["name"] == req.params.id-->
 											</div>
-
-											<!-- stuff to display: -->
-											<b>Calories: </b>
-											<div class="calories" style="display:inline;">0</div><br/>
-											<b>Total Fat: </b>
-											<div class="total_fat" style="display:inline;">0</div>g<br/>
-											<b>Protein: </b>
-											<div class="protein" style="display:inline;">0</div>g<br/>
-											<b>Fiber: </b>
-											<div class="fiber" style="display:inline;">0</div>g<br/>
-
-											<!-- data["dishes"][0]["menu"][i]["name"] == req.params.id-->
-										</div>
-										<br/>
-									{{/each}}
-								</td>
-							</tr>
-						{{/each}} {{/if}}
+										</td>
+									</tr>
+								{{/each}}
+							{{/each}}
+						{{/if}}
 					{{/if}}
 				{{/each}}
 			</tbody>
