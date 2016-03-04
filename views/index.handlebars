@@ -92,6 +92,49 @@
 				<br/>
 				{{/if}}
 
+				<div id="stat" style="display:none; margin-top:10px;">
+					<div class="alert alert-info" role="alert" style="border:0px">
+						<div id="overlay" style="margin-bottom:-15px;">
+							<h4 align="left">
+								<!-- dynamic title. ^ no overlay now -->
+								Daily Nutritional Progress
+								<!-- <span id="reset" class="glyphicon glyphicon-ban-circle"
+										style="color:black; margin-left:23px;" onclick="reset()"></span> -->
+							</h4>
+							
+							<div class="progress" style="margin-bottom:10px;"> calories
+								<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
+								<!-- max-width to compensate -->
+								<div id="calories" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
+							</div>
+							
+							<div class="progress" style="margin-bottom:10px;"> total fat
+								<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
+								<div id="total fat" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
+							</div>
+							
+							<div class="progress" style="margin-bottom:10px;"> protein
+								<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
+								<div id="protein" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
+							</div>
+							
+							<div class="progress" style="margin-bottom:25px;"> fiber
+								<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
+								<div id="fiber" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
+							</div>
+						</div>
+						<font color="black">
+							<span style="color:green; background-color:green;">ux</span> fulfilled requirements
+							<span style="color:orange; background-color:orange;">ux</span> current meal
+						</font>
+					</div>
+
+					{{#if alt}}
+						<button type="button" class="btn btn-primary btn-lg add-meal-button"
+								data-toggle="modal" onClick="update()" style="background:black; border:0px;">Add Meal</button>
+					{{/if}}
+				</div>
+
 				<input type="text" id="datepicker" placeholder="Date of Meal" class="form-control"
 						name="date" style="width:120px; display:inline; margin-right:5px;" onclick="this.value='';">
 				
@@ -116,7 +159,8 @@
 								onclick="(function(e) { e.preventDefault(); $('#photo-canvas').show(); })(event)">
 							Click snapshot of Meal
 						</button>
-						<button type="button" style="display:none; background:lightgray;"
+					{{else}}
+						<button type="button" style="display:none; background:lightgray; margin-left:2px;"
 								data-toggle="modal" onClick="update()" class="btn add-meal-button">
 							Add Meal
 						</button>
@@ -188,50 +232,6 @@
 		{{dishes.1.menu.0.name}} -->
 
 		<div id="data"></div>
-
-		<div id="stat" style="display:none;">
-			<div class="alert alert-info" role="alert" style="border:0px">
-				<div id="overlay" style="margin-bottom:-15px;">
-					<h4 align="left">
-						<!-- dynamic title. ^ no overlay now -->
-						Daily Nutritional Progress
-						<!-- <span id="reset" class="glyphicon glyphicon-ban-circle"
-								style="color:black; margin-left:23px;" onclick="reset()"></span> -->
-					</h4>
-					
-					<div class="progress" style="margin-bottom:10px;"> calories
-						<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
-						<!-- max-width to compensate -->
-						<div id="calories" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
-					</div>
-					
-					<div class="progress" style="margin-bottom:10px;"> total fat
-						<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
-						<div id="total fat" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
-					</div>
-					
-					<div class="progress" style="margin-bottom:10px;"> protein
-						<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
-						<div id="protein" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
-					</div>
-					
-					<div class="progress" style="margin-bottom:25px;"> fiber
-						<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
-						<div id="fiber" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
-					</div>
-				</div>
-				<font color="black">
-					<span style="color:green; background-color:green;">ux</span> fulfilled requirements
-					<span style="color:orange; background-color:orange;">ux</span> current meal
-				</font>
-			</div>
-
-			{{#if alt}}
-			{{else}}
-				<button type="button" class="btn btn-primary btn-lg add-meal-button"
-						data-toggle="modal" onClick="update()" style="background:black; border:0px;">Add Meal</button>
-			{{/if}}
-		</div>
 
 		<!-- <h5 style="display:inline;">On </h5>
 		<h5 style="display:inline;"> for </h5> -->
