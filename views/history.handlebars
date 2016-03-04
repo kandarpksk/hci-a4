@@ -10,7 +10,7 @@
 
 	<div class="container">
 		
-		<table class="table" sortable="sortable">
+		<table class="table table-striped" sortable="sortable">
 			<thead>
 				<tr>
 					<th>Date</th>
@@ -40,12 +40,14 @@
 										{{#if snapshots}}
 											{{#each meals}}
 												{{#if pic}}
-													<br/> <img src="{{pic}}" class="img-responsive img-rounded" width="60" height="60"></td>
+													<br/> <img src="{{pic}}" class="img-responsive img-rounded" width="60" height="60">
 												{{/if}}
 											{{/each}}
 										{{else}}
-											<br/> <img src="http://thumbs.dreamstime.com/m/refresh-ccw-flat-black-color-rounded-vector-icon-symbol-drawn-light-gray-background-57876713.jpg" class="img-responsive img-rounded" width="60" height="60"></td>
+											<br/> <img src="http://thumbs.dreamstime.com/m/refresh-ccw-flat-black-color-rounded-vector-icon-symbol-drawn-light-gray-background-57876713.jpg" class="img-responsive img-rounded" width="60" height="60">
 										{{/if}}
+									</td>
+
 									<td>
 										{{#each meals}}
 											<!-- breakfast, lunch, etc. -->
@@ -60,29 +62,51 @@
 											{{#if food4}}
 												<br/> <b>{{servings4}} x</b> {{food4}}
 											{{/if}}
-											<br/>
+											<br/><br/>
 										{{/each}}
 									</td>
 
 									<!-- TODO: fix width (doesn't seem to work well) -->
-									<td class="nutrient" id="{{date}}"> 
-										
-										<!-- $.get("/ndata/"+f, showInfo);  -->
-										<div class="nutrition-info" id="{{date}}-{{time}}-{{food1}}">
-											<!-- data["dishes"][0]["menu"][i]["name"] == req.params.id-->
-											Calories: {{calories}} <br>
-											Total Fat: {{total_fat}} <br>
-											Protein: {{protein}}
-										</div>
+									<td id="{{date}}"> 
+										{{#each meals}}
+											<u>{{time}}</u><br/>
+											<!-- HTML injected into the following div from /public/js/history.js -->
+											<div class="nutrition-info">
+												<!-- Divs to get info: -->
+												<div class="foods">
+													<div class="{{food1}}">
+														<div class="{{servings1}}"></div>
+													</div>
+													{{#if food2}}
+														<div class="{{food2}}">
+															<div class="{{servings2}}"></div>
+														</div>
+													{{/if}}
+													{{#if food3}}
+														<div class="{{food3}}">
+															<div class="{{servings3}}"></div>
+														</div>
+													{{/if}}
+													{{#if food4}}
+														<div class="{{food4}}">
+															<div class="{{servings4}}"></div>
+														</div>
+													{{/if}}
+												</div>
+
+
+												<!-- Stuff to display: -->
+												<b>Calories: </b>
+												<div class="calories" style="display:inline;">0</div><br/>
+												<b>Total Fat: </b>
+												<div class="total_fat" style="display:inline;">0</div>g<br/>
+												<b>Protein: </b>
+												<div class="protein" style="display:inline;">0</div>g<br/>
+
+												<!-- data["dishes"][0]["menu"][i]["name"] == req.params.id-->
+											</div>
+										{{/each}}
 									</td>
-									
-									<!-- TODO: source these from another JSON -->
-									<!--
-									<td>Calories: {{calories}} <br>
-										Total Fat: {{total_fat}} <br>
-										Protein: {{protein}}
-									</td> -->
-									
 								</tr>
 							{{/each}}
 						{{/if}}
@@ -97,6 +121,7 @@
 
 	<script src="js/jquery-1.11.0.js"></script>
 	<script src="js/bootstrap.js"></script>
+	<script src="js/history.js"></script>
 	<script src="js/common.js"></script>
 	<script>
 		// document.getElementById("history-iconbar").setAttribute("class","btn btn-secondary btn-sm navbar-btn");
