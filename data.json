@@ -1,31 +1,14 @@
 {	"users": [
-		{	"name": "Kandarp S. Khandwala",
+		{	"name": "username",
 			"selected": false,
 			"empty": true,
 			"days": [
 			]
 		},
-		{	"name": "test1 surname",
+		{	"name": "user1 surname",
 			"selected": true,
-			"empty": false,
+			"empty": true,
 			"days": [
-				{	"date" : "02/21/2016",
-					"snapshots": true,
-					"meals": [
-						{	"food1": "Grilled Steak Street Tacos",
-							"servings1": "1",
-							"food2": "Grilled Steak Street Tacos",
-							"servings2": "2",
-							"time": "Breakfast",
-							"pic": "http://bloximages.newyork1.vip.townnews.com/feastmagazine.com/content/tncms/assets/v3/editorial/c/ab/cab2e38e-7974-11e4-9644-73504f174a0d/547c93552e8d9.image.jpg"
-						},
-						{	"food1": "Grilled Steak Street Tacos",
-							"servings1": "1",
-							"time": "Dinner",
-							"pic": "http://bloximages.newyork1.vip.townnews.com/feastmagazine.com/content/tncms/assets/v3/editorial/c/ab/cab2e38e-7974-11e4-9644-73504f174a0d/547c93552e8d9.image.jpg"
-						}
-					]
-				}
 			]
 		}
 	],

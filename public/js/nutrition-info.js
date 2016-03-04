@@ -4,9 +4,6 @@ var s = 0;
 
 function info(where) {
 	// console.log("called for nutritional information from: "+where)
-	
-	$("#stat").fadeIn();
-	$(".add-meal-button").fadeIn();
 
 	meal_total = [0, 0, 0, 0];
 	var temp = "info. of "; // console.log("reset done")
@@ -40,6 +37,9 @@ function reset() {
 
 function showInfo(result) {
 	var reqs = [2000, 65, 50, 25];
+
+	$("#stat").fadeIn();
+	$(".add-meal-button").fadeIn();
 
 	// scrolling to find error msg. is not nice
 	if (result != "dummy") {

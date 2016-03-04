@@ -21,8 +21,12 @@ exports.view = function(req, res) {
 				+ '"time": "' + req.query.t + '", '
 				+ '"pic": "' + req.query.img + '" }');
 		
+		var snapshots = 'false';
+		if(req.query.img != "")
+			snapshots = 'true';
+
 		var newDay = JSON.parse('{ "date": "' + req.query.date + '", '
-				+ '"snapshots": "' + 'false' + '", "meals": [] }');
+				+ '"snapshots": "' + snapshots + '", "meals": [] }');
 		newDay["meals"].push(newMeal);
 
 		for (i = 0; i < data["users"].length; i++)
