@@ -19,7 +19,7 @@ exports.view = function(req, res) {
 				+ '"servings1": "' + req.query.servings1 + '", '
 				+ more // all other (non-empty) food inputs
 				+ '"time": "' + req.query.t + '", '
-				+ '"pic": "' + '' + '" }');
+				+ '"pic": "' + req.query.img + '" }');
 		
 		var newDay = JSON.parse('{ "date": "' + req.query.date + '", '
 				+ '"snapshots": "' + 'false' + '", "meals": [] }');

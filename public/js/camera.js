@@ -1,10 +1,9 @@
 function initCamera() {
-	capture($('#live-video'),
-			$('#photo-canvas'),
-			$('#camera-button'));
+	capture($('#live-video'), $('#photo-canvas'),
+			$('#camera-button'), $('#img-store'));
 }
 
-function capture(video, canvas, snapshotButton) {
+function capture(video, canvas, b, image) {
 	navigator.getUserMedia =
 			navigator.getUserMedia || navigator.webkitGetUserMedia ||
 			navigator.mozGetUserMedia || navigator.msGetUserMedia;
@@ -12,15 +11,20 @@ function capture(video, canvas, snapshotButton) {
 
 	var successCallback = function(mediaStream) {
 		video.attr('src', window.URL.createObjectURL(mediaStream));
-		snapshotButton.click(function(e) {
+		b.click(function(e) {
 				var width = video.width();
 				var height = video.height();
 				canvas.attr('width', width);
 				canvas.attr('height', height);
 				ctx.drawImage(video[0], 0, 0, width, height);
 				video.hide();
-				snapshotButton.hide();
+				updateImage();
+				b.hide();
 		});
+	};
+
+	var updateImage = function() {
+		image.attr("value", canvas[0].toDataURL('image/jpeg'), 0.1);
 	};
 
 	var errorCallback = function() {
