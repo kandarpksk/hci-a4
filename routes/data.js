@@ -34,3 +34,10 @@ exports.list = function(req, res){
 		}
 	}
 };
+
+exports.logout = function(req, res){
+	data["guest"] = false;
+	for (i = 0; i < data["users"].length; i++)
+		if (data["users"][i]["selected"])
+			data["users"][i]["selected"] = false;
+}

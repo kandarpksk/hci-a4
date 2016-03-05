@@ -1,4 +1,5 @@
-{	"users": [
+{	"guest": false,
+	"users": [
 		{	"name": "username",
 			"selected": false,
 			"empty": true,
