@@ -70,28 +70,31 @@ function show(result) {
 	// 		parseInt((meal_total[2]*100)/reqs[2])+"% "+
 	// 		parseInt((meal_total[3]*100)/reqs[3])+"%");
 
-	displayBar(0, "calories");
-	displayBar(1, "fat");
-	displayBar(2, "protein");
-	displayBar(3, "fiber");
+	updateBar(0, "calories");
+	updateBar(1, "fat");
+	updateBar(2, "protein");
+	updateBar(3, "fiber");
 }
 
-function displayBar(i, nutrient) {
+function updateBar(i, nutrient) {
 	var reqs = [2000, 65, 50, 25];
 	
-	pc = Number((meal_total[i]*100)/reqs[i]);
+	var pc = Number((meal_total[i]*100)/reqs[i]);
 	
-	document.getElementById(nutrient).setAttribute("style", "width:"+pc+"%; min-width:2em; max-width:92%;");
+	var limit, curr = parseInt(document.getElementById(nutrient+"-done").innerHTML); // learn scoping
+	if(curr > 9) limit = (100-curr); else limit = 92;
+	document.getElementById(nutrient).setAttribute("style", "width:"+pc+"%; min-width:2em; max-width:"+limit+"%;");
 	document.getElementById(nutrient).setAttribute("class", "progress-bar progress-bar-warning");
-	if(pc > 99) { // check 100
+	if(pc > 105) { // check 100
 		document.getElementById("outside-"+nutrient).innerHTML = "";
 		document.getElementById(nutrient).innerHTML = nutrient+": "+parseInt(pc)+"%";
 		document.getElementById(nutrient).setAttribute("class", "progress-bar progress-bar-danger");
-	} else if(pc > 83) {
+	} else if(pc > 80) { // 83
 		document.getElementById("outside-"+nutrient).innerHTML = "";
 		document.getElementById(nutrient).innerHTML = nutrient+": "+parseInt(pc)+"%";
 	} else if(pc > 50) {
-		document.getElementById(nutrient).setAttribute("style", "width:"+pc+"%; min-width:2em; max-width:83%;");
+		if(curr > 9) limit = (90-curr); else limit = 83-curr;
+		document.getElementById(nutrient).setAttribute("style", "width:"+pc+"%; min-width:2em; max-width:"+limit+"%;");
 		document.getElementById("outside-"+nutrient).innerHTML = parseInt(pc)+"%";
 		document.getElementById(nutrient).innerHTML = nutrient;
 	} else {

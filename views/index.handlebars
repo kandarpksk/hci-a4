@@ -103,23 +103,23 @@
 							</h4>
 							
 							<div class="progress" style="margin-bottom:10px;"> <span id="outside-calories">calories</span>
-								<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
+								<div id="calories-done" class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
 								<!-- max-width to compensate -->
 								<div id="calories" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
 							</div>
 							
 							<div class="progress" style="margin-bottom:10px;"> <span id="outside-fat">total fat</span>
-								<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
+								<div id="fat-done" class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
 								<div id="fat" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
 							</div>
 							
 							<div class="progress" style="margin-bottom:10px;"> <span id="outside-protein">protein</span>
-								<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
+								<div id="protein-done" class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
 								<div id="protein" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
 							</div>
 							
 							<div class="progress" style="margin-bottom:25px;"> <span id="outside-fiber">fiber</span>
-								<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
+								<div id="fiber-done" class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
 								<div id="fiber" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
 							</div>
 						</div>
@@ -409,6 +409,50 @@
 			} else if (document.getElementById('2').innerHTML != "") {
 				remove(2); {{#if alt}} {{else}} $("#minus-button").hide(); {{/if}}
 			} // else error
+		}
+
+		var current = [0, 0, 0, 0];
+		$(document).ready(function() {
+			{{#each users}} {{#if selected}}
+				{{#if empty}}
+				{{else}}
+					{{#each days}}
+						if("{{date}}" == today()) {
+							{{#each meals}}
+								$.get("/data/nutrition/{{food1}}/{{servings1}}", update_progress);
+								
+								{{#if food2}}
+									$.get("/data/nutrition/{{food1}}/{{servings1}}", update_progress);
+								{{/if}}
+								{{#if food3}}
+									$.get("/data/nutrition/{{food1}}/{{servings1}}", update_progress);
+								{{/if}}
+								{{#if food4}}
+									$.get("/data/nutrition/{{food1}}/{{servings1}}", update_progress);
+								{{/if}}
+							{{/each}}
+						}
+					{{/each}}
+				{{/if}}
+			{{/if}} {{/each}}
+		});
+
+		function update_progress(result) {
+			var reqs = [2000, 65, 50, 25];
+			var nutrient = ["calories", "fat", "protein", "fiber"];
+
+			var q = Number(result["servings"]);
+			current[0] += q * Number(result["calories"]);
+			current[1] += q * Number(result["total_fat"]);
+			current[2] += q * Number(result["protein"]);
+			current[3] += q * Number(result["dietary_fiber"]);
+
+			for(i = 0; i < 4; i++) {
+				var pc = Number((current[i]*100)/reqs[i]);
+				var e = document.getElementById(nutrient[i]+"-done");
+				e.setAttribute("style", "width:"+pc+"%; min-width:2em; max-width:92%;");
+				e.innerHTML = parseInt(pc)+"%";
+			}
 		}
 	</script>
 	{{> google-analytics}}

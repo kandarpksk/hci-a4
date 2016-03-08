@@ -135,22 +135,22 @@
 			$(".suggestions").fadeIn();
 		});
 
-		function pb(pc, nutrient, i) {
+		function pb(pc, nutrient, c) {
 			var high = 59, low = 29; // protein
 			if (nutrient == "fat") { high = 75; low = 30; }
 
 			if(pc > high) {
-				document.getElementById("food"+i+"-"+nutrient).innerHTML = pc+"% "+nutrient;
-				document.getElementById("outside-"+nutrient+i).innerHTML = "";
+				document.getElementById("food"+c+"-"+nutrient).innerHTML = pc+"% "+nutrient;
+				document.getElementById("outside-"+nutrient+c).innerHTML = "";
 			} else if(pc < low) {
-				document.getElementById("food"+i+"-"+nutrient).innerHTML = "";
-				document.getElementById("outside-"+nutrient+i).innerHTML = pc+"% "+nutrient;
+				document.getElementById("food"+c+"-"+nutrient).innerHTML = "";
+				document.getElementById("outside-"+nutrient+c).innerHTML = pc+"% "+nutrient;
 			} else {
-				document.getElementById("food"+i+"-"+nutrient).innerHTML = pc+"%";
-				document.getElementById("outside-"+nutrient+i).innerHTML = ""+nutrient;
+				document.getElementById("food"+c+"-"+nutrient).innerHTML = pc+"%";
+				document.getElementById("outside-"+nutrient+c).innerHTML = ""+nutrient;
 			}
 
-			document.getElementById("food"+i+"-"+nutrient).setAttribute("style", "width:"+pc+"%; min-width:1%; max-width:100%;");
+			document.getElementById("food"+c+"-"+nutrient).setAttribute("style", "width:"+pc+"%; min-width:1%; max-width:100%;");
 		}
 
 		// identify drinks and don't suggest them!
