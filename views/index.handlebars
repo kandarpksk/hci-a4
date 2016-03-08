@@ -69,7 +69,7 @@
 								name="food1" style="width:126px; display:inline;">
 						<input type="number" placeholder="Servings" id="servings1" class="form-control"
 								name="servings1" min="1" style="width:100px; display:inline; margin-right:5px;" onclick="explain()">
-						<input name="img" value="" id="img-store" style="display:none;">
+						<input name="img" value="" id="img-store" style="display:none;"> <!-- todo: store state for explanation -->
 						{{#if alt}}
 							<span class="glyphicon glyphicon-plus" onclick="more()"
 								style="color:gray; font-size:21px;"></span>
@@ -102,23 +102,23 @@
 										style="color:black; margin-left:23px;" onclick="reset()"></span> -->
 							</h4>
 							
-							<div class="progress" style="margin-bottom:10px;"> calories
+							<div class="progress" style="margin-bottom:10px;"> <span id="outside-calories">calories</span>
 								<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
 								<!-- max-width to compensate -->
 								<div id="calories" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
 							</div>
 							
-							<div class="progress" style="margin-bottom:10px;"> total fat
+							<div class="progress" style="margin-bottom:10px;"> <span id="outside-fat">total fat</span>
 								<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
-								<div id="total fat" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
+								<div id="fat" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
 							</div>
 							
-							<div class="progress" style="margin-bottom:10px;"> protein
+							<div class="progress" style="margin-bottom:10px;"> <span id="outside-protein">protein</span>
 								<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
 								<div id="protein" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
 							</div>
 							
-							<div class="progress" style="margin-bottom:25px;"> fiber
+							<div class="progress" style="margin-bottom:25px;"> <span id="outside-fiber">fiber</span>
 								<div class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
 								<div id="fiber" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
 							</div>
@@ -138,7 +138,18 @@
 				<input type="text" id="datepicker" placeholder="Date of Meal" class="form-control"
 						name="date" style="width:120px; display:inline; margin-right:5px;" onclick="this.value='';">
 				
-				<!-- change to Bootstrap dropdown -->
+				<!-- Any better/on Android? -->
+				<!-- <div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						Dropdown
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu4">
+						<li><a href="#">Regular link</a></li>
+						<li class="disabled"><a href="#">Disabled link</a></li>
+						<li><a href="#">Another link</a></li>
+					</ul>
+				</div> -->
 				<select id="mealtype" name="t" class="form-control" style="width:120px; display:inline;">
 					<option value="Breakfast" selected>Breakfast</option>
 					<option value="Brunch">Brunch</option>

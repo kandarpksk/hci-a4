@@ -9,7 +9,7 @@ $(document).ready(function() {
  */
 function initializePage() {
 	//each meal
-	$(".nutrition-info").each( function (){
+	$(".nutrition-info").each( function () {
 		//used later in the callback function (same scope)
 		var this_meal_div = $(this);
 
@@ -28,24 +28,26 @@ function initializePage() {
 		 * Function to show nutrition info ( called from $.get() )
 		 */
 		function showInfo(result) {
+			var reqs = [2000, 65, 50, 25];
+
 			//get the nutrient counts already on the page for the corr. meal
-			var calories = parseInt(this_meal_div.children("div.calories").text());
-			var total_fat = parseInt(this_meal_div.children("div.total_fat").text());
-			var protein = parseInt(this_meal_div.children("div.protein").text());
-			var fiber = parseInt(this_meal_div.children("div.fiber").text());
+			var calories = Number(this_meal_div.children("div.calories").text());
+			var total_fat = Number(this_meal_div.children("div.total_fat").text());
+			var protein = Number(this_meal_div.children("div.protein").text());
+			var fiber = Number(this_meal_div.children("div.fiber").text());
 
 			//tally up nutrients
-			calories += parseInt(result["calories"]) * parseInt(result["servings"]);
-			total_fat += parseInt(result["total_fat"]) * parseInt(result["servings"]);
-			protein += parseInt(result["protein"]) * parseInt(result["servings"]);
-			fiber += parseInt(result["dietary_fiber"]) * parseInt(result["servings"]);
+			var q = Number(result["servings"]);
+			calories += Number(result["calories"]) * q;
+			total_fat += Number(result["total_fat"]) * q;
+			protein += Number(result["protein"]) * q;
+			fiber += Number(result["dietary_fiber"]) * q;
 
 			//display nutrients
-			this_meal_div.children("div.calories").text(calories);
-			this_meal_div.children("div.total_fat").text(total_fat);
-			this_meal_div.children("div.protein").text(protein);
-			this_meal_div.children("div.fiber").text(fiber);
+			this_meal_div.children("div.calories").text(parseInt((calories*100)/reqs[0]));
+			this_meal_div.children("div.total_fat").text(parseInt((total_fat*100)/reqs[1]));
+			this_meal_div.children("div.protein").text(parseInt((protein*100)/reqs[2]));
+			this_meal_div.children("div.fiber").text(parseInt((fiber*100)/reqs[3]));
 		}
-
 	});
 }

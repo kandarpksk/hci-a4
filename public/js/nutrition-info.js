@@ -16,7 +16,7 @@ function info(where) {
 			else s = Number(servings);
 			if(f!="" && f!=null) {
 				// might need something called closures
-				$.get("/data/nutrition/"+f+"/"+s, showInfo);
+				$.get("/data/nutrition/"+f+"/"+s, show);
 				// temp += f+", ";
 			}
 			else break; // might work
@@ -32,10 +32,10 @@ function reset() {
 	meal_total = [0, 0, 0, 0];
 	reset_flag = true;
 	var dummy = "dummy";
-	showInfo(dummy);
+	show(dummy);
 }
 
-function showInfo(result) {
+function show(result) {
 	var reqs = [2000, 65, 50, 25];
 
 	$("#stat").fadeIn();
@@ -43,14 +43,14 @@ function showInfo(result) {
 
 	// scrolling to find error msg. is not nice
 	if (result != "dummy") {
-		// console.log("showInfo() called for: (below)");
+		// console.log("show() called for: (below)");
 		// console.log(result);
 	}
 
 	if(reset_flag)
 		reset_flag = false
 	else {
-		var q = result["servings"]; if (q == 0) q=1;
+		var q = Number(result["servings"]); if (q == 0) q=1;
 		meal_total[0] += q * Number(result["calories"]);
 		meal_total[1] += q * Number(result["total_fat"]);
 		meal_total[2] += q * Number(result["protein"]);
@@ -65,16 +65,37 @@ function showInfo(result) {
 		} else $(".add-meal-button").attr("data-target", "#bs");
 	}
 
-	console.log(parseInt((meal_total[0]*100)/reqs[0])+"% "+
-			parseInt((meal_total[1]*100)/reqs[1])+"% "+
-			parseInt((meal_total[2]*100)/reqs[2])+"% "+
-			parseInt((meal_total[3]*100)/reqs[3])+"%");
-	document.getElementById("calories").setAttribute("style", "width:"+(meal_total[0]*100)/reqs[0]+"%; min-width:2em;");
-	document.getElementById("calories").innerHTML = parseInt((meal_total[0]*100)/reqs[0])+"%";
-	document.getElementById("total fat").setAttribute("style", "width:"+(meal_total[1]*100)/reqs[1]+"%; min-width:2em;");
-	document.getElementById("total fat").innerHTML = parseInt((meal_total[1]*100)/reqs[1])+"%";
-	document.getElementById("protein").setAttribute("style", "width:"+(meal_total[2]*100)/reqs[2]+"%; min-width:2em;");
-	document.getElementById("protein").innerHTML = parseInt((meal_total[2]*100)/reqs[2])+"%";
-	document.getElementById("fiber").setAttribute("style", "width:"+(meal_total[3]*100)/reqs[3]+"%; min-width:2em;");
-	document.getElementById("fiber").innerHTML = parseInt((meal_total[3]*100)/reqs[3])+"%";
+	// console.log(parseInt((meal_total[0]*100)/reqs[0])+"% "+
+	// 		parseInt((meal_total[1]*100)/reqs[1])+"% "+
+	// 		parseInt((meal_total[2]*100)/reqs[2])+"% "+
+	// 		parseInt((meal_total[3]*100)/reqs[3])+"%");
+
+	displayBar(0, "calories");
+	displayBar(1, "fat");
+	displayBar(2, "protein");
+	displayBar(3, "fiber");
+}
+
+function displayBar(i, nutrient) {
+	var reqs = [2000, 65, 50, 25];
+	
+	pc = Number((meal_total[i]*100)/reqs[i]);
+	
+	document.getElementById(nutrient).setAttribute("style", "width:"+pc+"%; min-width:2em; max-width:92%;");
+	document.getElementById(nutrient).setAttribute("class", "progress-bar progress-bar-warning");
+	if(pc > 99) { // check 100
+		document.getElementById("outside-"+nutrient).innerHTML = "";
+		document.getElementById(nutrient).innerHTML = nutrient+": "+parseInt(pc)+"%";
+		document.getElementById(nutrient).setAttribute("class", "progress-bar progress-bar-danger");
+	} else if(pc > 83) {
+		document.getElementById("outside-"+nutrient).innerHTML = "";
+		document.getElementById(nutrient).innerHTML = nutrient+": "+parseInt(pc)+"%";
+	} else if(pc > 50) {
+		document.getElementById(nutrient).setAttribute("style", "width:"+pc+"%; min-width:2em; max-width:83%;");
+		document.getElementById("outside-"+nutrient).innerHTML = parseInt(pc)+"%";
+		document.getElementById(nutrient).innerHTML = nutrient;
+	} else {
+		document.getElementById("outside-"+nutrient).innerHTML = nutrient;
+		document.getElementById(nutrient).innerHTML = parseInt(pc)+"%";
+	}
 }
