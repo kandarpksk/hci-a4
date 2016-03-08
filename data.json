@@ -1,13 +1,15 @@
 {	"guest": false,
 	"users": [
-		{	"name": "username",
+		{	"name": "populated",
 			"selected": false,
 			"empty": true,
 			"days": [
 			]
 		},
-		{	"name": "user1 surname",
-			"selected": true,
+		{	"name": "Kandarp S. Khandwala",
+			"username": "test",
+			"hash": "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8",
+			"selected": false,
 			"empty": true,
 			"days": [
 			]

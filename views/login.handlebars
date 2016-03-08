@@ -19,12 +19,13 @@
 
 		<form id="addFriendForm" role="form" method="get" action="/">
 			<div class="form-group">
-				<input type="email" class="form-control" id="email" placeholder="Email" name="email" style="margin-bottom:7px;">
-				<input type="password" class="form-control" id="password" placeholder="Password" name="password" style="margin-bottom:7px;">
+				<input type="email" class="form-control" id="email" placeholder="Email" style="margin-bottom:7px;">
+				<input name="username" id="username" hidden>
+				<input type="password" class="form-control" id="password" placeholder="Password" name="hash" style="margin-bottom:7px;">
 			</div>
 			
 			<p align="center">
-				<input type="submit" id="submitBtn" class="btn btn-primary" value="Log in"></input>
+				<input type="submit" id="submitBtn" class="btn btn-primary" value="Log in" onclick="s()"></input>
 			</p>
 		</form>
 
@@ -33,5 +34,18 @@
 	<script src="js/jquery-1.11.0.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script src="js/common.js"></script>
+	<script src="js/sha1.js"></script>
+	<script>
+		$("#password").change(function() {
+			var hash = hex_sha1($(this).val());
+			// this is not actually secure
+			$(this).val(hash);
+		});
+
+		function s() {
+			var username = $("#email").val().split("@")[0];
+			$("#username").val(username);
+		}
+	</script>
 </body>
 </html>
