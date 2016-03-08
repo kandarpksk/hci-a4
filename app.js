@@ -25,8 +25,8 @@ app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
-app.use(express.cookieParser('Intro HCI secret key'));
-app.use(express.session());
+app.use(express.cookieParser());
+app.use(express.session({secret: 'random~s3cure~k3y-h8rE'}));
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 

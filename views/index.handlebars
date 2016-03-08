@@ -158,28 +158,16 @@
 					<option value="Snack">Snack</option>
 				</select>
 
-				<div style="margin-top:10px;">
-					<button id="take-a-picture" class="btn btn-primary" style="width:120px; background:skyblue; border-color:skyblue;"
-							onclick="(function(e) { e.preventDefault(); $('#camera-button').show();
-									$('#take-a-picture').hide(); initCamera();
-								})(event)">
-							Take a Picture
-					</button>
+				<div style="margin-top:10px;"></div>
+				
+				<button id="take-a-picture" class="btn btn-primary" style="width:120px; background:skyblue; border-color:skyblue;"
+						onclick="(function(e) { e.preventDefault(); $('#camera-button').show();
+								$('#take-a-picture').hide(); initCamera();
+							})(event)">
+						Take a Picture
+				</button>
 
-					{{#if alt}}
-						<button id="camera-button" class="btn" style="width:180px; display:none;"
-								onclick="(function(e) { e.preventDefault(); $('#photo-canvas').show(); })(event)">
-							Click snapshot of Meal
-						</button>
-					{{else}}
-						<button type="button" style="display:none; background:lightgray; margin-left:2px;"
-								data-toggle="modal" onClick="update()" class="btn add-meal-button">
-							Add Meal
-						</button>
-					{{/if}}
-				</div>
-
-				<div id="camera" class="profile" align="left" style="margin-top:5px;">
+				<div id="camera" class="profile" align="left" style="display:inline;">
 					<!-- stretch goal: onclick prompt to change image -->
 					{{#if alt}}
 					{{else}}
@@ -187,10 +175,14 @@
 								onclick="(function(e) { e.preventDefault(); $('#photo-canvas').show(); })(event)">
 							Click snapshot of Meal
 						</button>
+						<button type="button" style="display:none; background:lightgray; margin-left:2px;"
+								data-toggle="modal" onClick="update()" class="btn add-meal-button">
+							Add Meal
+						</button>
 					{{/if}}
 					<!-- some indication that this will be uploaded, stretch goal: square images -->
 					<canvas id="photo-canvas" style="display:none;"></canvas>
-					<video autoplay id="live-video" style="border:dotted lightgray;"></video> <!-- glyph poster -->
+					<video autoplay id="live-video" style="border:dotted lightgray; margin-top:5px;"></video> <!-- glyph poster -->
 					<!-- dismiss option -->
 				</div>
 			</div>
@@ -250,6 +242,7 @@
 
 		<!-- code for various popups follows; it may be moved anywhere (maybe) -->
 
+		<!-- todo: say back and forth -->
 		<div class="modal fade" id="popup" {{> popup}}
 			Wizard of Oz
 				</h4> </div> <div class="modal-body">
@@ -453,6 +446,30 @@
 				e.setAttribute("style", "width:"+pc+"%; min-width:2em; max-width:92%;");
 				e.innerHTML = parseInt(pc)+"%";
 			}
+		}
+
+		// show reduced functionality popup? Nexus 5
+		// dev: Safari compatibility
+		function browserInfo() {
+			var ua = navigator.userAgent, tem,
+			M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+			if(/trident/i.test(M[1])) {
+				tem =  /\brv[ :]+(\d+)/g.exec(ua) || [];
+				return 'IE '+(tem[1] || '');
+			}
+			if(M[1] === 'Chrome') {
+				tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
+				if(tem != null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+			}
+			M = M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+			if((tem = ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
+			return { 'browser': M[0], 'version': M[1] };
+		}
+
+		// option to override by choice?
+		if(browserInfo().browser == "Safari") {
+			$('#take-a-picture').hide();
+			$('#live-video').hide();
 		}
 	</script>
 	{{> google-analytics}}

@@ -29,30 +29,32 @@ exports.view = function(req, res) {
 				+ '"snapshots": "' + snapshots + '", "meals": [] }');
 		newDay["meals"].push(newMeal);
 
-		for (i = 0; i < data["users"].length; i++)
-			if (data["users"][i]["selected"]){
-				var count = data["users"][i]["days"].length;
-				if (count > 0) {
-					var exists = false;
-					for (j = 0; j < count; j++)
-						if (data["users"][i]["days"][j]["date"] == newDay["date"]) {
-							// not checking if that meal already exists
-							data["users"][i]["days"][j]["meals"].push(newMeal);
-							if (!data["users"][i]["days"][j]["snapshots"])
-								data["users"][i]["days"][j]["snapshots"] = newDay["snapshots"];
-							exists = true;
-						}
-					if (!exists) // what about "sorting"
-						data["users"][i]["days"].push(newDay);
-
-					// try more variety (or try again)...
-				} else {
+		if (req.session.user != ""){
+			var i = -1; // check initialization
+			for (i = 0; i < data["users"].length; i++)
+				if (data["users"][i]["name"] == req.session.user)
+					break;
+			var count = data["users"][i]["days"].length;
+			if (count > 0) {
+				var exists = false;
+				for (j = 0; j < count; j++)
+					if (data["users"][i]["days"][j]["date"] == newDay["date"]) {
+						// not checking if that meal already exists
+						data["users"][i]["days"][j]["meals"].push(newMeal);
+						if (!data["users"][i]["days"][j]["snapshots"])
+							data["users"][i]["days"][j]["snapshots"] = newDay["snapshots"];
+						exists = true;
+					}
+				if (!exists) // what about "sorting"
 					data["users"][i]["days"].push(newDay);
-					if (data["users"][i]["empty"])
-						data["users"][i]["empty"] = false;
-				}
-				break;
+
+				// try more variety (or try again)...
+			} else {
+				data["users"][i]["days"].push(newDay);
+				if (data["users"][i]["empty"])
+					data["users"][i]["empty"] = false;
 			}
+		}
 	}
 
 	res.render('history', data);
