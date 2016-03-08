@@ -37,18 +37,19 @@
 					{{#if empty}}
 						<tr>
 							<td colspan="3" align="center">
-								<h5 style="color:#8382BF;">No meals inputted yet. <a href="/">Add something?</a></h5>
+								<h5 style="color:#8382BF;">No meals inputted yet. <br/> <a href="/">Add something?</a></h5>
 							</td>
 						</tr>
 					{{else}}
 						{{#each days}}
 							<tr>
-								<td colspan="3" align="center">
+								<td colspan="3" align="center" id="day{{date}}">
+									<span style="display:none">{{meals.length}}</span>
 									<b>{{date}}</b>
 								</td>
 							</tr>
 							{{#each meals}}
-								<tr>
+								<tr id="{{../date}}{{time}}">
 									<td>
 										{{#if pic}}
 											<br/> <img src="{{pic}}" class="img-responsive img-rounded" width="60" height="60">
@@ -58,9 +59,11 @@
 										{{/if}}
 									</td>
 
+									<!-- sanity check: scrolling works, right? -->
+
 									<td>
 										<!-- breakfast, lunch, etc. -->
-										<u>{{time}}</u> <!-- <img src="http://i.imgur.com/Jka2XRv.png" height="15"> -->
+										<u>{{time}}</u> <img src="http://i.imgur.com/JBO5SY7.png" height="15" onclick="remove_meal('{{../date}}', '{{time}}')">
 											<!-- {if 1}} works? -->
 											<br/> <b>{{servings1}}x</b> {{food1}}
 										{{#if food2}}
@@ -156,6 +159,16 @@
 
 		function refresh() {
 			window.location.href = "/history";
+		}
+
+		function remove_meal(date, time) {
+			// jQuery equivalent does not work
+			document.getElementById(date+time).remove();
+			var e = document.getElementById("day"+date);
+			// bug (in Chrome?) preventing it from working in a <tr> tag
+			var count = parseInt(e.getElementsByTagName("SPAN")[0].innerHTML);
+			if(count > 1) e.getElementsByTagName("SPAN")[0].innerHTML = count-1;
+			else e.innerHTML = ""; // how about an empty check here?
 		}
 	</script>
 </body>
