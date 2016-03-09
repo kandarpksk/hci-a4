@@ -25,8 +25,8 @@ app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
-app.use(express.cookieParser());
-app.use(express.session({secret: 'random~s3cure~k3y-h8rE'}));
+app.use(express.cookieParser('random~s3cure~k3y-h8rE'));
+app.use(express.cookieSession());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 

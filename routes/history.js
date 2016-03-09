@@ -1,6 +1,9 @@
 var data = require('../data.json');
 
 exports.view = function(req, res) {
+	var user_data = JSON.parse(JSON.stringify(data));
+	delete user_data.users; // deep copy, so not an issue
+
 	// add a new meal if at least one food is entered
 	if (req.query.food1 != null && req.query.food1 != "") {
 		var more = "";
@@ -29,7 +32,7 @@ exports.view = function(req, res) {
 				+ '"snapshots": "' + snapshots + '", "meals": [] }');
 		newDay["meals"].push(newMeal);
 
-		if (req.session.user != ""){
+		if (req.session.user != "" && req.session.user != null){ // 'req' and null check
 			var i = -1; // check initialization
 			for (i = 0; i < data["users"].length; i++)
 				if (data["users"][i]["name"] == req.session.user)
@@ -49,13 +52,19 @@ exports.view = function(req, res) {
 					data["users"][i]["days"].push(newDay);
 
 				// try more variety (or try again)...
-			} else {
-				data["users"][i]["days"].push(newDay);
-				if (data["users"][i]["empty"])
-					data["users"][i]["empty"] = false;
-			}
+			} else data["users"][i]["days"].push(newDay);
 		}
 	}
 
-	res.render('history', data);
+	if(req.session.user != "" && req.session.user != null) {
+		console.log("user: "+req.session.user);
+		user_data["name"] = req.session.user;
+		for (i = 0; i < data["users"].length; i++)
+			if (data["users"][i]["name"] == req.session.user)
+				user_data["days"] = JSON.parse(JSON.stringify(data["users"][i]["days"]));
+	} else console.log("not logged in");
+
+	console.log("history.js: rendering now...");
+	// console.log(user_data);
+	res.render('history', user_data);
 }

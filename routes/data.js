@@ -35,7 +35,15 @@ exports.list = function(req, res){
 	}
 };
 
+// set expiry
 exports.logout = function(req, res){
-	req.session.guest = false;
-	req.session.user = "";
+	console.log("data.js: logging out from "
+			+req.session.user.split(" ")[0]+"'s session now");
+	req.session = null;
+	delete req.session;
+	if(req.session != null)
+		console.log("session weirdness: clear cookie manually or use (new) incognito window");
+	res.send('Sorry to see you go!');
+	// req.session.guest = false;
+	// req.session.user = "";
 }

@@ -30,96 +30,106 @@
 
 			<tbody>
 				<col width="20%">
+				<col width="35%"> <!-- wth? -->
 				<col width="40%">
-				<col width="40%">
-					
-				{{#each users}} {{#if selected}}
-					{{#if empty}}
-						<tr>
-							<td colspan="3" align="center">
-								<h5 style="color:#8382BF;">No meals inputted yet. <br/> <a href="/">Add something?</a></h5>
-							</td>
-						</tr>
-					{{else}}
-						{{#each days}}
-							<tr>
-								<td colspan="3" align="center" id="day{{date}}">
-									<span style="display:none">{{meals.length}}</span>
-									<b>{{date}}</b>
-								</td>
-							</tr>
-							{{#each meals}}
-								<tr id="{{../date}}{{time}}">
-									<td>
-										{{#if pic}}
-											<br/> <img src="{{pic}}" class="img-responsive img-rounded" width="60" height="60">
-										{{else}}
-											<br/> <img src="http://thumbs.dreamstime.com/m/refresh-ccw-flat-black-color-rounded-vector-icon-symbol-drawn-light-gray-background-57876713.jpg" class="img-responsive img-rounded"
-														width="60" height="60" onclick="window.alert('Do you wish to upload an image for this meal? Functionality coming soon...')">
-										{{/if}}
-									</td>
+				
+				{{#if days}}	
+				{{#if days.length}}
+				{{#each days}}
+				<tr class="{{name}}">
+					<td colspan="3" align="center" id="day{{date}}">
+						<span style="display:none">{{meals.length}}</span>
+						<b>{{date}}</b>
+					</td>
+				</tr>
 
-									<!-- sanity check: scrolling works, right? -->
+				{{#each meals}}
+				<tr id="{{../date}}{{time}}" class="{{name}}">
+					<td>
+						{{#if pic}}
+							<br/> <img src="{{pic}}" class="img-responsive img-rounded" width="60" height="60">
+						{{else}}
+							<!-- http://thumbs.dreamstime.com/m/refresh-ccw-flat-black-color-rounded-vector-icon-symbol-drawn-light-gray-background-57876713.jpg -->
+							<br/> <img alt="pic" class="img-responsive img-rounded"
+										width="60" height="60" onclick="window.alert('Do you wish to upload an image for this meal? Functionality coming soon...')">
+						{{/if}}
+					</td>
 
-									<td>
-										<!-- breakfast, lunch, etc. -->
-										<u>{{time}}</u> <img src="http://i.imgur.com/JBO5SY7.png" height="15" onclick="remove_meal('{{../date}}', '{{time}}')">
-											<!-- {if 1}} works? -->
-											<br/> <b>{{servings1}}x</b> {{food1}}
-										{{#if food2}}
-											<br/> <b>{{servings2}}x</b> {{food2}}
-										{{/if}}
-										{{#if food3}}
-											<br/> <b>{{servings3}}x</b> {{food3}}
-										{{/if}}
-										{{#if food4}}
-											<br/> <b>{{servings4}}x</b> {{food4}}
-										{{/if}}
-									</td>
+					<td> <!-- sanity check: scrolling works, right? -->
+						<!-- breakfast, lunch, etc. -->
+						<u>{{time}}</u> <img src="http://i.imgur.com/JBO5SY7.png" height="15" onclick="remove_meal('{{../date}}', '{{time}}')">
+							<!-- {if 1}} works? -->
+							<br/> <b>{{servings1}}x</b> {{food1}}
+						{{#if food2}}
+							<br/> <b>{{servings2}}x</b> {{food2}}
+						{{/if}}
+						{{#if food3}}
+							<br/> <b>{{servings3}}x</b> {{food3}}
+						{{/if}}
+						{{#if food4}}
+							<br/> <b>{{servings4}}x</b> {{food4}}
+						{{/if}}
+					</td>
 
-									<td id="{{date}}"> 
-										<!-- data injected from js/history.js -->
-										<div class="nutrition-info">
-											<!-- divs to get info -->
-											<div class="foods"> <!-- not showing anything?! -->
-												<div class="{{food1}}">
-													<div class="{{servings1}}"></div>
-												</div>
-												{{#if food2}}
-													<div class="{{food2}}">
-														<div class="{{servings2}}"></div>
-													</div>
-												{{/if}}
-												{{#if food3}}
-													<div class="{{food3}}">
-														<div class="{{servings3}}"></div>
-													</div>
-												{{/if}}
-												{{#if food4}}
-													<div class="{{food4}}">
-														<div class="{{servings4}}"></div>
-													</div>
-												{{/if}}
-											</div>
+					<td id="{{date}}"> 
+						<!-- data injected from js/history.js -->
+						<div class="nutrition-info">
+							<!-- divs to get info -->
+							<div class="foods"> <!-- not showing anything?! -->
+								<div class="{{food1}}">
+									<div class="{{servings1}}"></div>
+								</div>
+								{{#if food2}}
+									<div class="{{food2}}">
+										<div class="{{servings2}}"></div>
+									</div>
+								{{/if}}
+								{{#if food3}}
+									<div class="{{food3}}">
+										<div class="{{servings3}}"></div>
+									</div>
+								{{/if}}
+								{{#if food4}}
+									<div class="{{food4}}">
+										<div class="{{servings4}}"></div>
+									</div>
+								{{/if}}
+							</div>
 
-											<!-- stuff to display: -->
-											<b>Calories: </b>
-											<div class="calories" style="display:inline;">0</div>%<br/> <!-- absolute (no units)? -->
-											<b>Total Fat: </b>
-											<div class="total_fat" style="display:inline;">0</div>%<br/>
-											<b>Protein: </b>
-											<div class="protein" style="display:inline;">0</div>%<br/>
-											<b>Fiber: </b>
-											<div class="fiber" style="display:inline;">0</div>%<br/>
+							<!-- stuff to display: -->
+							<b>Calories: </b>
+							<div class="calories" style="display:inline;">0</div>%<br/> <!-- absolute (no units)? -->
+							<b>Total Fat: </b>
+							<div class="total_fat" style="display:inline;">0</div>%<br/>
+							<b>Protein: </b>
+							<div class="protein" style="display:inline;">0</div>%<br/>
+							<b>Fiber: </b>
+							<div class="fiber" style="display:inline;">0</div>%<br/>
 
-											<!-- data["dishes"][0]["menu"][i]["name"] == req.params.id-->
-										</div>
-									</td>
-								</tr>
-							{{/each}}
-						{{/each}}
-					{{/if}}
-				{{/if}} {{/each}}
+							<!-- data["dishes"][0]["menu"][i]["name"] == req.params.id-->
+						</div>
+					</td>
+				</tr>
+				{{/each}}
+				{{/each}}
+
+				{{else}} <!-- is this one needed? -->
+				<tr class="{{name}}">
+					<td colspan="3" align="center">
+						<h5 style="color:#8382BF;">No meals inputted yet.
+						<br/> <a href="/">Add something?</a></h5>
+					</td>
+				</tr>
+				{{/if}}
+				
+				{{else}}
+				<tr class="{{name}}">
+					<td colspan="3" align="center">
+						<h5 style="color:#8382BF;">No meals input yet.
+						<br/> <a href="/">Add something?</a></h5>
+					</td>
+				</tr>
+				{{/if}}
 			</tbody>
 		</table>
 	</div>
@@ -140,14 +150,12 @@
 			$(".navbar-link").attr("href", "/welcome");
 			document.getElementsByClassName("badge")[0].innerHTML = "Signup";
 		{{else}}
-			{{#each users}}
-				{{#if selected}}
-					logged_in = true;
-					document.getElementsByClassName("navbar-link")[0].innerHTML = "Not "+"{{name}}".split(" ")[0]+"?";
-					$(".navbar-link").attr("onclick", "logout()");
-					$(".navbar-link").attr("href", "");
-				{{/if}}
-			{{/each}}
+			{{#if name}} // selected
+				logged_in = true;
+				document.getElementsByClassName("navbar-link")[0].innerHTML = "Not "+"{{name}}".split(" ")[0]+"?";
+				$(".navbar-link").attr("onclick", "logout()");
+				$(".navbar-link").attr("href", "");
+			{{/if}}
 		{{/if}}
 
 		var msg = '<br/><h4 align="center">Please sign in to see your past meals.</h4>';

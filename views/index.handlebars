@@ -406,9 +406,8 @@
 
 		var current = [0, 0, 0, 0];
 		$(document).ready(function() {
-			{{#each users}} {{#if selected}}
-				{{#if empty}}
-				{{else}}
+			{{#if days}}
+				{{#if days.length}}
 					{{#each days}}
 						if("{{date}}" == today()) {
 							{{#each meals}}
@@ -426,8 +425,8 @@
 							{{/each}}
 						}
 					{{/each}}
-				{{/if}}
-			{{/if}} {{/each}}
+				{{else}}{{/if}}
+			{{/if}}
 		});
 
 		function update_progress(result) {
