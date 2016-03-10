@@ -2,50 +2,50 @@
 	<div class="footer navbar-fixed-bottom">
 		<div class="container-fluid">
 			<div class="btn-group btn-group-justified" role="group" aria-label="...">
-			<div class="btn-group" role="group">
-				<a 
-					type="button" 
-					class="my-nav-footer-btn btn btn-lg btn-default {{#if page_home}} active {{/if}}" 
-					{{#unless page_home}} href="/" {{/unless}}
-				>
-					<span <!--class="glyphicon glyphicon-log-in" aria-hidden="true"--> <img src="http://i.imgur.com/jB7ZZzS.png" height="22"></span>
-					<br/>
-					<!-- <p style="font-size:13px; margin-top:2px;">Enter<br/>a Meal</p> -->
-				</a>
+				<div class="btn-group" role="group">
+					<a 
+						type="button" 
+						class="my-nav-footer-btn btn btn-lg btn-default {{#if page_home}} active {{/if}}" 
+						{{#unless page_home}} href="/" {{/unless}}
+					>
+						<img src="http://i.imgur.com/jB7ZZzS.png" height="20">
+						<br/>
+						<!-- <p style="font-size:13px; margin-top:2px;">Enter<br/>a Meal</p> -->
+					</a>
+				</div>
+				<div class="btn-group" role="group">
+					<a 
+						type="button" 
+						class="my-nav-footer-btn btn btn-lg btn-default {{#if page_suggestions}} active {{/if}}" 
+						{{#unless page_suggestions}} href="/suggest"{{/unless}}
+					>
+						<img src="http://i.imgur.com/JZ90TTN.png" height='20'>
+						<br/>
+						<!-- <p style="font-size:13px; margin-top:2px;">Suggest<br/>-ions</p> -->
+					</a>
+				</div>
+				<div class="btn-group" role="group">
+					<a 
+						type="button" 
+						class="my-nav-footer-btn btn btn-lg btn-default {{#if page_history}} active {{/if}}"
+						{{#unless page_history}} href="/history" {{/unless}}
+					>
+						<span class="glyphicon glyphicon-list-alt" aria-hidden="true" height="22"></span>
+						<br/>
+						<!-- <p style="font-size:13px; margin-top:2px;">Past<br/>Meals</p> -->
+					</a>
+				</div>
+				<!-- <div class="btn-group" role="group">
+					<a 
+						type="button" 
+						class="my-nav-footer-btn btn btn-lg btn-default {{#if page_settings}} active {{/if}}" 
+						{{#unless page_settings}} href="/settings" {{/unless}}
+					>
+						<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+						<br/>
+					</a>
+				</div> -->
 			</div>
-			<div class="btn-group" role="group">
-				<a 
-					type="button" 
-					class="my-nav-footer-btn btn btn-lg btn-default {{#if page_suggestions}} active {{/if}}" 
-					{{#unless page_suggestions}} href="/suggest"{{/unless}}
-				>
-					<span <!--class="glyphicon glyphicon-cutlery" aria-hidden="true"--> <img src="http://i.imgur.com/JZ90TTN.png" height='22'> </span>
-					<br/>
-					<!-- <p style="font-size:13px; margin-top:2px;">Suggest<br/>-ions</p> -->
-				</a>
-			</div>
-			<div class="btn-group" role="group">
-				<a 
-					type="button" 
-					class="my-nav-footer-btn btn btn-lg btn-default {{#if page_history}} active {{/if}}"
-					{{#unless page_history}} href="/history" {{/unless}}
-				>
-					<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-					<br/>
-					<!-- <p style="font-size:13px; margin-top:2px;">Past<br/>Meals</p> -->
-				</a>
-			</div>
-			<!-- <div class="btn-group" role="group">
-				<a 
-					type="button" 
-					class="my-nav-footer-btn btn btn-lg btn-default {{#if page_settings}} active {{/if}}" 
-					{{#unless page_settings}} href="/settings" {{/unless}}
-				>
-					<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-					<br/>
-				</a>
-			</div> -->
-		</div>
 		</div>
 	</div>
 </div>

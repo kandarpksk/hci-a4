@@ -30,7 +30,16 @@ exports.list = function(req, res){
 				console.log(req.params); //
 			var num = data["dishes"][r]["menu"].length;
 			var pick = Math.floor(Math.random()*num);
-			res.json(data["dishes"][r]["menu"][pick]);
+			var found = data["dishes"][r]["menu"][pick];
+			var temp = "";
+			while(found.protein < 50/3) {
+				temp += found.protein+" ";
+				pick = Math.floor(Math.random()*num);
+				found = data["dishes"][r]["menu"][pick];
+				// limit to a certain number of attempts
+			}
+			console.log(temp+found.protein);
+			res.json(found);
 		}
 	}
 };

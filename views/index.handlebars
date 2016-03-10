@@ -58,7 +58,7 @@
 		<form id="addMealForm" role="form" method="get" action="/history" class="form-group">
 			<!-- make pic clickable to upload "new" image -->
 			<div align="left">
-				<div id="1" style='margin-bottom:5px'>
+				<div id="1" style='margin-bottom:10px'>
 					<div class="input-group">
 						<span class="input-group-addon" data-toggle="modal" data-target="#popup">
 							<img src="http://uxrepo.com/download.php?img=static/icon-sets/google-material/svg/android-mic.svg"
@@ -71,28 +71,27 @@
 								name="servings1" min="1" style="width:100px; display:inline; margin-right:5px;" onclick="explain()">
 						<input name="img" value="" id="img-store" style="display:none;"> <!-- todo: store state for explanation -->
 						{{#if alt}}
-							<span class="glyphicon glyphicon-plus" onclick="more()"
-								style="color:gray; font-size:21px;"></span>
-						{{else}}
 							<span class="glyphicon glyphicon-question-sign" style="color:orange; font-size:21px;"
 									data-toggle="modal" data-target="#quaint" onclick="ga('send','event','servings-explanation','click'); found()"></span>
+						{{else}}
+							<span class="glyphicon glyphicon-plus" onclick="more()"
+									style="color:gray; font-size:21px;"></span>
 						{{/if}}
 					</div>
 
 					<div id="2" style="display:none;"></div>
 				</div>
 
-				{{#if alt}}
-				{{else}} <!-- directly negate, possibly? -->
+				{{#if alt}} <!-- directly negate, possibly? -->
 					<span id="minus-button" style="color:gray; font-size:21px; display:none;"
 							class="glyphicon glyphicon-minus" onclick="less()"></span>
 					<span class="glyphicon glyphicon-plus" onclick="more()"
-						style="color:gray; font-size:21px; margin-bottom:10px;"></span>
+							style="color:gray; font-size:21px; margin-bottom:10px;"></span>
 
 				<br/>
 				{{/if}}
 
-				<div id="stat" style="display:none; margin-top:10px;">
+				<div id="stat" style="display:none; margin-top:10px; margin-bottom:-10px;">
 					<div class="alert alert-info" role="alert" style="border:0px">
 						<div id="overlay" style="margin-bottom:-15px;">
 							<h4 align="left">
@@ -102,23 +101,23 @@
 										style="color:black; margin-left:23px;" onclick="reset()"></span> -->
 							</h4>
 							
-							<div class="progress" style="margin-bottom:10px;"> <span id="outside-calories">calories</span>
+							<div class="progress" style="margin-bottom:10px;"> <span id="outside-calories" style="margin-left:5px;">calories</span>
 								<div id="calories-done" class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
 								<!-- max-width to compensate -->
 								<div id="calories" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
 							</div>
 							
-							<div class="progress" style="margin-bottom:10px;"> <span id="outside-fat">total fat</span>
+							<div class="progress" style="margin-bottom:10px;"> <span id="outside-fat" style="margin-left:5px;">total fat</span>
 								<div id="fat-done" class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
 								<div id="fat" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
 							</div>
 							
-							<div class="progress" style="margin-bottom:10px;"> <span id="outside-protein">protein</span>
+							<div class="progress" style="margin-bottom:10px;"> <span id="outside-protein" style="margin-left:5px;">protein</span>
 								<div id="protein-done" class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
 								<div id="protein" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
 							</div>
 							
-							<div class="progress" style="margin-bottom:25px;"> <span id="outside-fiber">fiber</span>
+							<div class="progress" style="margin-bottom:25px;"> <span id="outside-fiber" style="margin-left:5px;">fiber</span>
 								<div id="fiber-done" class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
 								<div id="fiber" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
 							</div>
@@ -135,7 +134,8 @@
 					{{/if}}
 				</div>
 
-				<input type="text" id="datepicker" placeholder="Date of Meal" class="form-control"
+				<!-- todo: Date of Meal -->
+				<input type="text" id="datepicker" placeholder="Today" class="form-control"
 						name="date" style="width:120px; display:inline; margin-right:5px;" onclick="this.value='';">
 				
 				<!-- Any better/on Android? -->
@@ -160,7 +160,7 @@
 
 				<div style="margin-top:10px;"></div>
 				
-				<button id="take-a-picture" class="btn btn-primary" style="width:120px; background:skyblue; border-color:skyblue;"
+				<button id="take-a-picture" class="btn btn-primary" style="width:120px; background:white; border-color:lightblue; color:gray; text-shadow:none;"
 						onclick="(function(e) { e.preventDefault(); $('#camera-button').show();
 								$('#take-a-picture').hide(); initCamera();
 							})(event)">
@@ -175,16 +175,17 @@
 								onclick="(function(e) { e.preventDefault(); $('#photo-canvas').show(); })(event)">
 							Click snapshot of Meal
 						</button>
-						<button type="button" style="display:none; background:lightgray; margin-left:2px;"
-								data-toggle="modal" onClick="update()" class="btn add-meal-button">
-							Add Meal
-						</button>
 					{{/if}}
 					<!-- some indication that this will be uploaded, stretch goal: square images -->
 					<canvas id="photo-canvas" style="display:none;"></canvas>
 					<video autoplay id="live-video" style="border:dotted lightgray; margin-top:5px;"></video> <!-- glyph poster -->
 					<!-- dismiss option -->
 				</div>
+
+				<button type="button" style="display:none; background:lightgray; margin-top:5px;"
+						data-toggle="modal" onClick="update()" class="btn add-meal-button">
+					Add Meal
+				</button>
 			</div>
 			
 			<!-- todo: fix move to position of camera button -->
@@ -365,8 +366,9 @@
 			for(i=1; i<=4; i++)
 				if(document.getElementById(i).innerHTML == ""){
 					if (i == 4) $(".glyphicon-plus").attr("style", "color:lightgray; font-size:21px;");
-					var food_item = '<div class="input-group"><input class="foods'+i+' form-control" type="text" placeholder="Food Item '+i+'" '+
-							'name="food'+i+'" style="width:162px; display:inline;">';
+					var mb = '<span id="minus-button" style="color:gray; font-size:21px; display:none; margin-right:5px; margin-left:10px;" class="glyphicon glyphicon-minus" onclick="less()"></span>';
+					var food_item = '<div class="input-group">'+mb+'<input class="foods'+i+' form-control" type="text" placeholder="Food Item '+i+'" '+
+							'name="food'+i+'" style="width:126px; display:inline;">';
 					var servings = '<input type="number" placeholder="Servings" id="servings'+i+'" class="form-control"\
 							name="servings'+i+'" min="1" style="width:100px; display:inline;"></div> {{#if alt}}\
 							<span style="color:gray; font-size:21px;" class="glyphicon glyphicon-remove" onclick="less()"></span> {{/if}}';

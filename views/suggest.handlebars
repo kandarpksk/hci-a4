@@ -24,7 +24,8 @@
 		<div class="container-fluid" id="page" style="display:none;">
 																	<!-- storytelling -->
 			<h3 style="color:#8382BF; margin-bottom:1px;">You're low on <span style="font-style:italic;">protein</span>.</h3>
-			See suggestions below. <a onclick="source_suggestions('random')">Click here for more!</a>
+			<span style="color:gray">See suggestions below.</span>
+			<a onclick="source_suggestions('random')" style="color:black">Click here for more!</a>
 			<br/><br/>
 			<div class="row" style="margin-left:10px;">
 				<div onClick="toggle(1)">
@@ -62,7 +63,7 @@
 		<div class="suggestions form-group" style="display:none;">
 			<br/>
 			<form id="addSuggestedMealForm" role="form" method="get" action="/history">
-				<input class="form-control" type="number" placeholder="Servings" name="servings1" min="1" style="width:120px; margin-bottom:5px;">
+				<!-- <input class="form-control" type="number" placeholder="Servings" name="servings1" min="1" style="width:120px; margin-bottom:5px;">
 				<input class="form-control" type="text" id="datepicker" placeholder="Date of Meal" name="date" style="width:120px; margin-bottom:5px;">
 				<label for="t" style="margin-bottom:-5px; font-variant:small-caps">Meal by time:</label>
 				<select id="mealtype" class="form-control" name="t" style="width:120px">
@@ -72,8 +73,8 @@
 					<option value="Dinner">Dinner</option>
 					<option value="Snack">Snack</option>
 				</select>
-				<br/>
-				<input type="submit" id="submitBtn" class="btn btn-primary" value="Add Suggested Meal"></input>
+				<br/> -->
+				<input type="submit" id="submitBtn" class="btn btn-secondary" value="Add Suggested Meal"></input>
 			</form>
 			<br/>
 		</div>
@@ -135,6 +136,7 @@
 			$(".suggestions").fadeIn();
 		});
 
+		// todo: doubled %??
 		function pb(pc, nutrient, c) {
 			var high = 59, low = 29; // protein
 			if (nutrient == "fat") { high = 75; low = 30; }
