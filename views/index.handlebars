@@ -91,9 +91,13 @@
 				<br/>
 				{{/if}}
 
+				<div id="temp" style="display:none"></div>
 				<div id="stat" style="display:none; margin-top:10px; margin-bottom:-10px;">
-					<div class="alert alert-info" role="alert" style="border:0px">
-						<div id="overlay" style="margin-bottom:-15px;">
+					<div class="alert alert-info alert-dismissable" role="alert" style="border:0px">
+						<button type="button" class="close" onclick="(function(e) {
+								$('#stat').hide(); $('#temp').attr('style', 'margin-top:10px;'); })(event)">
+							<span>&times;</span></button>
+						<div id="overlay" style="margin-bottom:-15px; margin-right:-20px;">
 							<h4 align="left">
 								<!-- dynamic title. ^ no overlay now -->
 								Nutritional Information
@@ -122,10 +126,10 @@
 								<div id="fiber" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
 							</div>
 						</div>
-						<font color="black">
+						<div color="black" style="margin-right:-20px" align="center">
 							<span style="color:green; background-color:green;">ux</span> fulfilled requirements
 							<span style="color:orange; background-color:orange;">ux</span> current meal
-						</font>
+						</div>
 					</div>
 
 					{{#if alt}}
@@ -160,32 +164,39 @@
 
 				<div style="margin-top:10px;"></div>
 				
-				<button id="take-a-picture" class="btn btn-primary" style="width:120px; background:white; border-color:lightblue; color:gray; text-shadow:none;"
-						onclick="(function(e) { e.preventDefault(); $('#camera-button').show();
-								$('#take-a-picture').hide(); initCamera();
+				<button id="take-a-picture" class="btn btn-primary" style="width:120px; background:white; border-color:lightblue; color:gray; text-shadow:none; margin-right:5px;"
+						onclick="(function(e) { e.preventDefault();
+								$('#take-a-picture').hide();
+								$('#camera-button').fadeIn();
+								initCamera();
 							})(event)">
 						Take a Picture
+				</button>
+
+				<button type="button" style="display:none; background:lightgray; margin-right:5px;"
+						data-toggle="modal" onClick="update()" class="btn add-meal-button">
+					Add Meal
 				</button>
 
 				<div id="camera" class="profile" align="left" style="display:inline;">
 					<!-- stretch goal: onclick prompt to change image -->
 					{{#if alt}}
 					{{else}}
-						<button id="camera-button" class="btn" style="width:180px; display:none; margin-bottom:5px;"
+						<button id="camera-button" class="btn" style="width:180px; display:none;"
 								onclick="(function(e) { e.preventDefault(); $('#photo-canvas').show(); })(event)">
 							Click snapshot of Meal
 						</button>
 					{{/if}}
 					<!-- some indication that this will be uploaded, stretch goal: square images -->
-					<canvas id="photo-canvas" style="display:none;"></canvas>
-					<video autoplay id="live-video" style="border:dotted lightgray; margin-top:5px;"></video> <!-- glyph poster -->
+					<canvas id="photo-canvas" style="display:none; margin-top:10px;"></canvas>
+					<video autoplay id="live-video" style="border:dotted lightgray; margin-top:10px;"></video> <!-- glyph poster -->
 					<!-- dismiss option -->
 				</div>
 
-				<button type="button" style="display:none; background:lightgray; margin-top:5px;"
+				<!-- <button type="button" style="display:none; background:lightgray; margin-top:5px;"
 						data-toggle="modal" onClick="update()" class="btn add-meal-button">
 					Add Meal
-				</button>
+				</button> -->
 			</div>
 			
 			<!-- todo: fix move to position of camera button -->
