@@ -3,6 +3,7 @@ var data = require('../data.json');
 exports.view = function(req, res) {
 	var user_data = JSON.parse(JSON.stringify(data));
 	delete user_data.users; // deep copy, so not an issue
+	user_data.guest = req.session.guest;
 
 	// add a new meal if at least one food is entered
 	if (req.query.food1 != null && req.query.food1 != "") {
@@ -57,14 +58,12 @@ exports.view = function(req, res) {
 	}
 
 	if(req.session.user != "" && req.session.user != null) {
-		console.log("user: "+req.session.user);
 		user_data["name"] = req.session.user;
 		for (i = 0; i < data["users"].length; i++)
 			if (data["users"][i]["name"] == req.session.user)
 				user_data["days"] = JSON.parse(JSON.stringify(data["users"][i]["days"]));
-	} else console.log("not logged in");
+	}
 
-	console.log("history.js: rendering now...");
 	// console.log(user_data);
 	res.render('history', user_data);
 }

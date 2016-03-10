@@ -7,9 +7,9 @@
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header" align="right">
-				<a class="navbar-brand" href="#">
-					<img alt="Nutravisor" src="" style="height:20px;">
-					<span style="color:black;">Past Meals</span>
+				<a class="navbar-brand" onclick="(function(e){e.preventDefault();})(event)">
+					<img alt="n" src="logo.png" style="height:20px;">
+					Past Meals
 				</a>
 				<p class="navbar-text navbar-right" style="margin-right:14px">
 					<a href="/login" class="navbar-link" style="color:black">
@@ -166,7 +166,9 @@
 		}
 
 		function refresh() {
-			window.location.href = "/history";
+			console.log("redirecting...");
+			window.location.href = '/login'; // why won't this work?
+			return false;
 		}
 
 		function remove_meal(date, time) {

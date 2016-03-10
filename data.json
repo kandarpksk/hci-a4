@@ -1,5 +1,4 @@
-{	"debug": true,
-	"guest": false,
+{	"debug": false,
 	"users": [
 		{	"name": "populated",
 			"days": [

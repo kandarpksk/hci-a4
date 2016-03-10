@@ -60,7 +60,7 @@
 			<div align="left">
 				<div id="1" style='margin-bottom:10px'>
 					<div class="input-group">
-						<span class="input-group-addon" data-toggle="modal" data-target="#popup">
+						<span class="input-group-addon" data-toggle="modal" data-target="#popup"> <!-- todo: localize all resources -->
 							<img src="http://uxrepo.com/download.php?img=static/icon-sets/google-material/svg/android-mic.svg"
 									style="width:11px; display:inline;">
 						</span>
@@ -75,7 +75,7 @@
 									data-toggle="modal" data-target="#quaint" onclick="ga('send','event','servings-explanation','click'); found()"></span>
 						{{else}}
 							<span class="glyphicon glyphicon-plus" onclick="more()"
-									style="color:gray; font-size:21px;"></span>
+									style="color:gray; font-size:20px;"></span>
 						{{/if}}
 					</div>
 
@@ -246,20 +246,20 @@
 		<!-- todo: say back and forth -->
 		<div class="modal fade" id="popup" {{> popup}}
 			Wizard of Oz
-				</h4> </div> <div class="modal-body">
-			Imagine such a <i>conversation</i> with your phone:
-			<br/><br/>
-			<b>What are you eating?</b>
+				</h4> </div> <div class="modal-body" style="margin-bottom:-10px;">
+			Imagine a <i>conversation</i> with your phone:
+			<p style="margin-bottom:15px;"></p>
+			Phone: <b>What are you eating?</b>
 			<br/>
 			You: I'll probably have two servings of Teriyaki Chicken.
 			<br/><br/>
-			<b>It's very heavy on protein: try making it one serving.
+			Phone: <b>It's very heavy on protein: try making it one serving.
 			Otherwise, you may choose a healthier <!-- check if space is necessary -->
 					alternative, such as Potato Chicken.</b>
 			<br/>
 			You: Just add it anyway.
 			<br/><br/>
-			<b>Is this your meal for lunch today?</b>
+			Phone: <b>Is this your lunch today?</b>
 			<br/>
 			You: Yes.
 			<br/><br/>
@@ -363,10 +363,10 @@
 			// 			// see old plan for missed TODOs such as limiting to shades of red
 			// 			return;
 			// 		}
-			for(i=1; i<=4; i++)
+			for(i=2; i<=4; i++)
 				if(document.getElementById(i).innerHTML == ""){
-					if (i == 4) $(".glyphicon-plus").attr("style", "color:lightgray; font-size:21px;");
-					var mb = '<span id="minus-button" style="color:gray; font-size:21px; display:none; margin-right:5px; margin-left:10px;" class="glyphicon glyphicon-minus" onclick="less()"></span>';
+					if (i == 4) $(".glyphicon-plus").attr("style", "color:lightgray; font-size:20px;");
+					var mb = '<span class="input-group-addon" id="minus-button-'+i+'" onclick="less('+i+')" style="padding-left:15px; padding-right:13px;">&ndash;</span>';
 					var food_item = '<div class="input-group">'+mb+'<input class="foods'+i+' form-control" type="text" placeholder="Food Item '+i+'" '+
 							'name="food'+i+'" style="width:126px; display:inline;">';
 					var servings = '<input type="number" placeholder="Servings" id="servings'+i+'" class="form-control"\
@@ -382,10 +382,11 @@
 					$(".foods"+i).change(function() { window.alert("Please choose a matching food from the options presented."); });
 					$("#servings"+i).change(function() { info("servings change"); });
 
-					{{#if alt}}
-					{{else}}
-					$("#minus-button").show(); // todo: just hide informative alert
-					{{/if}}
+					if(i > 2) {
+						$("#minus-button-"+(i-1)).hide();
+						$(".foods"+(i-1)).attr("style", "width:162px");
+					}
+					// todo: just hide informative alert
 
 					break;
 				}
@@ -396,14 +397,25 @@
 			info("item field "+(i-1)+" removed");
 		}
 
-		function less() {
-			if (document.getElementById('4') != null) {
-				if (document.getElementById('4').innerHTML != "") {
-					remove(4); $(".glyphicon-plus").attr("style", "color:gray; font-size:21px;");
-				} else remove(3);
-			} else if (document.getElementById('2').innerHTML != "") {
-				remove(2); {{#if alt}} {{else}} $("#minus-button").hide(); {{/if}}
-			} // else error
+		function less(i) {
+			if (document.getElementById('4') != null)
+				if (document.getElementById('4').innerHTML != "")
+					$(".glyphicon-plus").attr("style", "color:gray; font-size:20px;");
+			if(i > 2) {
+				$(".foods"+(i-1)).attr("style", "width:126px");
+				$("#minus-button-"+(i-1)).show();
+			}
+			remove(i);
+			// else error
+
+			// if (document.getElementById('4') != null) {
+			// 	if (document.getElementById('4').innerHTML != "") {
+			// 		remove(4);
+			// 		$(".glyphicon-plus").attr("style", "color:gray; font-size:20px;");
+			// 	} else remove(3);
+			// } else if (document.getElementById('2').innerHTML != "") {
+			// 	remove(2);
+			// } // else error
 		}
 
 		var current = [0, 0, 0, 0];

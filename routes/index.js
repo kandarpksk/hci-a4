@@ -4,8 +4,9 @@ exports.view = function(req, res){
 	data["alt"] = false;
 	var user_data = JSON.parse(JSON.stringify(data));
 	delete user_data.users;
-
+	if(req.query.guest) req.session.user = "";
 	req.session.guest = req.query.guest;
+	user_data.guest = req.session.guest;
 
 	// simple authentication system
 	// identical usernames go through, but passwords must be different
