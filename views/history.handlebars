@@ -4,19 +4,9 @@
 {{> html-header}}
 
 <body>
-	<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="container-fluid">
-			<div class="navbar-header" align="right">
-				<a class="navbar-brand" onclick="(function(e){e.preventDefault();})(event)">
-					<img alt="n" src="logo.png" style="height:20px;">
-					Past Meals
-				</a>
-				<p class="navbar-text navbar-right" style="margin-right:14px">
-					<a href="/login" class="navbar-link" style="color:black">
-						<span class="badge">Login</span></a></p>
-			</div>
-		</div>
-	</nav>
+	{{> navbar}}
+		Past Meals
+	{{> navbar-hack}}
 
 	<div class="container">
 		<table class="table table-striped" sortable="sortable">
@@ -152,7 +142,7 @@
 		{{else}}
 			{{#if name}} // selected
 				logged_in = true;
-				document.getElementsByClassName("navbar-link")[0].innerHTML = "Not "+"{{name}}".split(" ")[0]+"?";
+				document.getElementsByClassName("navbar-link")[0].innerHTML = "Not <u>"+"{{name}}".split(" ")[0]+"</u>?";
 				$(".navbar-link").attr("onclick", "logout()");
 				$(".navbar-link").attr("href", "");
 			{{/if}}

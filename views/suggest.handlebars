@@ -25,9 +25,10 @@
 		
 		<div class="container-fluid" id="page" style="display:none;">
 																	<!-- storytelling -->
-			<h3 style="color:#8382BF; margin-bottom:1px;">You're low on <span style="font-style:italic;">protein</span>.</h3>
-			<span style="color:gray">See suggestions below.</span>
-			<a onclick="source_suggestions('random')" style="color:black">Click here for more!</a>
+			<!-- You're low on <span style="font-style:italic;">protein</span>. -->
+			<h3 style="color:#8382BF; margin-bottom:1px;">Not enough meal history.</h3>
+			<span style="color:gray">See random foods below.</span>
+			<a onclick="source_suggestions('automatic')" style="color:black">Click for more!</a>
 			<br/><br/>
 			<div class="row" style="margin-left:10px;">
 				<div onClick="toggle(1)">
@@ -35,11 +36,13 @@
 						<h4 id="food1-name"></h4>
 						<input type="hidden" id="fi1" name="ignored" value="" form="addSuggestedMealForm" readonly>
 						<!-- cap to 100%? -->
-						<div class="progress" style="margin-bottom:5px"> <span id="outside-metricA1">Metric A</span>
+						<div id="explanation1A" style="margin-left:-10px; margin-right:-10px;"></div>
+						<div class="progress" style="margin-bottom:5px" id="pb1A"> <span id="outside-metricA1">Metric A</span>
 							<div id="food1-metricA" class="progress-bar" role="progressbar" style="width:0%; min-width:2em;" style="display:inline;">0%
 							</div>
 						</div>
-						<div class="progress" style="margin-bottom:5px"> <span id="outside-metricB1">Metric B</span>
+						<div id="explanation1B"></div>
+						<div class="progress" style="margin-bottom:5px" id="pb1B"> <span id="outside-metricB1">Metric B</span>
 							<div id="food1-metricB" class="progress-bar" role="progressbar" style="width:0%; min-width:2em;">0%
 							</div>
 						</div>
@@ -49,11 +52,13 @@
 					<div class="col-xs-5" id="card2" style="border: 4px solid lightgray;" align="center">
 						<h4 id="food2-name"></h4>
 						<input type="hidden" id="fi2" name="ignored" value="" form="addSuggestedMealForm" readonly>
-						<div class="progress" style="margin-bottom:5px"> <span id="outside-metricA2">Metric A</span>
+						<div id="explanation2A" style="margin-left:-10px; margin-right:-10px;"></div>
+						<div class="progress" style="margin-bottom:5px" id="pb2A"> <span id="outside-metricA2">Metric A</span>
 							<div id="food2-metricA" class="progress-bar" role="progressbar" style="width:0%; min-width:2em;" style="display:inline;">0%
 							</div>
 						</div>
-						<div class="progress" style="margin-bottom:5px"> <span id="outside-metricB2">Metric B</span>
+						<div id="explanation2B"></div>
+						<div class="progress" style="margin-bottom:5px" id="pb2B"> <span id="outside-metricB2">Metric B</span>
 							<div id="food2-metricB" class="progress-bar" role="progressbar" style="width:0%; min-width:2em;">0%
 							</div>
 						</div>
@@ -113,8 +118,8 @@
 			var fp = parseInt((result["total_fat"]*100)/reqs[1]); // fP?
 			var p = parseInt((result["protein"]*100)/reqs[2]);
 			temp=fp+"% "+p+"% ";
-			pb(p, "A", "Protein", 1); // todo: interchange
-			pb(fp, "B", "Fat", 1); // todo: interchange
+			pb(p, "B", "Protein", 1);
+			pb(fp, "A", "Fat", 1);
 			var re = $("#rest")[0].value;
 			if (re == "Rubio's") re = "Rubios";
 			$.get("/data/dishes/"+re, update2);
@@ -131,10 +136,10 @@
 			}
 			document.getElementById("food2-name").innerHTML = result["name"];
 			$("#fi2").attr("value", result["name"]);
-			var f = parseInt((result["total_fat"]*100)/reqs[1]);
+			var f = parseInt((result["dietary_fiber"]*100)/reqs[3]);
 			var p = parseInt((result["protein"]*100)/reqs[2]);
 			// console.log(temp+f+"% "+p+"%");
-			pb(f, "A", "Fat", 2);
+			pb(f, "A", "Fiber", 2);
 			pb(p, "B", "Protein", 2); // 60.5% bug
 		}
 		function source_suggestions(nutrient) {
@@ -146,7 +151,7 @@
 		}
 		$('#rest').on("autocompletechange", function() {
 			$("#location-message").fadeOut();
-			source_suggestions('protein');
+			source_suggestions('lacking-fiber');
 			$("#page").fadeIn();
 			$(".suggestions").fadeIn();
 		});
@@ -155,6 +160,12 @@
 		function pb(pc, metric, nutrient, c) {
 			var high = 59, low = 29; // protein
 			if (nutrient == "Fat") { high = 75; low = 30; }
+
+			$("#pb"+c+metric).hide();
+			var exp = "<i>Daily values satisfied:</i> <br/> <b>"+nutrient+": "+pc+"%</b>";
+			if(nutrient != "Fat" && nutrient != "Fiber")
+				exp = nutrient+": "+pc+"%";
+			document.getElementById("explanation"+c+metric).innerHTML = exp;
 
 			if(pc > high) {
 				document.getElementById("food"+c+"-metric"+metric).innerHTML = pc+"% "+nutrient;
@@ -203,6 +214,27 @@
 			// maybe: alert "box"
 			document.getElementById("location-message").innerHTML = "<br/> There are multiple restaurants detected in the vicinity. Please choose where you would like to eat in the dropdown.";
 			$("#location-message").fadeIn();
+		}
+
+		var logged_in = false;
+		{{#if guest}}
+			$(".navbar-link").attr("href", "/welcome");
+			document.getElementsByClassName("badge")[0].innerHTML = "Signup";
+		{{else}}
+			{{#if name}}
+				logged_in = true;
+				document.getElementsByClassName("badge")[0].innerHTML = "Logout";
+				$(".navbar-link").attr("onclick", "logout()");
+				$(".navbar-link").attr("href", "");
+			{{/if}}
+		{{/if}}
+
+		function logout() {
+			$.get("/data/logout", refresh());
+			function refresh() {
+				window.location.href = '/login';
+				return false;
+			}
 		}
 
     	// document.getElementById("suggest-iconbar").setAttribute("class","btn btn-secondary btn-sm navbar-btn");

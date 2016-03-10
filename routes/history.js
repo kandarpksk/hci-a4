@@ -5,6 +5,16 @@ exports.view = function(req, res) {
 	delete user_data.users; // deep copy, so not an issue
 	user_data.guest = req.session.guest;
 
+	var goto_welcome = true;
+	if(req.session.user != "" && req.session.user != null)
+		goto_welcome = false;
+	else if(req.session.guest) // explicitly browse as guest
+		goto_welcome = false;
+	if(goto_welcome){
+		res.render('welcome');
+		return;
+	}
+
 	// add a new meal if at least one food is entered
 	if (req.query.food1 != null && req.query.food1 != "") {
 		var more = "";

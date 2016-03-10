@@ -26,19 +26,33 @@ exports.random = function(req, res){
 exports.list = function(req, res){
 	for (r=0; r<data["dishes"].length; r++) {
 		if (data["dishes"][r]["restaurant"] == req.params.restaurant) {
-			if (req.params.nutrient != 'random')
-				console.log(req.params); //
 			var num = data["dishes"][r]["menu"].length;
 			var pick = Math.floor(Math.random()*num);
 			var found = data["dishes"][r]["menu"][pick];
-			var temp = "";
-			while(found.protein < 50/3) {
-				temp += found.protein+" ";
-				pick = Math.floor(Math.random()*num);
-				found = data["dishes"][r]["menu"][pick];
-				// limit to a certain number of attempts
-			}
-			console.log(temp+found.protein);
+			if (req.params.nutrient == 'automatic')
+				console.log("todo: automatic nutrient detection");
+				// what about excess?
+			if (req.params.nutrient == 'lacking-protein')
+				while(found.protein < 50/3) {
+					pick = Math.floor(Math.random()*num);
+					found = data["dishes"][r]["menu"][pick];
+					// limit to a certain number of attempts
+				}
+			else if (req.params.nutrient == 'lacking-fat')
+				while(found.fat < 65/3 || found.fat > 65) {
+					pick = Math.floor(Math.random()*num);
+					found = data["dishes"][r]["menu"][pick];
+				}
+			else if (req.params.nutrient == 'lacking-calories')
+				while(found.fat < 2000/3) {
+					pick = Math.floor(Math.random()*num);
+					found = data["dishes"][r]["menu"][pick];
+				}
+			else if (req.params.nutrient == 'lacking-fiber')
+				while(found.fat < 25/3) {
+					pick = Math.floor(Math.random()*num);
+					found = data["dishes"][r]["menu"][pick];
+				}
 			res.json(found);
 		}
 	}

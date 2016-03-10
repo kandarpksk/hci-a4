@@ -484,6 +484,27 @@
 			$('#take-a-picture').hide();
 			$('#live-video').hide();
 		}
+
+		var logged_in = false;
+		{{#if guest}}
+			$(".navbar-link").attr("href", "/welcome");
+			document.getElementsByClassName("badge")[0].innerHTML = "Signup";
+		{{else}}
+			{{#if name}}
+				logged_in = true;
+				document.getElementsByClassName("badge")[0].innerHTML = "Logout";
+				$(".navbar-link").attr("onclick", "logout()");
+				$(".navbar-link").attr("href", "");
+			{{/if}}
+		{{/if}}
+
+		function logout() {
+			$.get("/data/logout", refresh());
+			function refresh() {
+				window.location.href = '/login';
+				return false;
+			}
+		}
 	</script>
 	{{> google-analytics}}
 </body>

@@ -5,7 +5,8 @@ exports.view = function(req, res){
 	var user_data = JSON.parse(JSON.stringify(data));
 	delete user_data.users;
 	if(req.query.guest) req.session.user = "";
-	req.session.guest = req.query.guest;
+	if(req.query.guest != null)
+		req.session.guest = req.query.guest;
 	user_data.guest = req.session.guest;
 
 	// simple authentication system
