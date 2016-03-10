@@ -10,12 +10,14 @@
 
 	<div class="container" align="center">
 
+		<div id="location-message" style="display:none"></div>
+
 		<br/>
 
 		<div class="input-group">
 			<input id="rest" type="text" class="form-control" aria-label="my location" placeholder="Choose a Restaurant">
 			<span class="input-group-btn">
-				<button class="btn btn-default" type="button" data-toggle="modal" data-target="#popup">
+				<button class="btn btn-default" type="button" onclick="locate()">
 					<span class="glyphicon glyphicon-map-marker"></span>
 				</button>
 			</span>
@@ -81,14 +83,15 @@
 
 		{{> icon-panel}}
 
-		<div class="modal fade" id="popup" {{> popup}}
-			Choose Nearby Restaurant
+		<!-- <div class="modal fade" id="popup" {{> popup}}
+			Choose Restaurant
 				</h4> </div> <div class="modal-body">
-			<input type="radio" name="group1" value="Rubios"> Rubio's<br>
-			<input type="radio" name="group1" value="Panda Express"> Panda Express<br>
+			There are multiple restaurants detected in the vicinity:
+			<br/> <b>Rubio's, Panda Express</b>
+			<br/><br/> Please choose which one you would like to eat at in the dropdown.
 				</div> <div class="modal-footer">
-			<button type="button" class="btn" data-dismiss="modal">Select
-		{{> popup-hack}}
+			<button type="button" class="btn" data-dismiss="modal">Dismiss
+		{{> popup-hack}} -->
 
 	</div>
 
@@ -98,7 +101,7 @@
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<script src="js/common.js"></script>
 	<script>
-		$("#rest").autocomplete({source: ["Rubio's", "Panda Express"]});
+		$("#rest").autocomplete({source: ["Rubio's", "Panda Express"], minLength: 0}).focus(function() { $(this).trigger(jQuery.Event('keydown')); });
 		$("#datepicker").attr("value", today());
 
 		var reqs = [2000, 65, 50, 25]; var temp; // might not work as intended
@@ -131,6 +134,7 @@
 			$.get("/data/dishes/"+re+"/"+nutrient, update_suggestions);
 		}
 		$('#rest').on("autocompletechange", function() {
+			$("#location-message").fadeOut();
 			source_suggestions('protein');
 			$("#page").fadeIn();
 			$(".suggestions").fadeIn();
@@ -180,6 +184,13 @@
 					document.getElementById("fi2").setAttribute("name","ignored");
 				}
 			}
+		}
+
+		function locate() {
+			$('#rest').val(""); // autofocus too?
+			$('#rest').trigger(jQuery.Event('keydown'));
+			document.getElementById("location-message").innerHTML = "<br/> There are multiple restaurants detected in the vicinity. Please choose where you would like to eat in the dropdown.";
+			$("#location-message").fadeIn();
 		}
 
     	// document.getElementById("suggest-iconbar").setAttribute("class","btn btn-secondary btn-sm navbar-btn");
