@@ -85,10 +85,13 @@ function updateBar(i, nutrient) {
 	var pc = Number((meal_total[i]*100)/reqs[i]);
 	
 	var limit, curr = parseInt(document.getElementById(nutrient+"-done").innerHTML); // learn scoping
-	if(curr > 9) limit = (100-curr); else limit = 94;
-	document.getElementById(nutrient).setAttribute("style", "width:"+pc+"%; min-width:"+mw+"; max-width:"+limit+"%;");
+	if (isNaN(curr)) limit = 90;
+	else limit = 90-curr;
+	if (pc > limit) document.getElementById(nutrient).setAttribute("style", "width:"+limit+"%; min-width:"+mw+"; max-width:"+limit+"%;");
+	else document.getElementById(nutrient).setAttribute("style", "width:"+pc+"%; min-width:"+mw+"; max-width:"+limit+"%;");
 	document.getElementById(nutrient).setAttribute("class", "progress-bar progress-bar-warning");
 	if(pc > 105) { // check 100
+		console.log(curr);
 		document.getElementById("outside-"+nutrient).innerHTML = "";
 		if(sshot) document.getElementById(nutrient).innerHTML = nutrient;
 		else document.getElementById(nutrient).innerHTML = nutrient+": "+parseInt(pc)+"%";

@@ -10,5 +10,3 @@ function explain() {
 		known = true;
 	} // change to confirm?
 }
-// sessions, bars
-// restart Heroku, tweaks only
