@@ -30,22 +30,15 @@
 <body>
 	<!-- enter the page title between the partials -->
 	{{> navbar}}
-		<!-- voice input icon in a badge -->
-		<!-- <span class="badge" data-toggle="modal"
-					data-target="#popup" style="margin-right:5px;">
-			<img src="http://uxrepo.com/download.php?img=static/icon-sets/google-material/svg/android-mic.svg"
-					class="img-responsive" style="width:10px;">
-		</span> -->
-
 		Enter a Meal
 	{{> navbar-hack}}
 
-	<div class="container" align="center" style="margin-top:-6px;">
-
-		<br/>
+	<div class="container" align="center">
 
 		<!-- make it flash... -->
 		<div id="corrections"></div>
+
+		<br/>
 
 		<!-- <div class="alert alert-warning fade in"> <todo: check fade in>
 			<a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -342,7 +335,7 @@
 			var f = document.forms["addMealForm"]["food1"].value;
 			if (f == "" || f == null) {
 				$("#corrections").text("Please enter a main course before trying to add a meal!");
-				document.getElementById("corrections").setAttribute("style","color:maroon; margin-bottom:10px;"); //br2
+				document.getElementById("corrections").setAttribute("style","color:maroon; margin-top:10px; margin-bottom:-5px;"); //br2
 			} else {
 				$(".list").text(f);
 
@@ -352,7 +345,7 @@
 							var s = document.forms["addMealForm"]["servings"+i].value;
 							if (s == "" || s == null) {
 								$("#corrections").text("Please enter the number of servings before trying to add a meal!"); //tags
-								document.getElementById("corrections").setAttribute("style","color:maroon; margin-bottom:10px;");
+								document.getElementById("corrections").setAttribute("style","color:maroon; margin-top:10px; margin-bottom:-5px;");
 								break;
 							}
 					} else break;
@@ -424,6 +417,7 @@
 					{{#each days}}
 						if("{{date}}" == today()) {
 							{{#each meals}}
+							{{#unless deleted}}
 								$.get("/data/nutrition/{{food1}}/{{servings1}}", update_progress);
 								
 								{{#if food2}}
@@ -435,6 +429,7 @@
 								{{#if food4}}
 									$.get("/data/nutrition/{{food1}}/{{servings1}}", update_progress);
 								{{/if}}
+							{{/unless}}
 							{{/each}}
 						}
 					{{/each}}

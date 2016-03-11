@@ -70,3 +70,26 @@ exports.logout = function(req, res){
 	// req.session.guest = false;
 	// req.session.user = "";
 }
+
+exports.remove = function(req, res){
+	var i = -1;
+	for (i = 0; i < data["users"].length; i++)
+		if (data["users"][i]["name"] == req.session.user)
+			break;
+	console.log("i: "+i);
+	var date = req.params.mm+"/"+req.params.dd+"/"+req.params.yyyy;
+	for(j = 0; j < data.users[i].days.length; j++)
+		if(data.users[i].days[j].date == date) {
+			console.log("meal_count: "+data.users[i].days[j].meal_count);
+			for(k = 0; k < data.users[i].days[j].meals.length; k++)
+				if(data.users[i].days[j].meals[k].time == req.params.time) {
+					console.log("k: "+k);
+					data.users[i].days[j].meals[k].deleted = true;
+					data.users[i].days[j].meal_count = data.users[i].days[j].meal_count-1;
+					if(data.users[i].days[j].meal_count == 0)
+						data.users[i].actual = data.users[i].actual-1;
+					break;
+				}
+		}
+	res.send('dummy');
+}

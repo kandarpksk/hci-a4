@@ -40,7 +40,7 @@ exports.view = function(req, res) {
 			snapshots = 'true';
 
 		var newDay = JSON.parse('{ "date": "' + req.query.date + '", '
-				+ '"snapshots": "' + snapshots + '", "meals": [] }');
+				+ '"snapshots": "' + snapshots + '", "meals": [], "meal_count": 1 }');
 		newDay["meals"].push(newMeal);
 
 		if (req.session.user != "" && req.session.user != null){ // 'req' and null check
@@ -53,25 +53,47 @@ exports.view = function(req, res) {
 				var exists = false;
 				for (j = 0; j < count; j++)
 					if (data["users"][i]["days"][j]["date"] == newDay["date"]) {
-						// not checking if that meal already exists
-						data["users"][i]["days"][j]["meals"].push(newMeal);
-						if (!data["users"][i]["days"][j]["snapshots"])
-							data["users"][i]["days"][j]["snapshots"] = newDay["snapshots"];
+						// checking if that meal already exists
+						var ignore = false;
+						for (k=0; k<data["users"][i]["days"][j]["meals"].length; k++)
+							if(data["users"][i]["days"][j]["meals"][k]["time"] == req.query.t
+									&& !data["users"][i]["days"][j]["meals"][k]["deleted"]) {
+								user_data.err = "There's already a meal logged for that time, try removing it first.";
+								ignore = true;
+								break;
+							}
+
+						if(!ignore) {
+							if(data["users"][i]["days"][j]["meal_count"] == 0)
+								data.users[i].actual += 1;
+							data["users"][i]["days"][j]["meals"].push(newMeal);
+							data["users"][i]["days"][j]["meal_count"] += 1;
+							if (!data["users"][i]["days"][j]["snapshots"])
+								data["users"][i]["days"][j]["snapshots"] = newDay["snapshots"];
+						}
 						exists = true;
 					}
-				if (!exists) // what about "sorting"
+
+				if (!exists) { // what about "sorting"
 					data["users"][i]["days"].push(newDay);
+					data.users[i].actual += 1;
+				}
 
 				// try more variety (or try again)...
-			} else data["users"][i]["days"].push(newDay);
+			} else {
+				data["users"][i]["days"].push(newDay);
+				data.users[i].actual += 1;
+			}
 		}
 	}
 
 	if(req.session.user != "" && req.session.user != null) {
 		user_data["name"] = req.session.user;
 		for (i = 0; i < data["users"].length; i++)
-			if (data["users"][i]["name"] == req.session.user)
+			if (data["users"][i]["name"] == req.session.user) {
 				user_data["days"] = JSON.parse(JSON.stringify(data["users"][i]["days"]));
+				user_data.actual = data.users[i].actual;
+			}
 	}
 
 	// console.log(user_data);

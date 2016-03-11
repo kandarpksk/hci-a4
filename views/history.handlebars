@@ -9,6 +9,9 @@
 	{{> navbar-hack}}
 
 	<div class="container">
+
+		<div id="err" align="center" style="margin-top:10px; margin-bottom:10px; display:none; color:maroon;">{{err}}</div>
+
 		<table class="table table-striped" sortable="sortable">
 			<thead>
 				<tr>
@@ -24,17 +27,20 @@
 				<col width="40%">
 				
 				{{#if days}}	
-				{{#if days.length}}
+				{{#if actual}}
 				{{#each days}}
+				{{#if meal_count}}
 				<tr class="{{name}}">
 					<td colspan="3" align="center" id="day{{date}}">
-						<span style="display:none">{{meals.length}}</span>
+						<span style="display:none">{{meal_count}}</span>
 						<b>{{date}}</b>
 					</td>
 				</tr>
+				{{/if}}
 
 				{{#each meals}}
-				<tr id="{{../date}}{{time}}" class="{{name}}">
+				{{#unless deleted}}
+				<tr id="{{../../date}}{{time}}" class="{{name}}">
 					<td>
 						{{#if pic}}
 							<br/> <img src="{{pic}}" class="img-responsive img-rounded" width="60" height="60">
@@ -47,7 +53,7 @@
 
 					<td> <!-- sanity check: scrolling works, right? -->
 						<!-- breakfast, lunch, etc. -->
-						<u>{{time}}</u> <img src="trash_icon.png" height="15" onclick="remove_meal('{{../date}}', '{{time}}')">
+						<u>{{time}}</u> <img src="trash_icon.png" height="15" onclick="remove_meal('{{../../date}}', '{{time}}')">
 							<!-- {if 1}} works? -->
 							<br/> <b>{{servings1}}x</b> {{food1}}
 						{{#if food2}}
@@ -100,6 +106,7 @@
 						</div>
 					</td>
 				</tr>
+				{{/unless}}
 				{{/each}}
 				{{/each}}
 
@@ -131,6 +138,9 @@
 	<script src="js/history.js"></script>
 	<script src="js/common.js"></script>
 	<script>
+		if($("#err").text() != "")
+			$("#err").fadeIn();
+
 		var logged_in = false;
 		{{#if guest}}
 			// todo
@@ -159,6 +169,7 @@
 		}
 
 		function remove_meal(date, time) {
+			$.get("/data/remove/"+time+"/"+date);
 			// jQuery equivalent does not work
 			document.getElementById(date+time).remove();
 			var e = document.getElementById("day"+date);
