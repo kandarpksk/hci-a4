@@ -181,6 +181,7 @@
 						</button>
 					{{/if}}
 					<!-- some indication that this will be uploaded, stretch goal: square images -->
+					<div id="separator"></div>
 					<canvas id="photo-canvas" style="display:none; margin-top:10px;"></canvas>
 					<video autoplay id="live-video" style="border:dotted lightgray; margin-top:10px;"></video> <!-- glyph poster -->
 					<!-- dismiss option -->
@@ -320,7 +321,7 @@
 		})
 
 		$("#datepicker").attr("value", today());
-		window.onload = mobilecheck;
+		// window.onload = mobilecheck; // revert
 		if (screen.width > 320) // check if it works fine on actual phones
 			$("#reset").attr("style", "color:black; margin-left:"+(23 + screen.width-320)+"px;");
 

@@ -17,7 +17,8 @@ exports.view = function(req, res) { 
 
 	// retrieving user information
 	if(req.session.user != "" && req.session.user != null) {
-		user_data["name"] = req.session.user;
+		if(req.session.name != "" && req.session.name != undefined && req.session.name != null)
+			user_data["name"] = req.session.name; else user_data["name"] = req.session.user;
 		for (i = 0; i < data["users"].length; i++)
 			if (data["users"][i]["name"] == req.session.user) {
 				user_data["days"] = JSON.parse(JSON.stringify(data["users"][i]["days"]));

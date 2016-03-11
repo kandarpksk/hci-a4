@@ -22,9 +22,9 @@
 			</thead>
 
 			<tbody>
-				<col width="20%">
-				<col width="35%"> <!-- wth? -->
-				<col width="40%">
+				<col id='col1' width="20%">
+				<col id='col2' width="35%"> <!-- wth? -->
+				<col id='col3' width="40%">
 				
 				{{#if days}}	
 				{{#if actual}}
@@ -43,7 +43,7 @@
 				<tr id="{{../../date}}{{time}}" class="{{name}}">
 					<td>
 						{{#if pic}}
-							<br/> <img src="{{pic}}" class="img-responsive img-rounded" width="60" height="60">
+							<br/> <img src="{{pic}}" class="img-responsive img-rounded">
 						{{else}}
 							<!-- http://thumbs.dreamstime.com/m/refresh-ccw-flat-black-color-rounded-vector-icon-symbol-drawn-light-gray-background-57876713.jpg -->
 							<br/> <img alt="Upload Picture" class="img-responsive img-rounded"
@@ -113,7 +113,7 @@
 				{{else}} <!-- is this one needed? -->
 				<tr class="{{name}}">
 					<td colspan="3" align="center">
-						<h5 style="color:#8382BF;">No meals inputted yet.
+						<h5>No meals inputted yet.
 						<br/> <a href="/">Add something?</a></h5>
 					</td>
 				</tr>
@@ -122,8 +122,8 @@
 				{{else}}
 				<tr class="{{name}}">
 					<td colspan="3" align="center">
-						<h5 style="color:#8382BF;">No meals input yet.
-						<br/> <a href="/">Add something?</a></h5>
+						<h5 style="margin-bottom:-5px;"><a href="#">No meals input yet.</a></h5>
+						<h5><a href="/"><u>Add something?</u></a></h5>
 					</td>
 				</tr>
 				{{/if}}
@@ -138,6 +138,12 @@
 	<script src="js/history.js"></script>
 	<script src="js/common.js"></script>
 	<script>
+		if (screen.width > 320) {
+			$("#col1").attr("width", "33%");
+			$("#col2").attr("width", "33%");
+			$("#col3").attr("width", "33%");
+		}
+
 		if($("#err").text() != "")
 			$("#err").fadeIn();
 

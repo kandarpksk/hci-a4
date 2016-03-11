@@ -4,40 +4,35 @@
 {{> html-header}}
 
 <body>
-	<div class="container">
-		
-		<br/>
 
-		<div class="ui-widget" align="center">
-			<h2>Nutravisor</h2>
-		</div>
+	<br/>
 
-		<hr/>
+	<div class="container" style="width:75%;">
 
 		<h4 align="center">
-			Name <input id="name" style="margin-bottom:6px;">
+			Name
+			<input class="form-control" name="name" form="addFriendForm"
+					style="margin-bottom:6px; margin-top:6px;" placeholder="Your Full Name Here">
 			
 			<br/>
 			
-			<!-- <font color="white">...</font>Age <input id="name" style="margin-bottom:6px;"> -->
-
-			<!-- <br/> -->
-
-			Target <input id="target" style="margin-bottom:6px; width:80px;" value="2000"> calories/day
+			Daily Calorie Target
+			<input class="form-control" id="target"
+					style="margin-bottom:6px; margin-top:6px;" value="2000">
 
 			<br/>
 
-			<font color="white">...</font>Diet
-				<select name="diet" style="width:210px;">
-					<option value="omnivore">Omnivore</option>
-					<option value="vegan">Vegan</option>
-					<option value="vegetarian">Vegetarian</option>
-				</select>
+			Diet
+			<select name="diet" class="form-control" style="margin-top:6px;">
+				<option value="omnivore">Omnivore</option>
+				<option value="vegan">Vegan</option>
+				<option value="vegetarian">Vegetarian</option>
+			</select>
 		</h4>
 
 		<br/>
 
-		<form id="addFriendForm" role="form" method="get" action="/">			
+		<form id="addFriendForm" role="form" method="get" action="/signup">			
 			<p align="center">
 				<input type="submit" id="submitBtn" class="btn btn-primary" value="Get started!"></input>
 			</p>

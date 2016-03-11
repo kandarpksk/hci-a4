@@ -24,7 +24,7 @@ function capture(video, canvas, b, image) {
 	};
 
 	var updateImage = function() {
-		image.attr("value", canvas[0].toDataURL('image/jpeg'), 0.1);
+		image.attr("value", canvas[0].toDataURL('image/jpeg', 0.5));
 	};
 
 	var errorCallback = function() {

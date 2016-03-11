@@ -25,10 +25,9 @@
 		
 		<div class="container-fluid" id="page" style="display:none;">
 																	<!-- storytelling -->
-			<!-- You're low on <span style="font-style:italic;">protein</span>. -->
-			<h3 style="color:#8382BF; margin-bottom:1px;">Not enough meal history.</h3>
-			<span style="color:gray">See random foods below.</span>
-			<a onclick="source_suggestions('automatic')" style="color:black">Click for more!</a>
+			<h3 style="color:#8382BF; margin-bottom:1px;" id="conclusion"><!-- Not enough meal history. --></h3>
+			<span style="color:gray">See suggested foods below.</span>
+			<a onclick="source_suggestions()" style="color:black">Click for more!</a>
 			<br/><br/>
 			<div class="row" style="margin-left:10px;">
 				<div onClick="toggle(1)">
@@ -134,15 +133,77 @@
 		$("#datepicker").attr("value", today());
 		$("#datepicker").datepicker();
 
+		var current = [0, 0, 0, 0, 0, 0];
+		var p_level = 0, f_level = 0;
+		$(document).ready(function() {
+			{{#if days}}
+				{{#if days.length}}
+					{{#each days}}
+						if("{{date}}" == today()) {
+							{{#each meals}}
+							{{#unless deleted}}
+								$.get("/data/nutrition/{{food1}}/{{servings1}}", find_progress); current[5]++;
+								
+								{{#if food2}}
+									$.get("/data/nutrition/{{food1}}/{{servings1}}", find_progress); current[5]++;
+								{{/if}}
+								{{#if food3}}
+									$.get("/data/nutrition/{{food1}}/{{servings1}}", find_progress); current[5]++;
+								{{/if}}
+								{{#if food4}}
+									$.get("/data/nutrition/{{food1}}/{{servings1}}", find_progress); current[5]++;
+								{{/if}}
+							{{/unless}}
+							{{/each}}
+						}
+					{{/each}}
+				{{else}}{{/if}}
+			{{/if}}
+		});
+
+		function find_progress(result) {
+			var reqs = [2000, 65, 50, 25];
+			var nutrient = ["calories", "fat", "protein", "fiber"];
+
+			var q = Number(result["servings"]);
+			current[0] += q * Number(result["calories"]);
+			current[1] += q * Number(result["total_fat"]);
+			current[2] += q * Number(result["protein"]);
+			current[3] += q * Number(result["dietary_fiber"]);
+			current[4] += 1; // async, but doing it anyway
+
+			if(current[4] == current[5]) { // all foods covered
+				p_level = parseInt((current[2]*100)/reqs[2]);
+				f_level = parseInt((current[3]*100)/reqs[3]);
+				fat_level = parseInt((current[1]*100)/reqs[1]);
+				cal_level = parseInt((current[0]*100)/reqs[0]);
+			}
+		}
+
 		var reqs = [2000, 65, 50, 25]; var temp; // might not work as intended
 		function update_suggestions(result) {
 			document.getElementById("food1-name").innerHTML = result["name"];
 			$("#fi1").attr("value", result["name"]);
 			var fp = parseInt((result["total_fat"]*100)/reqs[1]); // fP?
 			var p = parseInt((result["protein"]*100)/reqs[2]);
+			var f = parseInt((result["dietary_fiber"]*100)/reqs[3]);
+			var c = parseInt((result["calories"]*100)/reqs[0]);
 			temp=fp+"% "+p+"% ";
-			pb(p, "B", "Protein", 1);
-			pb(fp, "A", "Fat", 1);
+			if(p_level < 25 && f_level < 40) {
+				pb(p, "A", "Protein", 1);
+				pb(f, "B", "Fiber", 1);
+			} else if(f_level < 25 && p_level < 40) {
+				pb(p, "A", "Fiber", 1);
+				pb(f, "B", "Protein", 1);
+			} else if(cal_level < 25 && fat_level < 40) {
+				pb(c, "A", "Calories", 1);
+				pb(fp, "B", "Fats", 1);
+			} else if(fat_level < 25 && cal_level < 40) {
+				pb(fp, "A", "Fats", 1);
+				pb(c, "B", "Calories", 1);
+			}
+			// pb(p, "B", "Protein", 1);
+			// pb(fp, "A", "Fat", 1);
 			var re = $("#rest")[0].value;
 			if (re == "Rubio's") re = "Rubios";
 			$.get("/data/dishes/"+re, update2);
@@ -161,20 +222,48 @@
 			$("#fi2").attr("value", result["name"]);
 			var f = parseInt((result["dietary_fiber"]*100)/reqs[3]);
 			var p = parseInt((result["protein"]*100)/reqs[2]);
+			var fp = parseInt((result["total_fat"]*100)/reqs[1]); // fP?
+			var c = parseInt((result["calories"]*100)/reqs[0]);
 			// console.log(temp+f+"% "+p+"%");
-			pb(f, "A", "Fiber", 2);
-			pb(p, "B", "Protein", 2); // 60.5% bug
+			if(p_level < 25 && f_level < 40) {
+				pb(p, "A", "Protein", 2);
+				pb(f, "B", "Fiber", 2);
+			} else if(f_level < 25 && p_level < 40) {
+				pb(p, "A", "Fiber", 2);
+				pb(f, "B", "Protein", 2);
+			} else if(cal_level < 25 && fat_level < 40) {
+				pb(c, "A", "Calories", 2);
+				pb(fp, "B", "Fats", 2);
+			} else if(fat_level < 25 && cal_level < 40) {
+				pb(fp, "A", "Fats", 2);
+				pb(c, "B", "Calories", 2);
+			}
+			// pb(f, "A", "Fiber", 2);
+			// pb(p, "B", "Protein", 2); // 60.5% bug
 		}
-		function source_suggestions(nutrient) {
-			if (nutrient == 'random')
-				ga('send','event','more-suggestions','click');
+		function source_suggestions() {
 			var re = $("#rest")[0].value;
 			if (re == "Rubio's") re = "Rubios";
-			$.get("/data/dishes/"+re+"/"+nutrient, update_suggestions);
+			for(w = 0; w<1000 && p_level == 0 && f_level == 0; w++);
+			if(p_level < 25 && f_level < 40) {
+				document.getElementById("conclusion").innerHTML = "You're low on <span style='font-style:italic;'>protein</span>."
+				$.get("/data/dishes/"+re+"/lacking-protein", update_suggestions);
+			} else if(f_level < 25 && p_level < 40) {
+				document.getElementById("conclusion").innerHTML = "You're low on <span style='font-style:italic;'>fiber</span>."
+				$.get("/data/dishes/"+re+"/lacking-fiber", update_suggestions);
+			} else if(cal_level < 25 && fat_level < 40) {
+				document.getElementById("conclusion").innerHTML = "You're low on <span style='font-style:italic;'>calories</span>."
+				$.get("/data/dishes/"+re+"/lacking-calories", update_suggestions);
+			} else if(fat_level < 25 && cal_level < 40) {
+				document.getElementById("conclusion").innerHTML = "You're low on <span style='font-style:italic;'>fat</span>."
+				$.get("/data/dishes/"+re+"/lacking-fat", update_suggestions);
+			} else {
+				document.getElementById("conclusion").innerHTML = "Not enough information to suggest something at this time."
+			}
 		}
 		$('#rest').on("autocompletechange", function() {
 			$("#location-message").fadeOut();
-			source_suggestions('lacking-fiber');
+			source_suggestions();
 			$("#page").fadeIn();
 			$(".suggestions").fadeIn();
 		});
@@ -185,8 +274,8 @@
 			if (nutrient == "Fat") { high = 75; low = 30; }
 
 			$("#pb"+c+metric).hide();
-			var exp = "<i>Daily values <br/> <u>satisfied:</u></i> <br/> <b>"+nutrient+": "+pc+"%</b>";
-			if(nutrient != "Fat" && nutrient != "Fiber")
+			var exp = "<i>Daily values <br/> <u>satisfied:</u></i> <br/>"+nutrient+": "+pc+"%";
+			if(metric == "B")
 				exp = nutrient+": "+pc+"%";
 			document.getElementById("explanation"+c+metric).innerHTML = exp;
 

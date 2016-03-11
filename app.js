@@ -13,6 +13,7 @@ var history = require('./routes/history'); // past meals
 var menu = require('./routes/menu'); // full screen (for now)
 var onboarding = require('./routes/onboarding');
 var data = require('./routes/data');
+var signup = require('./routes/signup');
 
 var app = express();
 
@@ -38,6 +39,7 @@ if ('development' == app.get('env')) {
 app.get('/welcome', welcome.view);
 app.get('/onboarding', onboarding.view);
 app.get('/login', login.view);
+app.get('/signup', signup.view);
 app.get('/', index.view);
 app.get('/home', index.viewAlt);
 app.get('/suggest', suggest.view);
