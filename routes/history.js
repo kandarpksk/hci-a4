@@ -75,5 +75,6 @@ exports.view = function(req, res) {
 	}
 
 	// console.log(user_data);
+	user_data["page_history"] = true;
 	res.render('history', user_data);
 }

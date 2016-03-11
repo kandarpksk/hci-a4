@@ -42,6 +42,9 @@ exports.view = function(req, res){
 				user_data["days"] = JSON.parse(JSON.stringify(data["users"][i]["days"]));
 	}
 
+	user_data["screenshot"] = true;
+	
+	user_data["page_home"] = true;
 	res.render('index', user_data);
 };
 

@@ -23,5 +23,6 @@ exports.view = function(req, res) { 
 				user_data["days"] = JSON.parse(JSON.stringify(data["users"][i]["days"]));
 	}
 
+	user_data["page_suggestions"] = true;
 	res.render('suggest', user_data);
  }

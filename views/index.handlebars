@@ -106,29 +106,29 @@
 							</h4>
 							
 							<div class="progress" style="margin-bottom:10px;"> <span id="outside-calories" style="margin-left:5px;">calories</span>
-								<div id="calories-done" class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
+								<div id="calories-done" class="progress-bar progress-bar-success" style="width:0%; min-width:{{#if screenshot}}1{{else}}2{{/if}}em;">{{#if screenshot}}{{else}}0%{{/if}}</div>
 								<!-- max-width to compensate -->
 								<div id="calories" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
 							</div>
 							
 							<div class="progress" style="margin-bottom:10px;"> <span id="outside-fat" style="margin-left:5px;">total fat</span>
-								<div id="fat-done" class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
+								<div id="fat-done" class="progress-bar progress-bar-success" style="width:0%; min-width:{{#if screenshot}}1{{else}}2{{/if}}em;">{{#if screenshot}}{{else}}0%{{/if}}</div>
 								<div id="fat" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
 							</div>
 							
 							<div class="progress" style="margin-bottom:10px;"> <span id="outside-protein" style="margin-left:5px;">protein</span>
-								<div id="protein-done" class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
+								<div id="protein-done" class="progress-bar progress-bar-success" style="width:0%; min-width:{{#if screenshot}}1{{else}}2{{/if}}em;">{{#if screenshot}}{{else}}0%{{/if}}</div>
 								<div id="protein" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
 							</div>
 							
 							<div class="progress" style="margin-bottom:25px;"> <span id="outside-fiber" style="margin-left:5px;">fiber</span>
-								<div id="fiber-done" class="progress-bar progress-bar-success" style="width:0%; min-width:2em;">0%</div>
+								<div id="fiber-done" class="progress-bar progress-bar-success" style="width:0%; min-width:{{#if screenshot}}1{{else}}2{{/if}}em;">{{#if screenshot}}{{else}}0%{{/if}}</div>
 								<div id="fiber" class="progress-bar progress-bar-warning" style="width: 0%; min-width:2em;">0%</div>
 							</div>
 						</div>
 						<div color="black" style="margin-right:-20px" align="center">
-							<span style="color:green; background-color:green;">ux</span> fulfilled requirements
-							<span style="color:orange; background-color:orange;">ux</span> current meal
+							<span style="color:green; background-color:green; text-shadow:none;">ux</span> fulfilled requirements
+							<span style="color:orange; background-color:orange; text-shadow:none;">ux</span> current meal
 						</div>
 					</div>
 
@@ -335,16 +335,14 @@
 		$("#datepicker").datepicker();
 		$(".foods1").autocomplete({source: availableFoods});
 		$(".foods1").on("autocompletechange", function() { info("autocomplete change"); });
-		$(".foods1").change(function() { window.alert("Please choose a matching food from the options presented."); }); /*todo*/
+		$(".foods1").change(function() { window.alert("Please choose a food from the options presented."); }); /*todo*/
 		$("#servings1").change(function() { info("servings change", document.forms["addMealForm"]["servings1"].value); });
 
 		function update() {
 			var f = document.forms["addMealForm"]["food1"].value;
 			if (f == "" || f == null) {
-				// random_color code courtesy of paulirish.com/2009/random-hex-color-code-snippets/
-				var random_color = '#'+Math.floor(Math.random()*16777215).toString(16);
 				$("#corrections").text("Please enter a main course before trying to add a meal!");
-				document.getElementById("corrections").setAttribute("style","color:"+random_color+"; margin-bottom:10px;"); //br2
+				document.getElementById("corrections").setAttribute("style","color:maroon; margin-bottom:10px;"); //br2
 			} else {
 				$(".list").text(f);
 
@@ -353,9 +351,8 @@
 						if (document.forms["addMealForm"]["food"+i].value != "")
 							var s = document.forms["addMealForm"]["servings"+i].value;
 							if (s == "" || s == null) {
-								var random_color = '#'+Math.floor(Math.random()*16777215).toString(16);
 								$("#corrections").text("Please enter the number of servings before trying to add a meal!"); //tags
-								document.getElementById("corrections").setAttribute("style","color:"+random_color+"; margin-bottom:10px;");
+								document.getElementById("corrections").setAttribute("style","color:maroon; margin-bottom:10px;");
 								break;
 							}
 					} else break;
@@ -364,16 +361,7 @@
 		}
 
 		function more() {
-			ga('send','event','plus-button','click');
-			// if(document.getElementById('2').innerHTML != "")
-			// 	if(document.getElementById('3').innerHTML != "")
-			// 		if(document.getElementById('4').innerHTML != "") {
-			// 			// document.getElementById('5').innerHTML = '<p style="margin-top:5px; margin-bottom:-10px;">Sorry! Limited to 4 food items per meal.</p>';
-			// 			// var random_color = '#'+Math.floor(Math.random()*16777215).toString(16);
-			// 			// document.getElementById('5').setAttribute("style","margin-bottom:10px; color:"+random_color+";");
-			// 			// see old plan for missed TODOs such as limiting to shades of red
-			// 			return;
-			// 		}
+			// GA and?
 			for(i=2; i<=4; i++)
 				if(document.getElementById(i).innerHTML == ""){
 					if (i == 4) $(".glyphicon-plus").attr("style", "color:lightgray; font-size:20px;");
@@ -454,6 +442,7 @@
 			{{/if}}
 		});
 
+		var screenshot = true; // todo
 		function update_progress(result) {
 			var reqs = [2000, 65, 50, 25];
 			var nutrient = ["calories", "fat", "protein", "fiber"];
@@ -469,6 +458,10 @@
 				var e = document.getElementById(nutrient[i]+"-done");
 				e.setAttribute("style", "width:"+pc+"%; min-width:2em; max-width:92%;");
 				e.innerHTML = parseInt(pc)+"%";
+				if(screenshot) {
+					e.setAttribute("style", "width:"+pc+"%; min-width:1em; max-width:92%;");
+					e.innerHTML = "";
+				}
 			}
 		}
 

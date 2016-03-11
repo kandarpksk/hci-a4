@@ -78,27 +78,34 @@ function show(result) {
 
 function updateBar(i, nutrient) {
 	var reqs = [2000, 65, 50, 25];
+	var sshot = false; // global didn't work
+	var mw = '2em';
+	if(sshot) mw = '1em';
 	
 	var pc = Number((meal_total[i]*100)/reqs[i]);
 	
 	var limit, curr = parseInt(document.getElementById(nutrient+"-done").innerHTML); // learn scoping
 	if(curr > 9) limit = (100-curr); else limit = 92;
-	document.getElementById(nutrient).setAttribute("style", "width:"+pc+"%; min-width:2em; max-width:"+limit+"%;");
+	document.getElementById(nutrient).setAttribute("style", "width:"+pc+"%; min-width:"+mw+"; max-width:"+limit+"%;");
 	document.getElementById(nutrient).setAttribute("class", "progress-bar progress-bar-warning");
 	if(pc > 105) { // check 100
 		document.getElementById("outside-"+nutrient).innerHTML = "";
-		document.getElementById(nutrient).innerHTML = nutrient+": "+parseInt(pc)+"%";
+		if(sshot) document.getElementById(nutrient).innerHTML = nutrient;
+		else document.getElementById(nutrient).innerHTML = nutrient+": "+parseInt(pc)+"%";
 		document.getElementById(nutrient).setAttribute("class", "progress-bar progress-bar-danger");
 	} else if(pc > 80) { // 83
 		document.getElementById("outside-"+nutrient).innerHTML = "";
-		document.getElementById(nutrient).innerHTML = nutrient+": "+parseInt(pc)+"%";
+		if(sshot) document.getElementById(nutrient).innerHTML = nutrient;
+		else document.getElementById(nutrient).innerHTML = nutrient+": "+parseInt(pc)+"%";
 	} else if(pc > 50) {
 		if(curr > 9) limit = (90-curr); else limit = 83-curr;
-		document.getElementById(nutrient).setAttribute("style", "width:"+pc+"%; min-width:2em; max-width:"+limit+"%;");
-		document.getElementById("outside-"+nutrient).innerHTML = parseInt(pc)+"%";
+		document.getElementById(nutrient).setAttribute("style", "width:"+pc+"%; min-width:"+mw+"; max-width:"+limit+"%;");
+		if(sshot) document.getElementById("outside-"+nutrient).innerHTML = "";
+		else document.getElementById("outside-"+nutrient).innerHTML = parseInt(pc)+"%";
 		document.getElementById(nutrient).innerHTML = nutrient;
 	} else {
 		document.getElementById("outside-"+nutrient).innerHTML = nutrient;
-		document.getElementById(nutrient).innerHTML = parseInt(pc)+"%";
+		if(sshot) document.getElementById(nutrient).innerHTML = "";
+		else document.getElementById(nutrient).innerHTML = parseInt(pc)+"%";
 	}
 }
