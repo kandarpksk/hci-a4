@@ -160,7 +160,7 @@
 				<button id="take-a-picture" class="btn btn-primary" style="width:120px; background:white; border-color:lightblue; color:gray; text-shadow:none; margin-right:5px;"
 						onclick="(function(e) { e.preventDefault();
 								$('#take-a-picture').hide();
-								$('#camera-button').fadeIn();
+								$('#camera-button').fadeIn(); $('#camera').attr('style', 'display:inline;');
 								initCamera();
 							})(event)">
 						Take a Picture
@@ -171,7 +171,7 @@
 					Add Meal
 				</button>
 
-				<div id="camera" class="profile" align="left" style="display:inline;">
+				<div id="camera" class="profile" align="left">
 					<!-- stretch goal: onclick prompt to change image -->
 					{{#if alt}}
 					{{else}}
@@ -224,10 +224,10 @@
 				<br/><br/>
 				Go ahead and log this meal?
 					</div> <div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal">
-					Change something
-				</button>
-				<input type="submit" class="btn btn-default"
+				<button type="button" class="btn btn-default"
+						data-dismiss="modal">
+					Change something </button>
+				<input type="submit" class="btn btn-primary"
 						id="submitBtn" value="Log this meal">
 				</input>
 			</div></div></div></div>

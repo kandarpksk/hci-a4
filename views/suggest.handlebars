@@ -70,18 +70,8 @@
 		<div class="suggestions form-group" style="display:none;">
 			<br/>
 			<form id="addSuggestedMealForm" role="form" method="get" action="/history">
-				<!-- <input class="form-control" type="number" placeholder="Servings" name="servings1" min="1" style="width:120px; margin-bottom:5px;">
-				<input class="form-control" type="text" id="datepicker" placeholder="Date of Meal" name="date" style="width:120px; margin-bottom:5px;">
-				<label for="t" style="margin-bottom:-5px; font-variant:small-caps">Meal by time:</label>
-				<select id="mealtype" class="form-control" name="t" style="width:120px">
-					<option value="Breakfast" selected>Breakfast</option>
-					<option value="Brunch">Brunch</option>
-					<option value="Lunch">Lunch</option>
-					<option value="Dinner">Dinner</option>
-					<option value="Snack">Snack</option>
-				</select>
-				<br/> -->
-				<input type="submit" id="submitBtn" class="btn btn-secondary" value="Add Suggested Meal"></input>
+				<button type="button" class="btn btn-secondary" data-toggle="modal"
+						id="asm-button">Add Suggested Meal</button>
 			</form>
 			<br/>
 		</div>
@@ -98,6 +88,38 @@
 			<button type="button" class="btn" data-dismiss="modal">Dismiss
 		{{> popup-hack}} -->
 
+		<div class="modal fade" id="asm-popup" {{> popup}}
+			Confirmation
+				</h4> </div> <div class="modal-body">
+			
+			<!-- <label for="servings1" style="margin-bottom:-5px;"></label> -->
+			Servings:
+			<input form="addSuggestedMealForm" class="form-control" type="number" placeholder="Servings"
+					name="servings1" min="1" style="width:120px; margin-bottom:10px; display:inline;" value="1">
+			<br/>
+			<!-- <label for="date" style="margin-bottom:-5px;"></label> -->
+			Date of meal:
+			<input form="addSuggestedMealForm" class="form-control" type="text" id="datepicker"
+					placeholder="Date of Meal" name="date" style="width:120px; margin-bottom:10px; display:inline;">
+			<br/>
+			<!-- <label for="t" style="margin-bottom:-5px;"></label> -->
+			Meal (by time):
+			<select form="addSuggestedMealForm" id="mealtype"
+					class="form-control" name="t" style="width:120px; display:inline; margin-buttom:-5px;">
+				<option value="Breakfast" selected>Breakfast</option>
+				<option value="Brunch">Brunch</option>
+				<option value="Lunch">Lunch</option>
+				<option value="Dinner">Dinner</option>
+				<option value="Snack">Snack</option>
+			</select>
+
+				</div> <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">
+				Change choice </button>
+			<input type="submit" class="btn btn-primary" form="addSuggestedMealForm"
+					id="submitBtn" value="Log this meal"> </input>
+		</div></div></div></div>
+
 	</div>
 
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -110,6 +132,7 @@
 					$(this).trigger(jQuery.Event('keydown')); $(this).select();
 				});
 		$("#datepicker").attr("value", today());
+		$("#datepicker").datepicker();
 
 		var reqs = [2000, 65, 50, 25]; var temp; // might not work as intended
 		function update_suggestions(result) {
@@ -162,7 +185,7 @@
 			if (nutrient == "Fat") { high = 75; low = 30; }
 
 			$("#pb"+c+metric).hide();
-			var exp = "<i>Daily values satisfied:</i> <br/> <b>"+nutrient+": "+pc+"%</b>";
+			var exp = "<i>Daily values <br/> <u>satisfied:</u></i> <br/> <b>"+nutrient+": "+pc+"%</b>";
 			if(nutrient != "Fat" && nutrient != "Fiber")
 				exp = nutrient+": "+pc+"%";
 			document.getElementById("explanation"+c+metric).innerHTML = exp;
@@ -189,21 +212,29 @@
 				if (document.getElementById("fi2").name == "food1") {
 					document.getElementById("card2").setAttribute("style","border: 4px solid lightgray;");
 					document.getElementById("fi2").setAttribute("name","ignored");
+					$("#asm-button").attr("style", "");
+					$("#asm-button").attr("data-target", "");
 				} else {
 					document.getElementById("card2").setAttribute("style","border: 4px solid #73AD21;");
 					document.getElementById("card1").setAttribute("style","border: 4px solid lightgray;");
 					document.getElementById("fi2").setAttribute("name","food1");
 					document.getElementById("fi1").setAttribute("name","ignored");
+					$("#asm-button").attr("style", "background:white; border-color:blue;");
+					$("#asm-button").attr("data-target", "#asm-popup");
 				}
 			} else {
 				if (document.getElementById("fi1").name == "food1") {
 					document.getElementById("card1").setAttribute("style","border: 4px solid lightgray");
 					document.getElementById("fi1").setAttribute("name","ignored");
+					$("#asm-button").attr("style", "");
+					$("#asm-button").attr("data-target", "");
 				} else {
 					document.getElementById("card1").setAttribute("style","border: 4px solid #73AD21;");
 					document.getElementById("card2").setAttribute("style","border: 4px solid lightgray;");
 					document.getElementById("fi1").setAttribute("name","food1");
 					document.getElementById("fi2").setAttribute("name","ignored");
+					$("#asm-button").attr("style", "background:white; border-color:blue;");
+					$("#asm-button").attr("data-target", "#asm-popup");
 				}
 			}
 		}

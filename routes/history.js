@@ -28,16 +28,17 @@ exports.view = function(req, res) {
 			more += '"food4": "' + req.query.food4 + '",'
 				+ '"servings4": "' + req.query.servings4 + '", ';
 		
+		var image = req.query.img;
+		if(image == undefined) image = "";
 		var newMeal = JSON.parse(
 				'{ "food1": "' + req.query.food1 + '",'
 				+ '"servings1": "' + req.query.servings1 + '", '
 				+ more // all other (non-empty) food inputs
 				+ '"time": "' + req.query.t + '", '
-				+ '"pic": "' + req.query.img + '" }');
+				+ '"pic": "' + image + '" }');
 		
 		var snapshots = 'false';
-		if(req.query.img != "")
-			snapshots = 'true';
+		if(image != "") snapshots = 'true';
 
 		var newDay = JSON.parse('{ "date": "' + req.query.date + '", '
 				+ '"snapshots": "' + snapshots + '", "meals": [], "meal_count": 1 }');
