@@ -58,6 +58,11 @@ exports.list = function(req, res){
 	}
 };
 
+exports.noreminder = function(req, res){
+	req.session.noreminder = true;
+	res.send('dummy');
+}
+
 // set expiry
 exports.logout = function(req, res){
 	console.log("data.js: logging out from "

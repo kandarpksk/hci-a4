@@ -54,12 +54,11 @@
 				<div id="1" style='margin-bottom:10px'>
 					<div class="input-group">
 						<span class="input-group-addon" data-toggle="modal" data-target="#popup"> <!-- todo: localize all resources -->
-							<img src="http://uxrepo.com/download.php?img=static/icon-sets/google-material/svg/android-mic.svg"
-									style="width:11px; display:inline;">
+							<img src="mic.svg" style="width:11px; display:inline;">
 						</span>
 						<label class="control-label sr-only" for="abcxyz">Food Item 1</label>
 						<input class="foods1 form-control" type="text" placeholder="Food Item" id="abcxyz"
-								name="food1" style="width:126px; display:inline;">
+								name="food1" style="width:126px; display:inline; text-overflow: ellipsis;">
 						<input type="number" placeholder="Servings" id="servings1" class="form-control"
 								name="servings1" min="1" style="width:100px; display:inline; margin-right:5px;" onclick="explain()">
 						<input name="img" value="" id="img-store" style="display:none;"> <!-- todo: store state for explanation -->
@@ -131,8 +130,7 @@
 					{{/if}}
 				</div>
 
-				<!-- todo: Date of Meal -->
-				<input type="text" id="datepicker" placeholder="Today" class="form-control"
+				<input type="text" id="datepicker" placeholder="Date of Meal" class="form-control"
 						name="date" style="width:120px; display:inline; margin-right:5px;" onclick="this.value='';">
 				
 				<!-- Any better/on Android? -->
@@ -268,7 +266,7 @@
 			<br/>
 			You: Yes.
 			<br/><br/>
-			<b>Your lunch has been input. <br/> Enjoy your meal!</b>
+			<b>Enjoy your meal!</b>
 				</div> <div class="modal-footer">
 			<button type="button" class="btn" data-dismiss="modal">Dismiss
 		{{> popup-hack}}
@@ -308,6 +306,11 @@
 	<script>
 		var line3 = '\nYou may press the question symbol to see this information again.';
 		{{#if alt}} line3 = ""; {{/if}}
+		{{#if noreminder}}
+			var known = true;
+		{{else}}
+			var known = false; // todo: make persistent
+		{{/if}}
 	</script>
 	<script src="js/servings.js"></script>
 	<!-- todo: is this "good" practice to separate out scripts? -->
@@ -327,15 +330,18 @@
 
 		var availableFoods=["Chow Mein", "Chow Fun", "Fried Rice", "Brown Steamed Rice", "White Steamed Rice", "Mixed Vegetables", "Country Style Bean Curd", "Eggplant Tofu", "Hot Szechuan Tofu", "Black Pepper Chicken", "Kung Pao Chicken", "Grilled Teriyaki Chicken", "Grilled Asian Chicken", "Teriyaki Chicken", "Asian Chicken", "Mushroom Chicken", "Orange Chicken", "Potato Chicken", "Firecracker Chicken Breast", "String Bean Chicken Breast", "SweetFire Chicken Breast", "Sweet & Sour Chicken Breast", "Beijing Beef", "Broccoli Beef", "Shanghai Angus Steak", "Crispy Shrimp", "Honey Walnut Shrimp", "Golden Treasure Shrimp", "Steamed Ginger Fish", "Chicken Egg Roll", "Chicken Potsticker", "Cream Cheese Rangoon", "Vegetable Spring Roll", "Hot & Sour Soup", "Teriyaki Sauce", "Sweet & Sour Sauce", "Chili Sauce", "Soy Sauce", "Potsticker Sauce", "Fortune Cookies", "Chocolate Chip Chunk Cookie", "Pepsi", "Diet Pepsi", "Mountain Dew", "Dr. Pepper", "Mug Root Beer", "Sierra Mist", "Lipton No Calorie Brisk Peach", "Lipton Brisk Raspberry", "Sobe Lean", "Tropicana Fruit Punch", "Tropicana Lemonade", "Tropicana Pink Lemonade", "The Original Fish Taco", "The Coastal Trio", "Fish Taco Especial", "Smoky Oaxacan Shrimp Two Taco Plate", "Surf & Turf Two Taco Plate", "Salsa Verde Shrimp Taco", "Regal Springs Tilapia Taco", "Grilled Gourmet Taco with Shrimp", "Pacific Mahi Mahi Taco", "Atlantic Salmon Taco", "Grilled Shrimp & Bacon Burrito", "Smoky Oaxacan Shrimp Burrito", "Beer-battered Fish Burrito", "Langostino Lobster Burrito", "Cabo Plate", "Pacific Mahi Mahi Burrito", "Classic Grilled Shrimp Burrito", "Ancho Citrus Shrimp Burrito", "Atlantic Salmon Burrito", "Regal Springs Tilapia Burrito", "Chipotle Ranch Salad", "Chopped Salad", "Balsamic & Roasted Veggie Salad", "Chipotle Orange Salad", "California Bowl", "Classic Steak Taco", "Classic Chicken Taco", "Grilled Steak Street Tacos", "Burrito Especial with Grilled Steak", "Burrito Especial with Grilled Chicken", "Chicken Tortilla Soup", "H-mex Burrito with Chicken", "Grilled Chicken Street Tacos", "Baja Grill Burrito with Chicken", "Grilled Gourmet Taco with Steak", "Grilled Gourmet Taco with Chicken", "Baja Grill Burrito with Grilled Steak", "Burrito Especial with Veggies", "Bean & Cheese Burrito", "Grilled Gourmet Taco with Veggies", "Cheese Enchilada Plate with Fire-roasted Sauce", "Shrimp Enchilada Plate with Verde Sauce", "Chicken Enchilada Plate with Fire-roasted Sauce", "Langostino Lobster Enchilada Plate", "Cheese Nachos", "Chicken Nachos", "Cheese Quesadilla", "Chicken Quesadilla", "Kids Original Fish Taco without Salsa", "Kids Chicken Taco", "Kids Chicken Bites", "Kids Chicken Taquitos", "Kids Bean & Cheese Burrito", "Kids Chicken Quesadilla", "Kids Cheese Quesadilla", "Large Side of Citrus Rice", "Large Side of Mexican Rice", "Large Side of Black Beans", "Large Side of No-fried Pinto Beans", "Large Side of Tortilla Chips", "Regular Side of Citrus Rice", "Regular Side of Mexican Rice", "Regular Side of Black Beans", "Regular Side of No-fried Pinto Beans", "Regular Side of Tortilla Chips"];
 		$("#datepicker").datepicker();
-		$(".foods1").autocomplete({source: availableFoods});
+		$(".foods1").autocomplete({source: availableFoods}).focus(function() { $(this).select(); });
 		$(".foods1").on("autocompletechange", function() { info("autocomplete change"); });
-		$(".foods1").change(function() { window.alert("Please choose a food from the options presented."); }); /*todo*/
+		$(".foods1").change(function() { if(document.forms["addMealForm"]["food1"].value != "") window.alert("Please choose a food from the options presented."); }); /*todo*/
 		$("#servings1").change(function() { info("servings change", document.forms["addMealForm"]["servings1"].value); });
 
 		function update() {
 			var f = document.forms["addMealForm"]["food1"].value;
 			if (f == "" || f == null) {
 				$("#corrections").text("Please enter a main course before trying to add a meal!");
+				document.getElementById("corrections").setAttribute("style","color:maroon; margin-top:10px; margin-bottom:-5px;"); //br2
+			} else if(document.getElementById("datepicker").value == "") {
+				$("#corrections").text("Please enter a date for the meal!");
 				document.getElementById("corrections").setAttribute("style","color:maroon; margin-top:10px; margin-bottom:-5px;"); //br2
 			} else {
 				$(".list").text(f);
@@ -361,7 +367,7 @@
 					if (i == 4) $(".glyphicon-plus").attr("style", "color:lightgray; font-size:20px;");
 					var mb = '<span class="input-group-addon" id="minus-button-'+i+'" onclick="less('+i+')" style="padding-left:15px; padding-right:13px;">&ndash;</span>';
 					var food_item = '<div class="input-group">'+mb+'<input class="foods'+i+' form-control" type="text" placeholder="Food Item '+i+'" '+
-							'name="food'+i+'" style="width:126px; display:inline;">';
+							'name="food'+i+'" style="width:125px; display:inline; text-overflow: ellipsis;">';
 					var servings = '<input type="number" placeholder="Servings" id="servings'+i+'" class="form-control"\
 							name="servings'+i+'" min="1" style="width:100px; display:inline;"></div> {{#if alt}}\
 							<span style="color:gray; font-size:21px;" class="glyphicon glyphicon-remove" onclick="less()"></span> {{/if}}';
@@ -369,10 +375,10 @@
 							'<div id="'+(i+1)+'" style="display:none;"></div>';
 					var id="servings"+i;
 					$("#"+i).fadeIn();
-					$(".foods"+i).autocomplete({source: availableFoods});
+					$(".foods"+i).autocomplete({source: availableFoods}).focus(function() { $(this).select(); });
 					// why don't IDs work?
 					$(".foods"+i).on("autocompletechange", function() { info("autocomplete change"); });
-					$(".foods"+i).change(function() { window.alert("Please choose a matching food from the options presented."); });
+					$(".foods"+i).change(function() { if(document.forms["addMealForm"]["food"+i].value != "") window.alert("Please choose a food from the options presented."); });
 					$("#servings"+i).change(function() { info("servings change"); });
 
 					if(i > 2) {

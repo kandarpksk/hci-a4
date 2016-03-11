@@ -18,6 +18,8 @@ exports.view = function(req, res) { 
 
 	user_data["screenshot"] = true;
 
+	if(req.session.noreminder != "" && req.session.noreminder != undefined && req.session.noreminder != null)
+		user_data.noreminder = req.session.noreminder;
 	user_data["page_home"] = true;
 	res.render('index', user_data);
  }

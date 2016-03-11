@@ -48,6 +48,7 @@ app.get('/history', history.view);
 app.get('/menu', menu.view);
 app.get('/data/nutrition/:dish/:servings', data.detail);
 app.get('/data/logout', data.logout);
+app.get('/data/noreminder', data.noreminder);
 app.get('/data/remove/:time/:mm/:dd/:yyyy', data.remove);
 app.get('/data/dishes/:restaurant', data.random);
 app.get('/data/dishes/:restaurant/:nutrient', data.list);
