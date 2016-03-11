@@ -452,10 +452,10 @@
 			for(i = 0; i < 4; i++) {
 				var pc = Number((current[i]*100)/reqs[i]);
 				var e = document.getElementById(nutrient[i]+"-done");
-				e.setAttribute("style", "width:"+pc+"%; min-width:2em; max-width:92%;");
+				e.setAttribute("style", "width:"+pc+"%; min-width:2em; max-width:96%;");
 				e.innerHTML = parseInt(pc)+"%";
 				if(screenshot) {
-					e.setAttribute("style", "width:"+pc+"%; min-width:1em; max-width:92%;");
+					e.setAttribute("style", "width:"+pc+"%; min-width:1em; max-width:96%;");
 					e.innerHTML = "";
 				}
 			}

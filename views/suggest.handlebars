@@ -201,6 +201,9 @@
 			} else if(fat_level < 25 && cal_level < 40) {
 				pb(fp, "A", "Fats", 1);
 				pb(c, "B", "Calories", 1);
+			} else {
+				pb(p, "A", "Protein", 1);
+				pb(f, "B", "Fiber", 1);
 			}
 			// pb(p, "B", "Protein", 1);
 			// pb(fp, "A", "Fat", 1);
@@ -237,6 +240,9 @@
 			} else if(fat_level < 25 && cal_level < 40) {
 				pb(fp, "A", "Fats", 2);
 				pb(c, "B", "Calories", 2);
+			} else {
+				pb(p, "A", "Protein", 2);
+				pb(f, "B", "Fiber", 2);
 			}
 			// pb(f, "A", "Fiber", 2);
 			// pb(p, "B", "Protein", 2); // 60.5% bug
@@ -259,6 +265,7 @@
 				$.get("/data/dishes/"+re+"/lacking-fat", update_suggestions);
 			} else {
 				document.getElementById("conclusion").innerHTML = "Not enough information to suggest something at this time."
+				$.get("/data/dishes/"+re+"/anything", update_suggestions);
 			}
 		}
 		$('#rest').on("autocompletechange", function() {

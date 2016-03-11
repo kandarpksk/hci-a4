@@ -85,7 +85,7 @@ function updateBar(i, nutrient) {
 	var pc = Number((meal_total[i]*100)/reqs[i]);
 	
 	var limit, curr = parseInt(document.getElementById(nutrient+"-done").innerHTML); // learn scoping
-	if(curr > 9) limit = (100-curr); else limit = 92;
+	if(curr > 9) limit = (100-curr); else limit = 94;
 	document.getElementById(nutrient).setAttribute("style", "width:"+pc+"%; min-width:"+mw+"; max-width:"+limit+"%;");
 	document.getElementById(nutrient).setAttribute("class", "progress-bar progress-bar-warning");
 	if(pc > 105) { // check 100
@@ -93,11 +93,11 @@ function updateBar(i, nutrient) {
 		if(sshot) document.getElementById(nutrient).innerHTML = nutrient;
 		else document.getElementById(nutrient).innerHTML = nutrient+": "+parseInt(pc)+"%";
 		document.getElementById(nutrient).setAttribute("class", "progress-bar progress-bar-danger");
-	} else if(pc > 80) { // 83
+	} else if(pc > 60) { // 83
 		document.getElementById("outside-"+nutrient).innerHTML = "";
 		if(sshot) document.getElementById(nutrient).innerHTML = nutrient;
 		else document.getElementById(nutrient).innerHTML = nutrient+": "+parseInt(pc)+"%";
-	} else if(pc > 50) {
+	} else if(pc > 40) {
 		if(curr > 9) limit = (90-curr); else limit = 83-curr;
 		document.getElementById(nutrient).setAttribute("style", "width:"+pc+"%; min-width:"+mw+"; max-width:"+limit+"%;");
 		if(sshot) document.getElementById("outside-"+nutrient).innerHTML = "";
